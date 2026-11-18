@@ -1,5 +1,4 @@
 ---
-import Brand from "./Brand.astro";
 import HeroBranch from "./HeroBranch.astro";
 import { legal } from "../data/site";
 ---
@@ -38,7 +37,10 @@ import { legal } from "../data/site";
   <HeroBranch />
 
   <header class="landing-header" data-header data-scrolled="false">
-    <Brand />
+    <a class="landing-logo" href="#inicio" aria-label="Capta Card, inicio">
+      <img class="landing-logo__img landing-logo__img--on-dark" src="/images/logo-capta-claro.png" alt="" width="473" height="200" fetchpriority="high" />
+      <img class="landing-logo__img landing-logo__img--on-light" src="/images/logo-capta.png" alt="" width="473" height="200" />
+    </a>
     <nav class="landing-header__nav" id="landing-navigation" aria-label="Navegación principal">
       <a href="#beneficios">Beneficios</a>
       <a href="#tu-tarjeta">Tu tarjeta</a>
@@ -588,6 +590,29 @@ import { legal } from "../data/site";
     color: #4ade80;
     font-size: 11px;
     letter-spacing: 0.1em;
+  }
+
+  /* Logo oficial: versión de texto claro sobre fondo oscuro y original en modo claro */
+  .landing-logo {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    border-radius: 8px;
+  }
+
+  .landing-logo__img {
+    display: block;
+    width: auto;
+    height: 42px;
+  }
+
+  .landing-logo__img--on-light,
+  .landing-shell[data-theme="light"] .landing-logo__img--on-dark {
+    display: none;
+  }
+
+  .landing-shell[data-theme="light"] .landing-logo__img--on-light {
+    display: block;
   }
 
   .landing-header__nav {
@@ -1205,6 +1230,10 @@ import { legal } from "../data/site";
   }
 
   @media (max-width: 620px) {
+    .landing-logo__img {
+      height: 36px;
+    }
+
     .landing-shell {
       padding: 64px 18px 24px;
     }
