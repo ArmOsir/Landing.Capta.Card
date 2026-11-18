@@ -1,0 +1,133 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import Pending from "../../components/Pending.astro";
+import { contact, legal, legalHref } from "../../data/site";
+
+const sections = [
+  { id: "responsable", title: "Quién es responsable de tus datos" },
+  { id: "datos", title: "Qué datos recabamos" },
+  { id: "finalidades", title: "Para qué usamos tus datos" },
+  { id: "transferencias", title: "Con quién los compartimos" },
+  { id: "derechos", title: "Tus derechos ARCO" },
+  { id: "limitar", title: "Cómo limitar el uso de tus datos" },
+  { id: "cookies", title: "Cookies y tecnologías similares" },
+  { id: "cambios", title: "Cambios a este aviso" },
+];
+---
+
+<LegalLayout
+  title="Aviso de privacidad"
+  slug="aviso-de-privacidad"
+  summary="Cómo recabamos, usamos y protegemos tus datos personales cuando conoces, activas y usas Capta Card."
+  sections={sections}
+>
+  <section id="responsable">
+    <h2>Quién es responsable de tus datos</h2>
+    <p>
+      <Pending>razón social del responsable</Pending>, con domicilio en <Pending>domicilio completo</Pending>, es
+      responsable del tratamiento de tus datos personales conforme a la legislación mexicana aplicable en materia de
+      protección de datos personales.
+    </p>
+    <p>
+      La tarjeta es emitida por {legal.issuer}. <Pending>confirmar si el responsable es Capta, el emisor o ambos, y cómo
+      se reparte la responsabilidad</Pending>
+    </p>
+    <p>
+      Para cualquier tema de privacidad puedes escribir a <Pending>correo del departamento de datos personales</Pending>.
+    </p>
+  </section>
+
+  <section id="datos">
+    <h2>Qué datos recabamos</h2>
+    <p>Para invitarte, verificar tu identidad y administrar tu tarjeta, podemos recabar:</p>
+    <ul>
+      <li><strong>Identificación:</strong> nombre, fecha de nacimiento, CURP, RFC e identificación oficial.</li>
+      <li><strong>Contacto:</strong> número de celular, correo electrónico y domicilio.</li>
+      <li><strong>Financieros y patrimoniales:</strong> ingresos, historial crediticio y movimientos de tu tarjeta.</li>
+      <li><strong>Del dispositivo:</strong> modelo, sistema operativo y datos de uso de la app.</li>
+      <li>
+        <strong>Biométricos:</strong> <Pending>confirmar si la app usa prueba de vida o reconocimiento facial</Pending>.
+        Si se usan, son datos sensibles y requieren tu consentimiento expreso.
+      </li>
+    </ul>
+    <p><Pending>validar la lista final con el proceso real de alta en la app</Pending></p>
+  </section>
+
+  <section id="finalidades">
+    <h2>Para qué usamos tus datos</h2>
+    <h3>Finalidades necesarias</h3>
+    <p>Sin estas no podemos darte la tarjeta:</p>
+    <ul>
+      <li>Verificar tu identidad y prevenir fraudes.</li>
+      <li>Evaluar tu solicitud y asignar tu línea de crédito.</li>
+      <li>Entregarte, activar y administrar tu tarjeta.</li>
+      <li>Enviarte estados de cuenta, avisos de pago y notificaciones de seguridad.</li>
+      <li>Atender tus dudas, aclaraciones y quejas.</li>
+      <li>Cumplir con obligaciones legales y regulatorias.</li>
+    </ul>
+    <h3>Finalidades adicionales</h3>
+    <p>Puedes negarte a estas sin que afecte tu tarjeta:</p>
+    <ul>
+      <li>Enviarte promociones y beneficios.</li>
+      <li>Hacer encuestas de satisfacción y estudios para mejorar el servicio.</li>
+    </ul>
+    <p><Pending>confirmar finalidades adicionales reales</Pending></p>
+  </section>
+
+  <section id="transferencias">
+    <h2>Con quién los compartimos</h2>
+    <p>Solo compartimos tus datos cuando es necesario para darte el servicio o la ley lo exige:</p>
+    <div class="legal__table">
+      <table>
+        <thead>
+          <tr><th>Con quién</th><th>Para qué</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>{legal.issuer}</td><td>Emitir y operar la tarjeta.</td></tr>
+          <tr><td>Sociedades de información crediticia</td><td>Consultar y reportar tu historial de crédito.</td></tr>
+          <tr><td>Mastercard</td><td>Procesar tus compras.</td></tr>
+          <tr><td>Autoridades competentes</td><td>Cumplir requerimientos legales.</td></tr>
+          <tr><td><Pending>otros proveedores</Pending></td><td><Pending>finalidad</Pending></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="derechos">
+    <h2>Tus derechos ARCO</h2>
+    <p>
+      Tienes derecho a <strong>Acceder</strong> a tus datos, <strong>Rectificarlos</strong> si están mal,
+      <strong>Cancelarlos</strong> y <strong>Oponerte</strong> a su uso. También puedes revocar tu consentimiento.
+    </p>
+    <p>Para ejercerlos:</p>
+    <ol class="legal__steps">
+      <li>Envía tu solicitud a <Pending>correo o formulario ARCO</Pending>.</li>
+      <li>Incluye tu nombre, una identificación oficial y qué derecho quieres ejercer.</li>
+      <li>Te responderemos en un plazo de <Pending>plazo de respuesta según la ley vigente</Pending>.</li>
+    </ol>
+  </section>
+
+  <section id="limitar">
+    <h2>Cómo limitar el uso de tus datos</h2>
+    <p>
+      Puedes dejar de recibir promociones desde la app o escribiendo a <Pending>correo</Pending>. También puedes
+      inscribirte en el Registro Público de Usuarios (REUS) de la CONDUSEF.
+    </p>
+  </section>
+
+  <section id="cookies">
+    <h2>Cookies y tecnologías similares</h2>
+    <p>
+      Este sitio usa almacenamiento local para recordar tus preferencias. Consulta el detalle en la
+      <a href={legalHref("politica-de-cookies")}>Política de cookies</a>.
+    </p>
+  </section>
+
+  <section id="cambios">
+    <h2>Cambios a este aviso</h2>
+    <p>
+      Si cambiamos este aviso, te lo informaremos en la app y en esta página. Si tienes dudas, escríbenos a
+      <a href={`mailto:${contact.supportEmail}`}>{contact.supportEmail}</a>.
+    </p>
+  </section>
+</LegalLayout>

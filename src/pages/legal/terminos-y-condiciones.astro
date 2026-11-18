@@ -1,0 +1,114 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import Pending from "../../components/Pending.astro";
+import { contact, legal, legalHref } from "../../data/site";
+
+const sections = [
+  { id: "aceptacion", title: "Aceptación" },
+  { id: "producto", title: "Qué es Capta Card" },
+  { id: "invitacion", title: "Invitación y requisitos" },
+  { id: "app", title: "Uso de la app" },
+  { id: "credito", title: "Línea de crédito y pagos" },
+  { id: "costos", title: "Intereses y comisiones" },
+  { id: "robo", title: "Robo, extravío y cargos no reconocidos" },
+  { id: "cancelacion", title: "Cancelación" },
+  { id: "modificaciones", title: "Cambios a estos términos" },
+  { id: "jurisdiccion", title: "Ley aplicable" },
+];
+---
+
+<LegalLayout
+  title="Términos y condiciones"
+  slug="terminos-y-condiciones"
+  summary="Las reglas para usar este sitio, la app y tu tarjeta Capta Card, explicadas de forma clara."
+  sections={sections}
+>
+  <section id="aceptacion">
+    <h2>Aceptación</h2>
+    <p>
+      Al usar este sitio o la app de Capta Card aceptas estos términos. El contrato de tu tarjeta, que firmas en la
+      app, es el documento que rige tu crédito; si algo aquí no coincide con él, prevalece el contrato.
+    </p>
+    <p><Pending>liga al contrato de adhesión y su número de registro (RECA)</Pending></p>
+  </section>
+
+  <section id="producto">
+    <h2>Qué es Capta Card</h2>
+    <p>
+      Capta Card es una tarjeta de crédito Mastercard emitida por {legal.issuer} y ofrecida a la comunidad Capta.
+      <Pending>describir la relación entre Capta y el emisor</Pending>
+    </p>
+  </section>
+
+  <section id="invitacion">
+    <h2>Invitación y requisitos</h2>
+    <p>Por ahora, Capta Card solo está disponible por invitación. Para activarla necesitas:</p>
+    <ul>
+      <li>Haber recibido una invitación por SMS.</li>
+      <li>Ser mayor de edad y residir en México.</li>
+      <li>Un celular con internet para descargar la app.</li>
+      <li>Identificación oficial vigente. <Pending>confirmar documentos requeridos</Pending></li>
+    </ul>
+    <p>La aprobación y el monto de tu línea de crédito están sujetos a evaluación.</p>
+  </section>
+
+  <section id="app">
+    <h2>Uso de la app</h2>
+    <p>Eres responsable de cuidar tu celular, tu contraseña y los códigos que recibas. Capta nunca te pedirá:</p>
+    <ul>
+      <li>Tu NIP o la contraseña de la app.</li>
+      <li>Los códigos de verificación que llegan por SMS.</li>
+      <li>El código de seguridad (CVV) de tu tarjeta por llamada o mensaje.</li>
+    </ul>
+  </section>
+
+  <section id="credito">
+    <h2>Línea de crédito y pagos</h2>
+    <p>
+      Cada mes recibes un estado de cuenta con tu saldo, tu pago mínimo y tu fecha límite. Tienes
+      <Pending>confirmar: 29 días o regla exacta</Pending> desde la fecha de corte para pagar.
+    </p>
+    <p>Puedes pagar el total, el pago mínimo o cualquier monto intermedio. Pagar solo el mínimo genera intereses.</p>
+  </section>
+
+  <section id="costos">
+    <h2>Intereses y comisiones</h2>
+    <p>
+      {legal.interestRate ? <>La tasa de interés anual es fija de {legal.interestRate}%.</> : <Pending>tasa</Pending>}
+      Consulta el CAT, la anualidad y todas las comisiones en
+      <a href={legalHref("comisiones-y-cat")}>Comisiones y CAT</a>.
+    </p>
+  </section>
+
+  <section id="robo">
+    <h2>Robo, extravío y cargos no reconocidos</h2>
+    <p>
+      Si pierdes tu tarjeta o ves un cargo que no hiciste, bloquéala de inmediato desde la app y repórtalo. Consulta cómo
+      presentar una aclaración en <a href={legalHref("une-y-aclaraciones")}>UNE y aclaraciones</a>.
+    </p>
+    <p><Pending>responsabilidad por cargos antes y después del reporte</Pending></p>
+  </section>
+
+  <section id="cancelacion">
+    <h2>Cancelación</h2>
+    <p>
+      Puedes cancelar tu tarjeta en cualquier momento, sin costo, desde <Pending>canal de cancelación</Pending>. Antes
+      debes liquidar tu saldo pendiente.
+    </p>
+  </section>
+
+  <section id="modificaciones">
+    <h2>Cambios a estos términos</h2>
+    <p>
+      Te avisaremos de cualquier cambio con al menos <Pending>días de anticipación</Pending> por la app o por correo.
+    </p>
+  </section>
+
+  <section id="jurisdiccion">
+    <h2>Ley aplicable</h2>
+    <p>
+      Estos términos se rigen por las leyes de México. <Pending>tribunales competentes</Pending>. Dudas:
+      <a href={`mailto:${contact.supportEmail}`}>{contact.supportEmail}</a>.
+    </p>
+  </section>
+</LegalLayout>

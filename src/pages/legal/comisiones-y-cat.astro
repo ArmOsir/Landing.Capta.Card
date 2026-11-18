@@ -1,0 +1,119 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import Pending from "../../components/Pending.astro";
+import { cycleExample, legal } from "../../data/site";
+
+const sections = [
+  { id: "resumen", title: "Resumen de costos" },
+  { id: "cat", title: "Qué es el CAT" },
+  { id: "comisiones", title: "Comisiones" },
+  { id: "ejemplo", title: "Ejemplo de ciclo de pago" },
+  { id: "evita", title: "Cómo evitar intereses" },
+];
+
+// Cada comisión queda pendiente hasta tener el tabulador oficial.
+const fees = [
+  { name: "Anualidad", value: legal.annualFee, when: "Una vez al año" },
+  { name: "Pago tardío", value: "", when: "Si no cubres el pago mínimo a tiempo" },
+  { name: "Reposición de tarjeta", value: "", when: "Por robo, extravío o daño" },
+  { name: "Disposición de efectivo", value: "", when: "Al retirar efectivo con tu tarjeta" },
+  { name: "Compras en el extranjero", value: "", when: "Por conversión de divisas" },
+];
+---
+
+<LegalLayout
+  title="Comisiones y CAT"
+  slug="comisiones-y-cat"
+  summary="Todo lo que cuesta tu Capta Card, en un solo lugar y sin letras pequeñas."
+  sections={sections}
+>
+  <section id="resumen">
+    <h2>Resumen de costos</h2>
+    <div class="legal__table">
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row">CAT promedio</th>
+            <td>
+              {legal.cat ? <>{legal.cat}% sin IVA</> : <Pending>CAT promedio sin IVA</Pending>}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Tasa de interés anual</th>
+            <td>{legal.interestRate ? <>{legal.interestRate}% fija</> : <Pending>tasa</Pending>}</td>
+          </tr>
+          <tr>
+            <th scope="row">Anualidad</th>
+            <td>{legal.annualFee || <Pending>monto o "sin anualidad"</Pending>}</td>
+          </tr>
+          <tr>
+            <th scope="row">Fecha de cálculo</th>
+            <td>{legal.catDate || <Pending>fecha de cálculo del CAT</Pending>}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      CAT promedio sin IVA, para fines informativos y de comparación.
+      {legal.catDate ? <>Calculado al {legal.catDate}.</> : <Pending>vigencia del cálculo</Pending>}
+    </p>
+  </section>
+
+  <section id="cat">
+    <h2>Qué es el CAT</h2>
+    <p>
+      El Costo Anual Total (CAT) reúne en un solo porcentaje los intereses y las comisiones de un crédito. Sirve para
+      comparar tarjetas: entre dos opciones parecidas, la que tiene el CAT más bajo cuesta menos.
+    </p>
+  </section>
+
+  <section id="comisiones">
+    <h2>Comisiones</h2>
+    <div class="legal__table">
+      <table>
+        <thead>
+          <tr>
+            <th>Concepto</th>
+            <th>Cuándo se cobra</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fees.map((f) => (
+            <tr>
+              <td>{f.name}</td>
+              <td>{f.when}</td>
+              <td>{f.value || <Pending>monto</Pending>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Los montos no incluyen IVA. <Pending>confirmar lista completa con el tabulador oficial del emisor</Pending>
+    </p>
+  </section>
+
+  <section id="ejemplo">
+    <h2>Ejemplo de ciclo de pago</h2>
+    <p>Si activas tu tarjeta el {cycleExample.activation}:</p>
+    <ol class="legal__steps">
+      {cycleExample.steps.map((s) => (
+        <li>
+          <strong>{s.date}:</strong> {s.text}
+        </li>
+      ))}
+    </ol>
+    <p><Pending>confirmar regla de días entre corte y fecha límite</Pending></p>
+  </section>
+
+  <section id="evita">
+    <h2>Cómo evitar intereses</h2>
+    <div class="legal__callout">
+      <p>
+        Paga el total de tu estado de cuenta antes de la fecha límite. Si solo pagas el mínimo, se cobran intereses sobre
+        el saldo restante y tardarás más en liquidar.
+      </p>
+    </div>
+  </section>
+</LegalLayout>

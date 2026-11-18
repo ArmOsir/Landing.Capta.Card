@@ -1,6 +1,6 @@
 ---
 import Brand from "./Brand.astro";
-import { condusef, contact, legal, supportHref } from "../data/site";
+import { condusef, contact, legal, legalHref, legalPages, supportHref } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
@@ -13,10 +13,10 @@ const year = new Date().getFullYear();
         <p>Crédito que crece en comunidad.</p>
       </div>
       <nav class="site-footer__links" aria-label="Pie de página">
-        <a href="#beneficios">La tarjeta</a>
-        <a href="#como-funciona">Cómo funciona</a>
-        <a href="#pagos">Pagos</a>
-        <a href="#ayuda">Preguntas</a>
+        <a href="/#beneficios">La tarjeta</a>
+        <a href="/#como-funciona">Cómo funciona</a>
+        <a href="/#pagos">Pagos</a>
+        <a href="/#ayuda">Preguntas</a>
       </nav>
     </div>
 
@@ -36,7 +36,9 @@ const year = new Date().getFullYear();
         <li>
           Correo: <a href={`mailto:${contact.supportEmail}`}>{contact.supportEmail}</a>
         </li>
-        {legal.une && <li>Unidad Especializada de Atención (UNE): {legal.une}</li>}
+        <li>
+          <a href={legalHref("une-y-aclaraciones")}>Unidad Especializada de Atención (UNE) y aclaraciones</a>
+        </li>
         <li>
           <a href={condusef.url} rel="noopener">{condusef.name}</a>: Comisión Nacional para la Protección y Defensa de
           los Usuarios de Servicios Financieros.
@@ -56,18 +58,13 @@ const year = new Date().getFullYear();
         }
         <p>
           {legal.interestRate && <>*Tasa de interés anual fija de {legal.interestRate}%. </>}
-          Producto sujeto a aprobación de crédito. Consulta requisitos, comisiones y CAT en la app. Las condiciones
+          Producto sujeto a aprobación de crédito. Consulta requisitos, <a href={legalHref("comisiones-y-cat")}>comisiones y CAT</a>. Las condiciones
           vigentes del producto prevalecen.
           {legal.issuer && <> Tarjeta emitida por {legal.issuer} bajo la licencia de Mastercard Internacional.</>}
         </p>
-        {
-          (legal.privacyUrl || legal.termsUrl) && (
-            <p class="site-footer__docs">
-              {legal.privacyUrl && <a href={legal.privacyUrl}>Aviso de privacidad</a>}
-              {legal.termsUrl && <a href={legal.termsUrl}>Términos y condiciones</a>}
-            </p>
-          )
-        }
+        <nav class="site-footer__docs" aria-label="Documentos legales">
+          {legalPages.map((p) => <a href={legalHref(p.slug)}>{p.title}</a>)}
+        </nav>
       </div>
       <p class="site-footer__copyright">© {year} Capta Card</p>
     </div>

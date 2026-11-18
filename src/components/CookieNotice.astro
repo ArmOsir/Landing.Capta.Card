@@ -1,0 +1,107 @@
+---
+/**
+ * Aviso de cookies (maqueta). Hoy el sitio no usa cookies de analítica ni de
+ * publicidad; este aviso queda listo por si se agregan. Guarda la elección en
+ * localStorage ("capta-cookies": "necesarias" | "todas") y no vuelve a salir.
+ * Para desactivarlo, cambia `cookieNotice` a false en src/data/site.ts.
+ */
+import { cookieNotice, legalHref } from "../data/site";
+---
+
+{
+  cookieNotice && (
+    <div class="cookie-notice tone-light" data-cookie-notice hidden role="region" aria-label="Aviso de cookies">
+      <p>
+        Usamos cookies necesarias para que el sitio funcione y, con tu permiso, cookies para entender cómo se usa y
+        mejorarlo. <a href={legalHref("politica-de-cookies")}>Política de cookies</a>
+      </p>
+      <div class="cookie-notice__actions">
+        <button type="button" class="btn btn--ghost" data-cookie-choice="necesarias">
+          Solo necesarias
+        </button>
+        <button type="button" class="btn btn--primary" data-cookie-choice="todas">
+          Aceptar todas
+        </button>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  const notice = document.querySelector<HTMLElement>("[data-cookie-notice]");
+  if (notice) {
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem("capta-cookies");
+    } catch {}
+    if (!saved) notice.hidden = false;
+    notice.querySelectorAll<HTMLButtonElement>("[data-cookie-choice]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        try {
+          localStorage.setItem("capta-cookies", btn.dataset.cookieChoice ?? "necesarias");
+        } catch {}
+        notice.hidden = true;
+      });
+    });
+  }
+</script>
+
+<style>
+  .cookie-notice {
+    position: fixed;
+    z-index: 50;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px 24px;
+    max-width: 880px;
+    margin-inline: auto;
+    padding: 18px 20px;
+    border: 1px solid var(--border);
+    border-radius: 20px 20px 20px 6px;
+    color: var(--body);
+    background: var(--surface-solid);
+    box-shadow: 0 18px 48px rgb(0 0 0 / 28%);
+  }
+
+  .cookie-notice[hidden] {
+    display: none;
+  }
+
+  .cookie-notice p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .cookie-notice a {
+    color: var(--accent);
+    font-weight: 600;
+    text-underline-offset: 3px;
+  }
+
+  .cookie-notice__actions {
+    display: flex;
+    flex: none;
+    gap: 10px;
+  }
+
+  .cookie-notice .btn {
+    min-height: 44px;
+    padding-inline: 18px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 720px) {
+    .cookie-notice {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cookie-notice__actions .btn {
+      flex: 1;
+    }
+  }
+</style>

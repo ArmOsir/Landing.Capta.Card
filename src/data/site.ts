@@ -32,8 +32,6 @@ export const legal = {
   catDate: "",
   /** Texto de la anualidad. Ej.: "Sin anualidad" o "$499 + IVA" */
   annualFee: "",
-  privacyUrl: "",
-  termsUrl: "",
   /** Datos de la Unidad Especializada de Atención a Usuarios (UNE) */
   une: "",
 };
@@ -55,6 +53,26 @@ export const cycleExample = {
     { mark: "3", date: "3 de febrero", text: "Fecha límite para pagar." },
   ],
 };
+
+/**
+ * Páginas legales. Mientras `draft` sea true, cada página muestra un aviso de
+ * borrador y los datos faltantes aparecen resaltados como "Por definir".
+ * Pásalo a false solo cuando Legal/Cumplimiento haya validado los textos.
+ */
+export const legalDraft = true;
+
+/** Muestra el aviso de cookies (maqueta) en todas las páginas. */
+export const cookieNotice = true;
+
+export const legalPages = [
+  { slug: "aviso-de-privacidad", title: "Aviso de privacidad", short: "Privacidad" },
+  { slug: "terminos-y-condiciones", title: "Términos y condiciones", short: "Términos" },
+  { slug: "comisiones-y-cat", title: "Comisiones y CAT", short: "Comisiones y CAT" },
+  { slug: "une-y-aclaraciones", title: "UNE y aclaraciones", short: "UNE y aclaraciones" },
+  { slug: "politica-de-cookies", title: "Política de cookies", short: "Cookies" },
+] as const;
+
+export const legalHref = (slug: (typeof legalPages)[number]["slug"]) => `/legal/${slug}`;
 
 export const condusef = {
   name: "CONDUSEF",

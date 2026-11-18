@@ -1,0 +1,236 @@
+---
+/**
+ * Plantilla de las páginas legales: cabecera oscura con el título, índice
+ * lateral y texto en tono claro para lectura larga. Mientras `legalDraft` sea
+ * true se muestra un aviso de borrador arriba del contenido.
+ */
+import BaseLayout from "./BaseLayout.astro";
+import LeafSprite from "../components/LeafSprite.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import CookieNotice from "../components/CookieNotice.astro";
+import { legalDraft, legalHref, legalPages } from "../data/site";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  slug: (typeof legalPages)[number]["slug"];
+  summary: string;
+  updated?: string;
+  sections: { id: string; title: string }[];
+}
+
+const { title, slug, summary, updated, sections } = Astro.props;
+---
+
+<BaseLayout title={`${title} — Capta Card`} description={summary}>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <LeafSprite />
+
+  <header class="legal-top">
+    <svg class="legal-top__leaf legal-top__leaf--a" aria-hidden="true"><use href="#capta-leaf"></use></svg>
+    <svg class="legal-top__leaf legal-top__leaf--b" aria-hidden="true"><use href="#capta-leaf-solid"></use></svg>
+    <div class="legal-top__bar">
+      <a class="legal-top__logo" href="/" aria-label="Capta Card, volver al inicio">
+        <img src="/images/logo-capta-claro.png" alt="" width="473" height="200" />
+      </a>
+      <a class="legal-top__back" href="/">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+        Volver al inicio
+      </a>
+    </div>
+    <div class="legal-top__intro">
+      <p class="legal-top__kicker">Información legal</p>
+      <h1>{title}</h1>
+      <p class="legal-top__summary">{summary}</p>
+      <p class="legal-top__updated">
+        Última actualización: {updated ?? <span class="pending pending--inline">Por definir</span>}
+      </p>
+    </div>
+  </header>
+
+  <div class="page">
+    <main id="contenido" class="legal tone-light">
+      <div class="legal__inner">
+        <aside class="legal__aside">
+          <nav aria-label="En esta página" class="legal__toc">
+            <p>En esta página</p>
+            <ol>
+              {sections.map((s) => (
+                <li>
+                  <a href={`#${s.id}`}>{s.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+          <nav aria-label="Documentos legales" class="legal__docs">
+            <p>Documentos</p>
+            <ul>
+              {legalPages.map((p) => (
+                <li>
+                  <a href={legalHref(p.slug)} aria-current={p.slug === slug ? "page" : undefined}>
+                    {p.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+
+        <article class="legal__body">
+          {
+            legalDraft && (
+              <div class="legal__draft" role="note">
+                <strong>Borrador para revisión.</strong> Esta página es una propuesta de estructura y redacción. No es un
+                documento vigente: debe validarlo el área Legal y de Cumplimiento antes de publicarse. Los datos
+                resaltados como <span class="pending pending--inline">Por definir</span> faltan por confirmar.
+              </div>
+            )
+          }
+          <slot />
+        </article>
+      </div>
+    </main>
+    <SiteFooter />
+  </div>
+  <CookieNotice />
+</BaseLayout>
+
+<style>
+  .legal-top {
+    position: relative;
+    overflow: hidden;
+    padding: 0 var(--page-pad) clamp(48px, 7vw, 80px);
+    background:
+      radial-gradient(circle at 85% 0%, var(--glow-green), transparent 45%),
+      radial-gradient(circle at 10% 100%, var(--glow-deep), transparent 50%),
+      var(--bg);
+  }
+
+  .legal-top__leaf {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .legal-top__leaf--a {
+    top: -40px;
+    right: -30px;
+    width: 260px;
+    height: 430px;
+    transform: rotate(32deg);
+  }
+
+  .legal-top__leaf--b {
+    right: 220px;
+    bottom: 26px;
+    width: 34px;
+    height: 56px;
+    transform: rotate(-28deg);
+    opacity: 0.85;
+  }
+
+  .legal-top__bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: min(var(--content), 100%);
+    margin-inline: auto;
+    padding: 18px 0;
+  }
+
+  .legal-top__logo img {
+    display: block;
+    width: auto;
+    height: 42px;
+  }
+
+  .legal-top__back {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 18px;
+    border: 1px solid var(--btn-ghost-border);
+    border-radius: 999px;
+    color: var(--btn-ghost-fg);
+    background: var(--btn-ghost-bg);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .legal-top__back:hover {
+    border-color: var(--chip-border);
+    color: var(--accent);
+  }
+
+  .legal-top__back svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .legal-top__intro {
+    position: relative;
+    width: min(var(--content), 100%);
+    margin: clamp(32px, 6vw, 64px) auto 0;
+  }
+
+  .legal-top__kicker {
+    margin: 0;
+    color: var(--label);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .legal-top h1 {
+    max-width: 760px;
+    margin: 12px 0 0;
+    color: var(--text);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+  }
+
+  .legal-top__summary {
+    max-width: 640px;
+    margin: 18px 0 0;
+    color: var(--body);
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .legal-top__updated {
+    margin: 16px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  :global(:root[data-theme="light"]) .legal-top__logo img {
+    content: url("/images/logo-capta.png");
+  }
+
+  @media (max-width: 620px) {
+    .legal-top__logo img {
+      height: 36px;
+    }
+
+    .legal-top__leaf--a {
+      width: 160px;
+      height: 270px;
+      opacity: 0.6;
+    }
+
+    .legal-top__leaf--b {
+      display: none;
+    }
+  }
+</style>
