@@ -2,11 +2,14 @@
 interface Props {
   title?: string;
   description?: string;
+  /** Evita que buscadores indexen la página (demos y borradores). */
+  noindex?: boolean;
 }
 
 const {
   title = "Capta Card — crédito que crece contigo",
   description = "Conoce Capta Card, la tarjeta de crédito Mastercard de la comunidad Capta. Recibe una invitación, solicita desde la app y controla tu tarjeta desde tu celular.",
+  noindex = false,
 } = Astro.props;
 ---
 
@@ -17,6 +20,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b1f0f" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
     <meta property="og:title" content={title} />

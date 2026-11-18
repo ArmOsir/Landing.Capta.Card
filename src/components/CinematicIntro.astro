@@ -1,0 +1,389 @@
+---
+/**
+ * Intro cinematográfica: pago sin contacto con la Capta Card en una terminal 3D.
+ *
+ * La sección mide varias pantallas de alto; el escenario queda fijo (sticky)
+ * y el avance del scroll mueve la escena. Se superpone a la primera pantalla
+ * del Hero (margin-bottom negativo), así que al terminar se desvanece y deja
+ * el Hero exactamente en su lugar, con la tarjeta aterrizando sobre la suya.
+ *
+ * Con prefers-reduced-motion o sin WebGL la sección no aparece y la página
+ * empieza directo en el Hero.
+ */
+const captions = [
+  { from: -1, to: 0.15, kicker: "Capta Card", title: "Así se siente pagar con un toque", text: "Desliza para verlo." },
+  { from: 0.18, to: 0.37, kicker: "Paso 1", title: "Acerca tu tarjeta", text: "Sin insertarla y sin firmar nada." },
+  { from: 0.41, to: 0.54, kicker: "Paso 2", title: "Un toque y listo", text: "Pago sin contacto con Mastercard." },
+  { from: 0.57, to: 0.78, kicker: "Paso 3", title: "Pago aprobado", text: "Y lo ves al instante en tu app." },
+];
+---
+
+<section class="cine" data-cine aria-label="Animación: un pago sin contacto con Capta Card">
+  <div class="cine__stage" data-cine-stage>
+    <div class="cine__glow" aria-hidden="true"></div>
+
+    <div class="cine__top">
+      <img class="cine__logo" src="/images/logo-capta-claro.png" alt="Capta Card" width="473" height="200" />
+      <button type="button" class="cine__skip" data-cine-skip>
+        Saltar intro
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+    </div>
+
+    <div class="cine__captions">
+      {
+        captions.map((c) => (
+          <div class="cine__caption" data-from={c.from} data-to={c.to}>
+            <p class="cine__kicker">{c.kicker}</p>
+            <p class="cine__title">{c.title}</p>
+            <p class="cine__text">{c.text}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="cine__hint" data-cine-hint aria-hidden="true">
+      <span class="cine__mouse"><span></span></span>
+      Desliza para pagar
+    </div>
+
+    <div class="cine__progress" aria-hidden="true"><span data-cine-bar></span></div>
+  </div>
+</section>
+
+<script>
+  const cine = document.querySelector<HTMLElement>("[data-cine]");
+  const stage = document.querySelector<HTMLElement>("[data-cine-stage]");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (cine && stage && !reduce) {
+    const captions = [...stage.querySelectorAll<HTMLElement>(".cine__caption")];
+    const hint = stage.querySelector<HTMLElement>("[data-cine-hint]");
+    const bar = stage.querySelector<HTMLElement>("[data-cine-bar]");
+    const skip = stage.querySelector<HTMLButtonElement>("[data-cine-skip]");
+    const topBar = stage.querySelector<HTMLElement>(".cine__top");
+    const heroCard = document.querySelector<HTMLElement>("[data-card-tilt]");
+
+    const pinDistance = () => Math.max(1, cine.offsetHeight - stage.offsetHeight);
+    const getProgress = () => Math.min(1, Math.max(0, -cine.getBoundingClientRect().top / pinDistance()));
+    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+
+    const update = (p: number) => {
+      const FADE = 0.03;
+      captions.forEach((el) => {
+        const from = Number(el.dataset.from);
+        const to = Number(el.dataset.to);
+        const o = clamp01((p - from) / FADE) * clamp01((to - p) / FADE);
+        el.style.opacity = o.toFixed(3);
+        el.style.transform = `translateY(${((1 - o) * 14).toFixed(1)}px)`;
+      });
+      if (hint) hint.style.opacity = String(1 - clamp01(p / 0.05));
+      if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
+      // El logo y "Saltar intro" se van antes para no duplicar el encabezado del Hero
+      if (topBar) topBar.style.opacity = (1 - clamp01((p - 0.84) / 0.06)).toFixed(3);
+      // Al final el escenario se desvanece y deja ver el Hero
+      const out = clamp01((p - 0.9) / 0.1);
+      stage.style.opacity = (1 - out).toFixed(3);
+    };
+
+    // Si el escenario intercepta clics depende del scroll REAL, no del avance
+    // suavizado del render: así el Hero responde en cuanto llegas a él, aunque
+    // la animación vaya atrasada o el bucle esté en pausa.
+    const syncInteractivity = () => {
+      const p = getProgress();
+      stage.classList.toggle("is-leaving", p > 0.9);
+      stage.style.visibility = p >= 0.999 ? "hidden" : "";
+    };
+
+    update(getProgress());
+    syncInteractivity();
+    window.addEventListener(
+      "scroll",
+      () => {
+        syncInteractivity();
+        if (stage.dataset.ready !== "1") update(getProgress());
+      },
+      { passive: true },
+    );
+    window.addEventListener("resize", syncInteractivity);
+
+    skip?.addEventListener("click", () => {
+      const top = window.scrollY + cine.getBoundingClientRect().top + pinDistance();
+      window.scrollTo({ top, behavior: "instant" });
+      document.querySelector<HTMLElement>("#inicio a, #inicio button")?.focus({ preventScroll: true });
+    });
+
+    import("../scripts/paymentScene")
+      .then(({ createPaymentScene }) =>
+        createPaymentScene(stage, {
+          front: "/images/TC%20Capta%20Card%20frente.svg",
+          back: "/images/TC%20Capta%20Card%20trasera.svg",
+          getProgress,
+          getHandoffRect: () => heroCard?.getBoundingClientRect() ?? null,
+          onFrame: update,
+        }),
+      )
+      .then((scene) => {
+        if (!scene) {
+          // Sin WebGL: se quita la intro y la página empieza en el Hero
+          cine.remove();
+          return;
+        }
+        stage.dataset.ready = "1";
+      })
+      .catch(() => cine.remove());
+  } else if (cine) {
+    cine.remove();
+  }
+</script>
+
+<style>
+  .cine {
+    position: relative;
+    /* Por encima del Hero (z-index 10) y de su encabezado fijo */
+    z-index: 20;
+    height: 400svh;
+    /* La última pantalla del recorrido se superpone al inicio del Hero */
+    margin-bottom: -100svh;
+    /* El contenedor es transparente y cubre la primera pantalla del Hero:
+       no debe capturar clics. Solo el escenario los recibe mientras se ve. */
+    pointer-events: none;
+  }
+
+  .cine__stage {
+    pointer-events: auto;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    height: 100svh;
+    color: #f7faf8;
+    background-color: #051c13;
+    background-image: radial-gradient(ellipse 70% 55% at 50% 62%, rgb(22 84 52 / 55%), transparent 75%);
+  }
+
+  /* Mientras se desvanece ya no intercepta nada (ni "Saltar intro", que ya se ocultó) */
+  .cine__stage.is-leaving,
+  .cine__stage.is-leaving * {
+    pointer-events: none;
+  }
+
+  .cine__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 78% 40%, rgb(74 222 128 / 14%), transparent 40%),
+      radial-gradient(circle at 15% 85%, rgb(163 230 53 / 6%), transparent 45%);
+  }
+
+  .cine__stage :global(.cine__canvas) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cine__top {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px clamp(20px, 4vw, 56px);
+  }
+
+  .cine__logo {
+    display: block;
+    width: auto;
+    height: 42px;
+  }
+
+  .cine__skip {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 18px;
+    border: 1px solid rgb(74 222 128 / 30%);
+    border-radius: 999px;
+    color: #f1f5f3;
+    background: rgb(11 49 34 / 75%);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+  }
+
+  .cine__skip:hover,
+  .cine__skip:focus-visible {
+    border-color: #a3e635;
+    color: #a3e635;
+  }
+
+  .cine__skip svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .cine__captions {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: clamp(20px, 6vw, 96px);
+    width: min(440px, 42vw);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .cine__caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+
+  .cine__kicker {
+    margin: 0;
+    color: #a3e635;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cine__title {
+    margin: 10px 0 0;
+    font-size: clamp(34px, 4.4vw, 58px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  .cine__text {
+    margin: 14px 0 0;
+    color: #c2cec8;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.5;
+  }
+
+  .cine__hint {
+    position: absolute;
+    z-index: 1;
+    bottom: 34px;
+    left: 50%;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    color: #c2cec8;
+    font-size: 15px;
+    font-weight: 600;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .cine__mouse {
+    position: relative;
+    width: 24px;
+    height: 38px;
+    border: 2px solid rgb(194 206 200 / 70%);
+    border-radius: 14px;
+  }
+
+  .cine__mouse span {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    width: 4px;
+    height: 8px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: #a3e635;
+    animation: cine-wheel 1.6s ease-in-out infinite;
+  }
+
+  @keyframes cine-wheel {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  .cine__progress {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgb(255 255 255 / 6%);
+  }
+
+  .cine__progress span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #4ade80, #a3e635);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @media (max-width: 720px) {
+    .cine {
+      height: 340svh;
+    }
+
+    .cine__logo {
+      height: 36px;
+    }
+
+    /* En móvil los textos van abajo y la terminal arriba */
+    .cine__captions {
+      top: auto;
+      right: 20px;
+      bottom: 96px;
+      left: 20px;
+      width: auto;
+      transform: none;
+    }
+
+    .cine__caption {
+      top: auto;
+      bottom: 0;
+      transform: none;
+      text-align: center;
+    }
+
+    .cine__title {
+      font-size: 32px;
+    }
+
+    .cine__hint {
+      bottom: 22px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cine {
+      display: none;
+    }
+  }
+</style>

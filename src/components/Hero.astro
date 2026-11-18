@@ -304,7 +304,9 @@ import { legal } from "../data/site";
   const header = document.querySelector<HTMLElement>("[data-header]");
   if (header) {
     const syncHeader = () => {
-      header.dataset.scrolled = String(window.scrollY > 8);
+      // Se mide desde el inicio del Hero (antes puede haber una intro animada)
+      const heroTop = shell ? shell.getBoundingClientRect().top : -window.scrollY;
+      header.dataset.scrolled = String(heroTop < -8);
     };
     syncHeader();
     window.addEventListener("scroll", syncHeader, { passive: true });
@@ -313,6 +315,8 @@ import { legal } from "../data/site";
 
 <style>
   .landing-shell {
+    /* Al ir a #inicio el Hero queda arriba del todo (anula el scroll-padding del encabezado) */
+    scroll-margin-top: -88px;
     position: relative;
     /* Por encima de las secciones para que el encabezado fijo nunca quede debajo */
     z-index: 10;

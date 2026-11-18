@@ -25,6 +25,7 @@ import {
   Shape,
   ShapeGeometry,
   SRGBColorSpace,
+  Texture,
   WebGLRenderer,
 } from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
@@ -45,14 +46,14 @@ interface Options {
   onSideChange?: (isBack: boolean) => void;
 }
 
-const CARD_W = 3.2;
-const CARD_H = CARD_W * (54 / 85.6);
-const CARD_DEPTH = 0.028;
+export const CARD_W = 3.2;
+export const CARD_H = CARD_W * (54 / 85.6);
+export const CARD_DEPTH = 0.028;
 const CORNER = CARD_W * (3.18 / 85.6);
 /** El lienzo es más grande que la tarjeta para que al girar no se recorte. */
 const CANVAS_SCALE = 1.5;
 
-function roundedRect(w: number, h: number, r: number) {
+export function roundedRect(w: number, h: number, r: number) {
   const s = new Shape();
   const x = -w / 2;
   const y = -h / 2;
@@ -84,7 +85,7 @@ function faceGeometry(shape: Shape) {
  * Rasteriza el SVG a un lienzo con la proporción exacta de la tarjeta
  * (recorte tipo "cover", sin deformar) y alta resolución para que se vea nítido.
  */
-async function svgTexture(url: string, maxAnisotropy: number) {
+export async function svgTexture(url: string, maxAnisotropy: number) {
   const img = new Image();
   img.decoding = "async";
   img.src = url;
@@ -109,6 +110,71 @@ async function svgTexture(url: string, maxAnisotropy: number) {
   texture.colorSpace = SRGBColorSpace;
   texture.anisotropy = maxAnisotropy;
   return texture;
+}
+
+/**
+ * Cuerpo de la tarjeta (canto con bisel) y sus dos caras texturizadas.
+ * Lo comparten la tarjeta del Hero y la escena del pago sin contacto.
+ */
+export function buildCard(frontMap: Texture, backMap: Texture, envTexture: Texture) {
+  const shape = roundedRect(CARD_W, CARD_H, CORNER);
+  const card = new Group();
+
+  // Cuerpo: canto verde oscuro con un ligero bisel
+  const bodyGeo = new ExtrudeGeometry(shape, {
+    depth: CARD_DEPTH,
+    bevelEnabled: true,
+    bevelThickness: 0.004,
+    bevelSize: 0.004,
+    bevelSegments: 3,
+    curveSegments: 16,
+  });
+  bodyGeo.translate(0, 0, -CARD_DEPTH / 2);
+  const bodyMat = new MeshPhysicalMaterial({
+    envMap: envTexture,
+    envMapIntensity: 0.6,
+    color: 0x123d27,
+    roughness: 0.35,
+    metalness: 0.4,
+    clearcoat: 1,
+    clearcoatRoughness: 0.25,
+  });
+  card.add(new Mesh(bodyGeo, bodyMat));
+
+  const faceGeo = faceGeometry(shape);
+  const faceMaterial = (map: Texture) =>
+    new MeshPhysicalMaterial({
+      // El diseño se "emite" tal cual (colores exactos del SVG) y la superficie
+      // negra solo aporta los brillos especulares de las luces.
+      color: 0x000000,
+      emissive: 0xffffff,
+      emissiveMap: map,
+      emissiveIntensity: 1,
+      roughness: 0.32,
+      metalness: 0,
+      specularIntensity: 0.6,
+      clearcoat: 0.7,
+      clearcoatRoughness: 0.2,
+    });
+
+  const frontMat = faceMaterial(frontMap);
+  const front = new Mesh(faceGeo, frontMat);
+  front.position.z = CARD_DEPTH / 2 + 0.0045;
+  card.add(front);
+
+  const backMat = faceMaterial(backMap);
+  const back = new Mesh(faceGeo, backMat);
+  back.rotation.y = Math.PI;
+  back.position.z = -(CARD_DEPTH / 2 + 0.0045);
+  card.add(back);
+
+  return {
+    group: card,
+    dispose() {
+      [bodyGeo, faceGeo].forEach((g) => g.dispose());
+      [bodyMat, frontMat, backMat].forEach((m) => m.dispose());
+    },
+  };
 }
 
 export async function createCard3D(container: HTMLElement, options: Options): Promise<Card3D | null> {
@@ -160,57 +226,7 @@ export async function createCard3D(container: HTMLElement, options: Options): Pr
     return null;
   }
 
-  const shape = roundedRect(CARD_W, CARD_H, CORNER);
-  const card = new Group();
-
-  // Cuerpo: canto verde oscuro con un ligero bisel
-  const bodyGeo = new ExtrudeGeometry(shape, {
-    depth: CARD_DEPTH,
-    bevelEnabled: true,
-    bevelThickness: 0.004,
-    bevelSize: 0.004,
-    bevelSegments: 3,
-    curveSegments: 16,
-  });
-  bodyGeo.translate(0, 0, -CARD_DEPTH / 2);
-  const bodyMat = new MeshPhysicalMaterial({
-    envMap: envTexture,
-    envMapIntensity: 0.6,
-    color: 0x123d27,
-    roughness: 0.35,
-    metalness: 0.4,
-    clearcoat: 1,
-    clearcoatRoughness: 0.25,
-  });
-  card.add(new Mesh(bodyGeo, bodyMat));
-
-  const faceGeo = faceGeometry(shape);
-  const faceMaterial = (map: CanvasTexture) =>
-    new MeshPhysicalMaterial({
-      // El diseño se "emite" tal cual (colores exactos del SVG) y la superficie
-      // negra solo aporta los brillos especulares de las luces.
-      color: 0x000000,
-      emissive: 0xffffff,
-      emissiveMap: map,
-      emissiveIntensity: 1,
-      roughness: 0.32,
-      metalness: 0,
-      specularIntensity: 0.6,
-      clearcoat: 0.7,
-      clearcoatRoughness: 0.2,
-    });
-
-  const frontMat = faceMaterial(frontMap);
-  const front = new Mesh(faceGeo, frontMat);
-  front.position.z = CARD_DEPTH / 2 + 0.0045;
-  card.add(front);
-
-  const backMat = faceMaterial(backMap);
-  const back = new Mesh(faceGeo, backMat);
-  back.rotation.y = Math.PI;
-  back.position.z = -(CARD_DEPTH / 2 + 0.0045);
-  card.add(back);
-
+  const { group: card, dispose: disposeCard } = buildCard(frontMap, backMap, envTexture);
   scene.add(card);
 
   // ── Tamaño: la tarjeta ocupa el mismo ancho que la versión plana ──
@@ -355,8 +371,7 @@ export async function createCard3D(container: HTMLElement, options: Options): Pr
       container.removeEventListener("pointercancel", onPointerUp);
       container.removeEventListener("click", onClickCapture, true);
       container.removeEventListener("dragstart", preventNativeDrag);
-      [bodyGeo, faceGeo].forEach((g) => g.dispose());
-      [bodyMat, frontMat, backMat].forEach((m) => m.dispose());
+      disposeCard();
       [frontMap, backMap, envTexture].forEach((tx) => tx.dispose());
       pmrem.dispose();
       renderer.dispose();
