@@ -1,0 +1,76 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import SectionBackdrop from "./SectionBackdrop.astro";
+
+const steps = [
+  { title: "Recibe tu invitación", text: "Te llega un SMS con el enlace para descargar la app." },
+  { title: "Regístrate en la app", text: "Confirma tus datos y verifica tu identidad desde tu celular." },
+  { title: "Conoce tu resultado", text: "Consulta si tu solicitud fue aprobada y tu línea de crédito." },
+  { title: "Recibe tu tarjeta", text: "Tu ejecutivo te la entrega en persona, validando tu identidad." },
+  { title: "Actívala y úsala", text: "Actívala en la app, crea tu NIP y empieza a comprar." },
+];
+
+const needs = [
+  "Tu celular con internet",
+  "El SMS de invitación",
+  "Tu identificación oficial vigente",
+];
+---
+
+<section class="section section--band" id="como-funciona" aria-labelledby="journey-title">
+  <SectionBackdrop variant="journey" />
+  <div class="section__inner">
+    <SectionHeading
+      id="journey-title"
+      badge="El camino a tu tarjeta"
+      title="De la invitación a"
+      accent="tu primera compra."
+      lead="Un proceso acompañado y desde tu celular. Son cinco pasos, y tu ejecutivo te ayuda en los más importantes."
+    />
+
+    <ol class="steps">
+      {
+        steps.map((step, index) => (
+          <li class:list={["step", { "step--last": index === steps.length - 1 }]}>
+            <span class="step__node" aria-hidden="true">
+              {index === steps.length - 1 ? (
+                <svg class="icon" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+              ) : (
+                `0${index + 1}`
+              )}
+            </span>
+            <div class="card">
+              <h3><span class="visually-hidden">Paso {index + 1}: </span>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="needs">
+      <h3 id="needs-title">Antes de empezar, ten a la mano:</h3>
+      <ul>
+        {
+          needs.map((item) => (
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

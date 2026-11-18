@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CardDetails from "../components/CardDetails.astro";
+import FeatureSection from "../components/FeatureSection.astro";
+import HelpSection from "../components/HelpSection.astro";
+import Hero from "../components/Hero.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import LeafSprite from "../components/LeafSprite.astro";
+import Invitation from "../components/Invitation.astro";
+import Payments from "../components/Payments.astro";
+import SecuritySection from "../components/SecuritySection.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/global.css";
+---
+
+<BaseLayout
+  title="Capta Card — el crédito que hace crecer tu futuro"
+  description="Conoce Capta Card, la tarjeta de crédito Mastercard de la comunidad Capta. Controla tu tarjeta desde la app y descubre sus beneficios."
+>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <LeafSprite />
+  <Hero />
+  <div class="page">
+    <main id="contenido">
+      <FeatureSection />
+      <HowItWorks />
+      <CardDetails />
+      <Payments />
+      <SecuritySection />
+      <Invitation />
+      <HelpSection />
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import SectionBackdrop from "./SectionBackdrop.astro";
+
+const benefits = [
+  {
+    title: "Tu ejecutivo te acompaña",
+    text: "Una persona real te entrega la tarjeta en tus manos y te explica cómo activarla y usarla.",
+    paths: ["M13 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z", "M3.5 27c.8-5.3 4.1-8 9.5-8 2 0 3.7.4 5.1 1.2M21 21l3 3 5-6"],
+    accent: true,
+  },
+  {
+    title: "Parte de la comunidad Capta",
+    text: "Una tarjeta para Aliadas, sus clientes y quienes forman parte de Capta.",
+    paths: [
+      "M10 16.2 14 20l8-8M16 3.8l3.2 2 3.8.4 1.3 3.5 2.8 2.6-.9 3.7.9 3.7-2.8 2.6-1.3 3.5-3.8.4-3.2 2-3.2-2-3.8-.4-1.3-3.5-2.8-2.6.9-3.7-.9-3.7 2.8-2.6 1.3-3.5 3.8-.4 3.2-2Z",
+    ],
+  },
+  {
+    title: "La llevas en tu celular",
+    text: "Consulta tu disponible, tus movimientos y tus fechas desde la app.",
+    paths: ["M12 3.5h8a3 3 0 0 1 3 3v19a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3v-19a3 3 0 0 1 3-3Z", "M13 7h6M14 24.5h4"],
+  },
+  {
+    title: "Más claridad al pagar",
+    text: "Consulta en la app cuánto pagar para no generar intereses y tu pago mínimo.",
+    paths: ["M16 3 27 7v8c0 7-4.7 11.6-11 14-6.3-2.4-11-7-11-14V7l11-4Z", "m11 16 3.3 3.3 7-7"],
+  },
+];
+---
+
+<section class="section tone-light" id="beneficios" aria-labelledby="benefits-title">
+  <SectionBackdrop variant="benefits" />
+  <div class="section__inner">
+    <SectionHeading
+      id="benefits-title"
+      badge="Beneficios"
+      title="Una tarjeta pensada para"
+      accent="tu día a día."
+      lead="Crédito, acompañamiento y control, con la comunidad Capta cerca de ti. Sin complicaciones y con la información siempre a la mano."
+    />
+
+    <div class="benefits__grid">
+      {
+        benefits.map((item) => (
+          <article class:list={["card", "benefit", { "card--accent": item.accent }]}>
+            <div class="benefit__top">
+              <span class="chip">
+                <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+                  {item.paths.map((d) => (
+                    <path d={d} />
+                  ))}
+                </svg>
+              </span>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="section__note">La aprobación y la línea de crédito se confirman durante tu solicitud.</p>
+  </div>
+</section>

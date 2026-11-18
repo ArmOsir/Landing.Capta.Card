@@ -1,0 +1,73 @@
+---
+import SectionBackdrop from "./SectionBackdrop.astro";
+import { cycleExample, legal } from "../data/site";
+---
+
+<section class="section tone-light" id="tu-tarjeta" aria-labelledby="card-details-title">
+  <SectionBackdrop variant="breeze" />
+  <div class="section__inner cycle-layout">
+    <div class="cycle-copy">
+      <div class="section-heading section-heading--left">
+        <p class="badge">Fechas claras</p>
+        <h2 id="card-details-title">Sabes cuándo cortas y <span>cuánto pagar.</span></h2>
+      </div>
+      <p class="lead">
+        Tu tarjeta corta el día 6 de cada mes. Tu primer corte llega al menos 15 días después de activarla.
+      </p>
+      <p class="lead">Conocer tus fechas te ayuda a planear tus pagos y a evitar sorpresas en tu estado de cuenta.</p>
+
+      <div class="definitions">
+        <div class="definition">
+          <span class="definition__mark" aria-hidden="true"></span>
+          <div>
+            <strong>Pago para no generar intereses</strong>
+            <p>Liquida el saldo del periodo para no generar intereses.</p>
+          </div>
+        </div>
+        <div class="definition definition--soft">
+          <span class="definition__mark" aria-hidden="true"></span>
+          <div>
+            <strong>Pago mínimo</strong>
+            <p>Mantiene tu cuenta al corriente; el saldo restante genera intereses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cycle-panel" role="group" aria-labelledby="cycle-title">
+      <p class="cycle-panel__title" id="cycle-title">Ejemplo: activas tu tarjeta el {cycleExample.activation}</p>
+      <ol class="timeline">
+        {
+          cycleExample.steps.map((item) => (
+            <li>
+              <span class="timeline__dot" aria-hidden="true">{item.mark}</span>
+              <div>
+                <strong>{item.date}</strong>
+                <p>{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      {
+        (legal.interestRate || legal.cat) && (
+          <dl class="rates">
+            {legal.interestRate && (
+              <div>
+                <dt>Tasa de interés anual</dt>
+                <dd>{legal.interestRate}% fija*</dd>
+              </div>
+            )}
+            {legal.cat && (
+              <div>
+                <dt>CAT promedio sin IVA</dt>
+                <dd>{legal.cat}%</dd>
+              </div>
+            )}
+          </dl>
+        )
+      }
+      <p class="cycle-panel__note">Tus fechas exactas aparecen en la app y en tu estado de cuenta.</p>
+    </div>
+  </div>
+</section>

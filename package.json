@@ -1,0 +1,21 @@
+{
+  "name": "capta-card-landing",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "latest",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@types/three": "^0.170.0",
+    "typescript": "latest"
+  }
+}

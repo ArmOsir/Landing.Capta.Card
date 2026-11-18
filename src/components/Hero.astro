@@ -1,0 +1,1400 @@
+---
+import Brand from "./Brand.astro";
+import HeroBranch from "./HeroBranch.astro";
+import { legal } from "../data/site";
+---
+
+<div class="landing-shell" id="inicio">
+  <div class="landing-shell__glow landing-shell__glow--top" aria-hidden="true"></div>
+  <div class="landing-shell__glow landing-shell__glow--bottom" aria-hidden="true"></div>
+  <div class="landing-ambience" aria-hidden="true">
+    <span class="landing-ambience__leaf landing-ambience__leaf--left landing-ambience__leaf--drift">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf-solid" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--right landing-ambience__leaf--sway-slow">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--right-small landing-ambience__leaf--drift">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf-solid" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--bottom-left landing-ambience__leaf--drift">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf-solid" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--bottom-right landing-ambience__leaf--sway">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf" width="120" height="200" />
+      </svg>
+    </span>
+  </div>
+
+  <HeroBranch />
+
+  <header class="landing-header" data-header data-scrolled="false">
+    <Brand />
+    <nav class="landing-header__nav" id="landing-navigation" aria-label="Navegación principal">
+      <a href="#beneficios">Beneficios</a>
+      <a href="#tu-tarjeta">Tu tarjeta</a>
+      <a href="#ayuda">Ayuda</a>
+    </nav>
+    <div class="landing-header__actions">
+      <button
+        class="landing-theme-toggle"
+        type="button"
+        aria-label="Activar modo claro"
+        aria-pressed="false"
+        title="Activar modo claro"
+      >
+        <svg class="landing-theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+        </svg>
+        <svg class="landing-theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z" />
+        </svg>
+      </button>
+      <a class="landing-header__cta" href="#descarga"><span class="landing-header__cta-long">Descarga la app</span><span class="landing-header__cta-short">Descargar</span></a>
+      <button
+        class="landing-menu-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-controls="landing-navigation"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="landing-main">
+    <section class="landing-intro" aria-labelledby="landing-title">
+      <p class="landing-intro__badge">
+        Tarjeta de crédito Mastercard
+      </p>
+      <h1 id="landing-title">
+        El crédito<br class="landing-intro__mobile-break" /> que hace
+        <span>crecer tu futuro.</span>
+      </h1>
+      <p class="landing-intro__description">
+        Capta Card es la tarjeta de crédito de la comunidad Capta: tu ejecutivo te la entrega en persona
+        y tú la controlas desde tu celular.
+      </p>
+      <div class="landing-intro__actions">
+        <a class="btn btn--primary" href="#descarga">Ya tengo mi invitación</a>
+        <a class="btn btn--ghost" href="#como-funciona">Cómo funciona</a>
+      </div>
+    </section>
+
+    <section class="landing-showcase" aria-label="Vistas de la tarjeta Capta Card">
+      <div class="landing-showcase__stage" data-card-stage>
+        <div class="landing-showcase__ring landing-showcase__ring--outer" aria-hidden="true"></div>
+        <div class="landing-showcase__ring landing-showcase__ring--inner" aria-hidden="true"></div>
+        <div class="sparks" aria-hidden="true">
+          <span class="spark" style="--x:30%; --y:8%; --s:5px; --delay:-0.4s"></span>
+          <span class="spark" style="--x:66%; --y:2%; --s:4px; --delay:-2.1s"></span>
+          <span class="spark" style="--x:74%; --y:18%; --s:7px; --delay:-1.2s"></span>
+          <span class="spark" style="--x:27%; --y:86%; --s:6px; --delay:-3s"></span>
+          <span class="spark" style="--x:58%; --y:97%; --s:4px; --delay:-0.9s"></span>
+          <span class="spark" style="--x:71%; --y:88%; --s:5px; --delay:-2.6s"></span>
+          <span class="spark spark--far" style="--x:4%; --y:6%; --s:3px; --delay:-1.7s"></span>
+          <span class="spark spark--far" style="--x:97%; --y:96%; --s:4px; --delay:-3.4s"></span>
+        </div>
+
+        <article class="landing-info-card landing-info-card--cut">
+          <div class="landing-info-card__heading">
+            <span class="landing-info-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="3.5" /><path d="M3.5 20c.6-3.8 3-5.8 6.5-5.8 1.5 0 2.7.3 3.7.9M15 18l2 2 4-4.5" /></svg>
+            </span>
+            <span class="landing-info-card__label">Acompañamiento</span>
+          </div>
+          <h2>Entrega en persona</h2>
+          <p>Tu ejecutivo te la entrega y te ayuda a activarla.</p>
+        </article>
+
+        <div
+          class="landing-card-tilt"
+          data-card-tilt
+          role="button"
+          tabindex="0"
+          aria-pressed="false"
+          aria-controls="capta-card-3d"
+          aria-label="Tarjeta Capta Card, vista frontal"
+        >
+          <div class="landing-card-flipper" id="capta-card-3d" data-card-flipper>
+            <div class="landing-card-face landing-card-face--front">
+              <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" fetchpriority="high" draggable="false" />
+            </div>
+            <div class="landing-card-face landing-card-face--back">
+              <img src="/images/TC%20Capta%20Card%20trasera.svg" alt="" fetchpriority="high" draggable="false" />
+            </div>
+          </div>
+        </div>
+
+        <article class="landing-info-card landing-info-card--app">
+          <div class="landing-info-card__heading">
+            <span class="landing-info-card__icon landing-info-card__icon--leaf" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5" /><path d="M3.5 10h17M8 3v4M16 3v4M8.5 14.5l2 2 4-4" /></svg>
+            </span>
+            <span class="landing-info-card__label">Después del corte</span>
+          </div>
+          <h2>29 días para pagar</h2>
+          <p>Tiempo para organizar tu pago sin prisas.</p>
+        </article>
+      </div>
+
+      <p class="landing-showcase__hint" data-card-hint>Toca la tarjeta para ver el reverso.</p>
+
+      <div class="landing-highlights" aria-label="Características principales">
+        <div><strong>Mastercard</strong><span>Compras en comercios y en línea</span></div>
+        <div><strong>Desde la app</strong><span>Consulta y controla tu tarjeta</span></div>
+        <div><strong>Paga como prefieras</strong><span>OXXO, BBVA o transferencia SPEI</span></div>
+        <div><strong>Te acompañamos</strong><span>Tu ejecutivo te orienta</span></div>
+      </div>
+      <p class="landing-terms">
+        {legal.interestRate && <span>Tasa de interés anual fija de {legal.interestRate}%*</span>}
+        {legal.annualFee && <span>{legal.annualFee}</span>}
+        {
+          legal.cat && (
+            <span>
+              CAT promedio {legal.cat}% sin IVA. Para fines informativos y de comparación
+              {legal.catDate && `, calculado al ${legal.catDate}`}.
+            </span>
+          )
+        }
+        <span>Sujeto a aprobación de crédito. Consulta requisitos, comisiones y CAT en la app.</span>
+      </p>
+    </section>
+  </div>
+</div>
+
+<script>
+  const cardFlipper = document.querySelector<HTMLElement>("[data-card-flipper]");
+  const cardTilt = document.querySelector<HTMLElement>("[data-card-tilt]");
+  const cardStage = document.querySelector<HTMLElement>("[data-card-stage]");
+  const shell = document.querySelector<HTMLElement>(".landing-shell");
+  const themeToggle = document.querySelector<HTMLButtonElement>(".landing-theme-toggle");
+
+  if (cardFlipper && cardTilt && cardStage) {
+    type Card3D = import("../scripts/card3d").Card3D;
+    let card3d: Card3D | null = null;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hint = document.querySelector<HTMLElement>("[data-card-hint]");
+
+    const announce = (isBack: boolean) => {
+      cardTilt.setAttribute("aria-pressed", String(isBack));
+      cardTilt.setAttribute("aria-label", `Tarjeta Capta Card, vista ${isBack ? "reverso" : "frontal"}`);
+    };
+
+    const toggleCardView = () => {
+      const isBack = card3d ? card3d.flip() : cardFlipper.classList.toggle("is-flipped");
+      announce(isBack);
+    };
+
+    cardTilt.addEventListener("click", toggleCardView);
+    cardTilt.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggleCardView();
+    });
+
+    if (!reduceMotion) {
+      cardStage.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse") return;
+
+        const bounds = cardStage.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+        if (card3d) card3d.tilt(x, y);
+        else cardTilt.style.transform = `rotateX(${(-y * 10).toFixed(2)}deg) rotateY(${(x * 12).toFixed(2)}deg)`;
+      });
+
+      cardStage.addEventListener("pointerleave", () => {
+        if (card3d) card3d.tilt(0, 0);
+        else cardTilt.style.transform = "";
+      });
+
+      // La tarjeta 3D se carga después del resto de la página; mientras tanto
+      // (o si el navegador no tiene WebGL) se ve la versión plana.
+      const load3D = async () => {
+        try {
+          const { createCard3D } = await import("../scripts/card3d");
+          const wasBack = cardFlipper.classList.contains("is-flipped");
+          card3d = await createCard3D(cardTilt, {
+            front: "/images/TC%20Capta%20Card%20frente.svg",
+            back: "/images/TC%20Capta%20Card%20trasera.svg",
+            onSideChange: announce,
+          });
+          if (!card3d) return;
+          if (wasBack) card3d.flip();
+          cardTilt.style.transform = "";
+          cardTilt.classList.add("is-3d");
+          if (hint) hint.textContent = "Arrastra o toca la tarjeta para girarla.";
+        } catch {
+          card3d = null;
+        }
+      };
+
+      const schedule = () =>
+        "requestIdleCallback" in window ? requestIdleCallback(() => load3D(), { timeout: 2000 }) : setTimeout(load3D, 600);
+      if (document.readyState === "complete") schedule();
+      else window.addEventListener("load", schedule, { once: true });
+    }
+  }
+
+  if (shell && themeToggle) {
+    // El tema vive en <html> para que hero y secciones cambien juntos.
+    const root = document.documentElement;
+
+    const applyTheme = (isLight: boolean, persist: boolean) => {
+      const theme = isLight ? "light" : "dark";
+      root.dataset.theme = theme;
+      shell.dataset.theme = theme;
+      themeToggle.setAttribute("aria-pressed", String(isLight));
+      themeToggle.setAttribute("aria-label", isLight ? "Activar modo oscuro" : "Activar modo claro");
+      themeToggle.title = isLight ? "Activar modo oscuro" : "Activar modo claro";
+      if (!persist) return;
+      try {
+        localStorage.setItem("capta-theme", theme);
+      } catch {
+        /* sin almacenamiento disponible: el cambio sigue funcionando */
+      }
+    };
+
+    applyTheme(root.dataset.theme === "light", false);
+    themeToggle.addEventListener("click", () => {
+      applyTheme(root.dataset.theme !== "light", true);
+    });
+  }
+
+  const menuToggle = document.querySelector<HTMLButtonElement>(".landing-menu-toggle");
+  const navigation = document.querySelector<HTMLElement>("#landing-navigation");
+
+  if (menuToggle && navigation) {
+    const setMenu = (open: boolean) => {
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+      navigation.classList.toggle("is-open", open);
+    };
+
+    menuToggle.addEventListener("click", () => {
+      setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+    });
+    // Al elegir una sección o pulsar Escape, el menú se cierra
+    navigation.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) setMenu(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && navigation.classList.contains("is-open")) {
+        setMenu(false);
+        menuToggle.focus();
+      }
+    });
+  }
+
+  // El encabezado es fijo; al bajar gana un fondo sólido para leerse sobre cualquier sección
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  if (header) {
+    const syncHeader = () => {
+      header.dataset.scrolled = String(window.scrollY > 8);
+    };
+    syncHeader();
+    window.addEventListener("scroll", syncHeader, { passive: true });
+  }
+</script>
+
+<style>
+  .landing-shell {
+    position: relative;
+    /* Por encima de las secciones para que el encabezado fijo nunca quede debajo */
+    z-index: 10;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100svh;
+    margin: 0;
+    padding: 72px clamp(20px, 4vw, 56px) 0;
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    background-color: #051c13;
+    background-image: radial-gradient(ellipse 70% 55% at 50% 62%, rgb(22 84 52 / 55%), transparent 75%);
+  }
+
+  .landing-shell[data-theme="light"] {
+    color: #123523;
+    background-color: #eaf5e9;
+    background-image: radial-gradient(ellipse 70% 55% at 50% 62%, rgb(255 255 255 / 70%), transparent 75%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-shell__glow--top {
+    background: rgb(117 211 135 / 45%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-shell__glow--bottom {
+    background: rgb(163 230 53 / 20%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-header :global(.brand),
+  .landing-shell[data-theme="light"] .landing-header__nav a,
+  .landing-shell[data-theme="light"] .landing-intro h1,
+  .landing-shell[data-theme="light"] .landing-info-card h2 {
+    color: #123523;
+  }
+
+  .landing-shell[data-theme="light"] .landing-header__nav a:hover {
+    color: #218b43;
+  }
+
+  .landing-shell[data-theme="light"] .landing-header :global(.brand__card) {
+    color: #218b43;
+  }
+
+  .landing-shell[data-theme="light"] .landing-header :global(.brand__mark) {
+    border-color: rgb(33 139 67 / 24%);
+    color: #218b43;
+    background: rgb(255 255 255 / 54%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-intro__badge {
+    border-color: #b7d9bb;
+    color: #244b32;
+    background: rgb(255 255 255 / 72%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-intro h1 span {
+    background-image: linear-gradient(90deg, #218b43, #72af32 55%, #218b43);
+  }
+
+  .landing-shell[data-theme="light"] .landing-intro__description,
+  .landing-shell[data-theme="light"] .landing-showcase__hint {
+    color: #4c6855;
+  }
+
+  .landing-shell[data-theme="light"] .landing-showcase__ring {
+    border-color: rgb(33 139 67 / 24%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-showcase__ring--inner {
+    border-color: rgb(33 139 67 / 20%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-info-card {
+    border-color: #b6d9bb;
+    color: #123523;
+    background: rgb(255 255 255 / 78%);
+    box-shadow: 0 20px 40px rgb(22 74 40 / 12%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-info-card__label,
+  .landing-shell[data-theme="light"] .landing-info-card__icon {
+    color: #218b43;
+  }
+
+  .landing-shell[data-theme="light"] .landing-info-card__icon {
+    border-color: #c4e6cc;
+    background: #e2f5e6;
+  }
+
+  .landing-shell[data-theme="light"] .landing-info-card__icon--leaf {
+    border-color: #d3e6a8;
+    color: #327b32;
+    background: #eff8d9;
+  }
+
+  .landing-shell[data-theme="light"] .landing-info-card p,
+  .landing-shell[data-theme="light"] .landing-highlights span {
+    color: #5b7361;
+  }
+
+  .landing-shell[data-theme="light"] .landing-highlights {
+    border-color: rgb(29 111 63 / 20%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-highlights > div {
+    border-color: #c6dfc9;
+    background: rgb(255 255 255 / 52%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-highlights strong {
+    color: #218b43;
+  }
+
+  .landing-shell__glow {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(85px);
+  }
+
+  .landing-shell__glow--top {
+    top: -225px;
+    left: 50%;
+    width: 650px;
+    height: 340px;
+    background: rgb(21 71 52 / 54%);
+    transform: translateX(-50%);
+  }
+
+  .landing-shell__glow--bottom {
+    bottom: 10%;
+    left: 18%;
+    width: 420px;
+    height: 260px;
+    background: rgb(34 197 94 / 11%);
+  }
+
+  .landing-ambience {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .landing-ambience__leaf {
+    position: absolute;
+    display: block;
+    width: var(--leaf-size);
+    aspect-ratio: 120 / 200;
+    translate: -50% -50%;
+    rotate: var(--leaf-rotation);
+    transform-origin: 50% 100%;
+  }
+
+  .landing-ambience__leaf svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .landing-ambience__leaf--left {
+    top: 33%;
+    left: 14%;
+    --leaf-size: 34px;
+    --leaf-rotation: -36deg;
+  }
+
+  .landing-ambience__leaf--right {
+    top: 27%;
+    left: 101%;
+    --leaf-size: 260px;
+    --leaf-rotation: 32deg;
+  }
+
+  .landing-ambience__leaf--right-small {
+    top: 44%;
+    left: 83%;
+    --leaf-size: 27px;
+    --leaf-rotation: 43deg;
+  }
+
+  .landing-ambience__leaf--bottom-left {
+    top: 88%;
+    left: 12%;
+    --leaf-size: 38px;
+    --leaf-rotation: 29deg;
+  }
+
+  .landing-ambience__leaf--bottom-right {
+    top: 91%;
+    left: 91%;
+    --leaf-size: 48px;
+    --leaf-rotation: -52deg;
+  }
+
+  .landing-ambience__leaf--sway {
+    animation: hero-leaf-sway 12s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .landing-ambience__leaf--sway-slow {
+    animation: hero-leaf-sway 18s ease-in-out -6s infinite alternate;
+    will-change: transform;
+  }
+
+  .landing-ambience__leaf--drift {
+    animation: hero-leaf-drift 16s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .landing-header {
+    --header-pad: clamp(20px, 4vw, 56px);
+    position: fixed;
+    z-index: 40;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: grid;
+    min-height: 72px;
+    padding: 12px max(var(--header-pad), calc((100% - 850px) / 2));
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 28px;
+    border-bottom: 1px solid transparent;
+    transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+
+  .landing-header[data-scrolled="true"] {
+    border-bottom-color: rgb(74 222 128 / 16%);
+    background-color: rgb(5 28 19 / 92%);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 22%);
+    backdrop-filter: blur(14px);
+  }
+
+  .landing-shell[data-theme="light"] .landing-header[data-scrolled="true"] {
+    border-bottom-color: #c6dfc9;
+    background-color: rgb(234 245 233 / 94%);
+    box-shadow: 0 10px 30px rgb(22 74 40 / 10%);
+  }
+
+  .landing-header :global(.brand) {
+    align-items: center;
+    gap: 11px;
+    color: #fff;
+  }
+
+  .landing-header :global(.brand__mark) {
+    width: 36px;
+    height: 36px;
+    padding: 9px;
+    border: 1px solid rgb(74 222 128 / 34%);
+    border-radius: 12px;
+    color: #4ade80;
+    background: rgb(21 71 52 / 78%);
+  }
+
+  .landing-header :global(.brand__mark path:first-child) {
+    fill: currentColor;
+  }
+
+  .landing-header :global(.brand__mark path:last-child) {
+    display: none;
+  }
+
+  .landing-header :global(.brand__name) {
+    font-size: 20px;
+  }
+
+  .landing-header :global(.brand__card) {
+    color: #4ade80;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .landing-header__nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 3vw, 38px);
+  }
+
+  .landing-header__nav a {
+    color: #cbd5d1;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .landing-header__nav a:hover {
+    color: #a3e635;
+  }
+
+  .landing-header__actions {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 8px;
+  }
+
+  .landing-theme-toggle {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    place-items: center;
+    border: 1px solid rgb(74 222 128 / 25%);
+    border-radius: 12px;
+    color: #a3e635;
+    background: rgb(11 49 34 / 72%);
+    cursor: pointer;
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  }
+
+  .landing-theme-toggle:hover {
+    border-color: rgb(163 230 53 / 55%);
+    background: #154734;
+  }
+
+  .landing-theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .landing-theme-toggle__moon {
+    display: none;
+  }
+
+  .landing-shell[data-theme="light"] .landing-theme-toggle {
+    border-color: #bdd9bf;
+    color: #397c35;
+    background: #f7fff5;
+  }
+
+  .landing-shell[data-theme="light"] .landing-theme-toggle:hover {
+    background: #fff;
+  }
+
+  .landing-shell[data-theme="light"] .landing-theme-toggle__sun {
+    display: none;
+  }
+
+  .landing-shell[data-theme="light"] .landing-theme-toggle__moon {
+    display: block;
+  }
+
+  .landing-header__cta {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    padding: 0 22px;
+    border-radius: 999px;
+    color: #051c13;
+    background: #4ade80;
+    box-shadow: 0 8px 24px rgb(74 222 128 / 14%);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 160ms ease, transform 160ms ease;
+  }
+
+  .landing-header__cta:hover {
+    transform: translateY(-2px);
+    background: #a3e635;
+  }
+
+  .landing-menu-toggle {
+    display: none;
+  }
+
+  .landing-header__cta-short {
+    display: none;
+  }
+
+  .landing-intro {
+    position: relative;
+    z-index: 1;
+    width: min(860px, 100%);
+    margin-inline: auto;
+    padding: 13px 0 0;
+    text-align: center;
+  }
+
+  .landing-intro__badge {
+    display: inline-flex;
+    min-height: 34px;
+    margin: 0;
+    padding: 0 18px;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgb(74 222 128 / 25%);
+    border-radius: 999px;
+    color: #e2e8e5;
+    background: rgb(11 49 34 / 82%);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .landing-intro__mobile-break {
+    display: none;
+  }
+
+  .landing-intro h1 {
+    margin: 20px 0 0;
+    color: #f7faf8;
+    font-size: clamp(48px, 7vw, 76px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+  }
+
+  .landing-intro h1 span {
+    display: block;
+    color: #a3e635;
+    background: linear-gradient(90deg, #4ade80, #a3e635 55%, #22c55e);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .landing-intro__description {
+    max-width: 600px;
+    margin: 18px auto 0;
+    color: #d3ddd8;
+    font-size: 19px;
+    line-height: 1.55;
+  }
+
+  .landing-intro__actions {
+    display: flex;
+    margin-top: 28px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .landing-showcase {
+    position: relative;
+    z-index: 1;
+    width: min(980px, 100%);
+    margin: 0 auto;
+    padding: 36px 0 28px;
+  }
+
+  .landing-showcase__stage {
+    position: relative;
+    display: grid;
+    min-height: 270px;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 395px) minmax(0, 1fr);
+    align-items: center;
+    justify-items: center;
+    gap: clamp(16px, 2.5vw, 28px);
+    perspective: 1200px;
+  }
+
+  .landing-showcase__ring {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: min(490px, 52vw);
+    aspect-ratio: 1;
+    border: 1px solid rgb(74 222 128 / 16%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .landing-showcase__ring--inner {
+    width: min(390px, 42vw);
+    border-style: dashed;
+    border-color: rgb(34 197 94 / 17%);
+  }
+
+  .landing-info-card {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 260px);
+    padding: 20px 18px;
+    border: 1px solid rgb(74 222 128 / 18%);
+    color: #fff;
+    background: rgb(11 49 34 / 88%);
+    box-shadow: 0 20px 40px rgb(0 0 0 / 20%);
+    backdrop-filter: blur(12px);
+  }
+
+  .landing-info-card--cut {
+    border-radius: 4px 25px 4px 25px;
+    animation: landing-float 5.5s ease-in-out infinite;
+    transform: translateY(-21px);
+  }
+
+  .landing-info-card--app {
+    border-radius: 25px 4px 25px 4px;
+    animation: landing-float 6.5s 1s ease-in-out infinite;
+    transform: translateY(31px);
+  }
+
+  .landing-info-card__heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .landing-info-card__icon {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    flex: none;
+    place-items: center;
+    border: 1px solid rgb(74 222 128 / 30%);
+    border-radius: 9px;
+    color: #a3e635;
+    background: rgb(34 197 94 / 16%);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .landing-info-card__icon svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .landing-info-card__icon--leaf {
+    border-color: rgb(163 230 53 / 28%);
+    color: #4ade80;
+    background: rgb(163 230 53 / 13%);
+  }
+
+  .landing-info-card__label {
+    color: #a3e635;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .landing-info-card h2 {
+    margin: 12px 0 0;
+    color: #f6faf7;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .landing-info-card p {
+    margin: 6px 0 0;
+    color: #c2cec8;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .landing-card-tilt {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 395px);
+    aspect-ratio: 482 / 300;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 180ms ease-out;
+    cursor: pointer;
+    will-change: transform;
+  }
+
+  /* Versión 3D: el lienzo WebGL sustituye a las caras planas */
+  .landing-card-tilt.is-3d {
+    transform: none !important;
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-y;
+  }
+
+  .landing-card-tilt.is-3d:active {
+    cursor: grabbing;
+  }
+
+  .landing-card-tilt.is-3d .landing-card-flipper {
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .landing-card-tilt :global(.card3d-canvas) {
+    position: absolute;
+    z-index: 1;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    pointer-events: none;
+    animation: card3d-in 500ms ease both;
+  }
+
+  @keyframes card3d-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .landing-card-tilt::before {
+    position: absolute;
+    z-index: -1;
+    inset: -18%;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgb(74 222 128 / 34%), transparent 57%),
+      radial-gradient(ellipse at 50% 55%, rgb(34 197 94 / 28%), transparent 72%);
+    content: "";
+    filter: blur(24px);
+    opacity: 0.75;
+    transform: translateZ(-1px);
+    animation: card-halo 5s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .landing-card-tilt:focus-visible {
+    outline: 3px solid #a3e635;
+    outline-offset: 7px;
+  }
+
+  .landing-card-flipper {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .landing-card-flipper.is-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .landing-card-face {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border: 1px solid rgb(74 222 128 / 33%);
+    border-radius: 16px;
+    background: #103b28;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .landing-card-face--back {
+    transform: rotateY(180deg);
+  }
+
+  .landing-card-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .landing-showcase__hint {
+    margin: 46px 0 0;
+    color: #a7b6ad;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .landing-highlights {
+    display: grid;
+    margin-top: 3px;
+    padding-top: 13px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    border-top: 1px solid rgb(74 222 128 / 20%);
+  }
+
+  .landing-highlights > div {
+    min-height: 56px;
+    padding: 14px 12px;
+    border: 1px solid rgb(74 222 128 / 12%);
+    border-radius: 15px;
+    background: rgb(11 49 34 / 62%);
+    text-align: center;
+  }
+
+  .landing-highlights strong,
+  .landing-highlights span {
+    display: block;
+  }
+
+  .landing-highlights strong {
+    color: #4ade80;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .landing-highlights span {
+    margin-top: 5px;
+    color: #c2cec8;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .landing-terms {
+    display: flex;
+    margin: 18px 0 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 18px;
+    color: #c2cec8;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .landing-terms span:first-child {
+    color: #4ade80;
+    font-weight: 700;
+  }
+
+  .landing-shell[data-theme="light"] .landing-terms {
+    color: #3d5b47;
+  }
+
+  .landing-shell[data-theme="light"] .landing-terms span:first-child {
+    color: #1d7f3e;
+  }
+
+  @keyframes landing-float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+
+    50% {
+      translate: 0 -7px;
+    }
+  }
+
+  @keyframes hero-leaf-sway {
+    from {
+      transform: rotate(-4.5deg);
+    }
+
+    to {
+      transform: rotate(4.5deg);
+    }
+  }
+
+  @keyframes hero-leaf-drift {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(-8deg);
+    }
+
+    50% {
+      transform: translate3d(12px, -14px, 0) rotate(6deg);
+    }
+
+    100% {
+      transform: translate3d(24px, -4px, 0) rotate(14deg);
+    }
+  }
+
+    @keyframes card-halo {
+    from {
+      opacity: 0.48;
+      scale: 0.9;
+    }
+
+    to {
+      opacity: 0.9;
+      scale: 1.06;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .landing-shell {
+      padding-inline: 24px;
+    }
+
+    .landing-header {
+      --header-pad: 24px;
+      grid-template-columns: 1fr auto;
+    }
+
+    .landing-intro__description {
+      margin-top: 12px;
+    }
+
+    .landing-intro__actions {
+      margin-top: 16px;
+    }
+
+    .landing-showcase {
+      padding-top: 15px;
+    }
+
+    .landing-header__nav {
+      position: absolute;
+      top: calc(100% - 3px);
+      right: 12px;
+      left: 12px;
+      display: none;
+      padding: 18px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      border: 1px solid rgb(74 222 128 / 20%);
+      border-radius: 16px;
+      background: #0b3122;
+      box-shadow: 0 18px 35px rgb(0 0 0 / 30%);
+    }
+
+    .landing-header__nav.is-open {
+      display: flex;
+    }
+
+    .landing-header__nav a {
+      padding: 14px 10px;
+      font-size: 17px;
+    }
+
+    .landing-menu-toggle {
+      display: flex;
+      width: 44px;
+      height: 44px;
+      padding: 13px 11px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid rgb(74 222 128 / 20%);
+      border-radius: 12px;
+      background: #0b3122;
+      cursor: pointer;
+    }
+
+    .landing-menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: #f7faf8;
+    }
+
+    .landing-menu-toggle span:last-child {
+      width: 70%;
+      align-self: end;
+      background: #4ade80;
+    }
+
+    .landing-showcase__stage {
+      min-height: 250px;
+      grid-template-columns: minmax(145px, 1fr) minmax(250px, 1.3fr) minmax(145px, 1fr);
+      gap: 12px;
+    }
+
+    .landing-highlights {
+      margin-top: 20px;
+      padding-top: 15px;
+    }
+
+    .landing-showcase__hint {
+      margin-top: 16px;
+    }
+
+    .landing-highlights > div {
+      min-height: 70px;
+    }
+
+    .landing-info-card {
+      padding: 14px;
+    }
+
+    .landing-info-card--cut,
+    .landing-info-card--app {
+      transform: none;
+    }
+
+    .landing-info-card h2 {
+      font-size: 18px;
+    }
+
+    .landing-info-card p {
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .landing-shell {
+      padding: 64px 18px 24px;
+    }
+
+    .landing-ambience__leaf--right {
+      top: 39%;
+      --leaf-size: 190px;
+    }
+
+    .landing-ambience__leaf--left {
+      top: 31%;
+      left: 8%;
+      --leaf-size: 25px;
+    }
+
+    .landing-ambience__leaf--right-small {
+      top: 46%;
+      left: 91%;
+      --leaf-size: 22px;
+    }
+
+    .landing-ambience__leaf--bottom-left {
+      top: 88%;
+      left: 7%;
+      --leaf-size: 30px;
+    }
+
+    .landing-ambience__leaf--bottom-right {
+      left: 94%;
+      --leaf-size: 34px;
+    }
+
+    .landing-header {
+      --header-pad: 18px;
+      min-height: 64px;
+      padding-block: 10px;
+      gap: 8px;
+    }
+
+    .landing-header :global(.brand__name) {
+      font-size: 19px;
+    }
+
+    .landing-header :global(.brand__card) {
+      font-size: 11px;
+    }
+
+    .landing-header__actions {
+      gap: 8px;
+    }
+
+    .landing-header__cta {
+      padding-inline: 16px;
+    }
+
+    .landing-header__cta-long {
+      display: none;
+    }
+
+    .landing-header__cta-short {
+      display: inline;
+    }
+
+    .landing-intro {
+      padding-top: 24px;
+    }
+
+    .landing-intro__badge {
+      min-height: 32px;
+      padding-inline: 14px;
+      font-size: 13px;
+    }
+
+    .landing-intro h1 {
+      margin-top: 16px;
+      font-size: clamp(36px, 11vw, 48px);
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+
+    .landing-intro__description {
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .landing-intro__actions {
+      margin-top: 24px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .landing-showcase {
+      padding-top: 28px;
+      padding-bottom: 8px;
+    }
+
+    .landing-showcase__stage {
+      min-height: 0;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: 14px;
+    }
+
+    .landing-showcase__ring {
+      top: 22%;
+      width: min(88vw, 370px);
+    }
+
+    .landing-showcase__ring--inner {
+      width: min(70vw, 295px);
+    }
+
+    .landing-card-tilt {
+      width: 100%;
+      grid-row: 1;
+      justify-self: center;
+      margin-bottom: 10px;
+    }
+
+    .landing-info-card {
+      width: 100%;
+      padding: 16px 18px;
+    }
+
+    .landing-info-card--cut,
+    .landing-info-card--app {
+      transform: none;
+      animation: none;
+      border-radius: 18px;
+    }
+
+    .landing-info-card h2 {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .landing-info-card p {
+      font-size: 15px;
+    }
+
+    .landing-showcase__hint {
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .landing-highlights {
+      margin-top: 18px;
+      padding-top: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .landing-highlights > div {
+      min-height: 0;
+      padding: 14px 10px;
+      border-radius: 14px;
+    }
+
+    .landing-highlights strong {
+      font-size: 15px;
+    }
+
+    .landing-highlights span {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .landing-intro__mobile-break {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .landing-header,
+    .landing-header__nav a,
+    .landing-header__cta,
+    .landing-theme-toggle,
+    .landing-card-tilt,
+    .landing-card-flipper {
+      transition: none;
+    }
+
+    .landing-info-card--cut,
+    .landing-info-card--app,
+    .landing-ambience__leaf,
+    .landing-card-tilt::before {
+      animation: none;
+    }
+  }
+</style>

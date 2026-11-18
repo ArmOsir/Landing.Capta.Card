@@ -1,0 +1,275 @@
+---
+/**
+ * Fondo decorativo de cada sección: un degradado propio y unas pocas hojas.
+ * Cada variante compone el fondo de forma distinta. Las hojas son estáticas o
+ * se mecen ("sway") / van a la deriva ("drift") muy despacio; con
+ * prefers-reduced-motion todas quedan quietas.
+ */
+type Motion = "static" | "sway" | "drift";
+
+interface LeafSpec {
+  x: number; // % del ancho (centro de la hoja)
+  y: number; // % del alto (centro de la hoja)
+  size: number; // px de ancho
+  rot: number; // grados
+  motion?: Motion;
+  dur?: number; // s
+  delay?: number; // s
+  solid?: boolean;
+  glow?: boolean; // hoja grande y difuminada, sin trazo
+  hideSm?: boolean; // se oculta en pantallas pequeñas
+}
+
+interface Props {
+  variant: "benefits" | "journey" | "breeze" | "gust" | "calm" | "corners" | "help";
+}
+
+const { variant } = Astro.props;
+
+// Cada sección combina hojas grandes de contorno (textura que se mece despacio)
+// con dos o tres hojas sólidas pequeñas que dan color y variedad.
+const leaves: Record<Props["variant"], LeafSpec[]> = {
+  benefits: [
+    { x: 92, y: 22, size: 470, rot: 26, motion: "sway", dur: 18 },
+    { x: 3, y: 76, size: 250, rot: -24, motion: "sway", dur: 12, delay: -4 },
+    { x: 15, y: 11, size: 44, rot: -32, motion: "drift", dur: 13, solid: true },
+    { x: 93, y: 78, size: 30, rot: 42, motion: "drift", dur: 16, delay: -5, solid: true, hideSm: true },
+  ],
+  journey: [
+    { x: -2, y: 82, size: 300, rot: -38, motion: "sway", dur: 16 },
+    { x: 8, y: 9, size: 34, rot: 28, motion: "drift", dur: 15, solid: true },
+    { x: 58, y: 94, size: 26, rot: -48, motion: "drift", dur: 18, delay: -6, solid: true, hideSm: true },
+  ],
+  breeze: [
+    { x: 8, y: 92, size: 520, rot: 18, glow: true },
+    { x: 86, y: 22, size: 260, rot: 62, motion: "sway", dur: 16 },
+    { x: 60, y: 70, size: 40, rot: 44, motion: "drift", dur: 17, delay: -6, solid: true },
+    { x: 46, y: 92, size: 52, rot: 20, motion: "drift", dur: 19 },
+    { x: 96, y: 60, size: 30, rot: 78, motion: "drift", dur: 16, delay: -9, solid: true, hideSm: true },
+  ],
+  gust: [
+    { x: 95, y: 88, size: 400, rot: -18, motion: "sway", dur: 17 },
+    { x: 7, y: 7, size: 34, rot: 70, motion: "drift", dur: 14, solid: true },
+    { x: 21, y: 4, size: 48, rot: 48, motion: "drift", dur: 18, delay: -4 },
+    { x: 85, y: 9, size: 30, rot: 84, motion: "drift", dur: 17, delay: -10, solid: true, hideSm: true },
+  ],
+  calm: [
+    { x: 50, y: 52, size: 560, rot: 8, motion: "sway", dur: 18 },
+    { x: 7, y: 20, size: 40, rot: -20, motion: "drift", dur: 14, solid: true },
+    { x: 94, y: 84, size: 34, rot: 36, motion: "drift", dur: 18, delay: -7, solid: true, hideSm: true },
+  ],
+  corners: [
+    { x: 2, y: 88, size: 360, rot: -30, motion: "sway", dur: 14 },
+    { x: 98, y: 8, size: 300, rot: 36, motion: "sway", dur: 16, delay: -4 },
+    { x: 50, y: 98, size: 36, rot: 10, motion: "drift", dur: 15, solid: true },
+  ],
+  help: [
+    { x: 94, y: 14, size: 310, rot: 20, motion: "sway", dur: 14 },
+    { x: 5, y: 90, size: 200, rot: -28, motion: "sway", dur: 10, delay: -3 },
+    { x: 42, y: 12, size: 30, rot: 48, motion: "drift", dur: 16, solid: true },
+    { x: 70, y: 94, size: 26, rot: -36, motion: "drift", dur: 19, delay: -5, solid: true, hideSm: true },
+  ],
+};
+
+// Ramita para "Cómo funciona": tallo curvo con hojas que se mecen una a una
+const vine = [
+  { x: 52, y: 392, r: -58, s: 0.3, d: 7, delay: 0 },
+  { x: 100, y: 330, r: 52, s: 0.26, d: 8, delay: -2 },
+  { x: 152, y: 286, r: -50, s: 0.34, d: 9, delay: -4 },
+  { x: 214, y: 232, r: 56, s: 0.28, d: 7.5, delay: -1 },
+  { x: 268, y: 168, r: -46, s: 0.32, d: 8.5, delay: -5 },
+  { x: 330, y: 104, r: 50, s: 0.26, d: 7, delay: -3 },
+];
+---
+
+<div class:list={["backdrop", `backdrop--${variant}`]} aria-hidden="true">
+  {
+    variant === "journey" && (
+      <svg class="vine" viewBox="0 0 400 440" focusable="false">
+        <path
+          class="vine__stem"
+          d="M10 440C40 360 130 346 176 262S300 150 372 40"
+          fill="none"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          vector-effect="non-scaling-stroke"
+        />
+        {vine.map((leaf) => (
+          <g transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r}) scale(${leaf.s})`}>
+            <g class="vine__leaf" style={`--d:${leaf.d}s; --delay:${leaf.delay}s`}>
+              <use href="#capta-leaf" x="-60" y="-200" width="120" height="200" />
+            </g>
+          </g>
+        ))}
+      </svg>
+    )
+  }
+
+  {
+    leaves[variant].map((leaf) => (
+      <span
+        class:list={[
+          "leaf",
+          `leaf--${leaf.motion ?? "static"}`,
+          { "leaf--glow": leaf.glow, "leaf--hide-sm": leaf.hideSm, "leaf--large": leaf.size >= 200 && !leaf.glow },
+        ]}
+        style={`--x:${leaf.x}%; --y:${leaf.y}%; --size:${leaf.size}px; --rot:${leaf.rot}deg; --d:${leaf.dur ?? 12}s; --delay:${leaf.delay ?? 0}s`}
+      >
+        <svg viewBox="0 0 120 200" focusable="false">
+          <use href={leaf.solid ? "#capta-leaf-solid" : "#capta-leaf"} width="120" height="200" />
+        </svg>
+      </span>
+    ))
+  }
+</div>
+
+<style>
+  .backdrop {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* ── Fondos propios de cada sección ────────────────────────── */
+  .backdrop--benefits {
+    background:
+      radial-gradient(ellipse 62% 46% at 50% 0%, var(--glow-deep), transparent 72%),
+      radial-gradient(ellipse 40% 36% at 92% 92%, var(--glow-lime), transparent 70%);
+  }
+
+  .backdrop--journey {
+    background:
+      linear-gradient(180deg, transparent 0%, var(--glow-deep) 46%, transparent 100%),
+      radial-gradient(ellipse 44% 40% at 100% 100%, var(--glow-green), transparent 72%);
+  }
+
+  .backdrop--breeze {
+    background:
+      radial-gradient(ellipse 58% 52% at 0% 100%, var(--glow-green), transparent 70%),
+      radial-gradient(ellipse 50% 44% at 100% 0%, var(--glow-deep), transparent 72%);
+  }
+
+  .backdrop--gust {
+    background: linear-gradient(112deg, transparent 8%, var(--glow-green) 48%, transparent 88%);
+  }
+
+  .backdrop--calm {
+    background: radial-gradient(ellipse 56% 62% at 50% 50%, var(--glow-green), transparent 74%);
+  }
+
+  .backdrop--corners {
+    background:
+      radial-gradient(ellipse 42% 50% at 0% 100%, var(--glow-deep), transparent 72%),
+      radial-gradient(ellipse 42% 50% at 100% 0%, var(--glow-lime), transparent 72%);
+  }
+
+  .backdrop--help {
+    background: radial-gradient(ellipse 54% 50% at 90% 10%, var(--glow-deep), transparent 72%);
+  }
+
+  /* ── Hojas ─────────────────────────────────────────────────── */
+  .leaf {
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    width: min(var(--size), 78vw);
+    aspect-ratio: 120 / 200;
+    translate: -50% -50%;
+    rotate: var(--rot);
+    transform-origin: 50% 100%;
+  }
+
+  .leaf svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .leaf--large {
+    opacity: 0.8;
+  }
+
+  .leaf--glow {
+    --leaf-fill: var(--glow-leaf);
+    filter: blur(34px);
+  }
+
+  .leaf--glow svg use {
+    --leaf-stroke: transparent;
+  }
+
+  /* Mecer: oscila sobre la base de la hoja, como con viento suave */
+  .leaf--sway {
+    animation: leaf-sway var(--d) ease-in-out var(--delay) infinite alternate;
+    will-change: transform;
+  }
+
+  /* Deriva: sube y se ladea despacio, como arrastrada por una brisa */
+  .leaf--drift {
+    animation: leaf-drift var(--d) ease-in-out var(--delay) infinite alternate;
+    will-change: transform;
+  }
+
+  @keyframes leaf-sway {
+    from {
+      transform: rotate(-4.5deg);
+    }
+    to {
+      transform: rotate(4.5deg);
+    }
+  }
+
+  @keyframes leaf-drift {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(-8deg);
+    }
+    50% {
+      transform: translate3d(22px, -26px, 0) rotate(6deg);
+    }
+    100% {
+      transform: translate3d(48px, -8px, 0) rotate(14deg);
+    }
+  }
+
+  /* ── Rama de "Cómo funciona" ───────────────────────────────── */
+  .vine {
+    position: absolute;
+    right: -2%;
+    bottom: -3%;
+    width: min(440px, 52vw);
+    height: auto;
+    opacity: 0.95;
+  }
+
+  .vine__stem {
+    stroke: var(--leaf-stroke);
+    stroke-dasharray: 2 6;
+  }
+
+  .vine__leaf {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: leaf-sway var(--d) ease-in-out var(--delay) infinite alternate;
+  }
+
+  @media (max-width: 620px) {
+    .leaf--hide-sm {
+      display: none;
+    }
+
+    .vine {
+      width: 70vw;
+      opacity: 0.7;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .leaf,
+    .vine__leaf {
+      animation: none !important;
+    }
+  }
+</style>

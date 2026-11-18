@@ -1,0 +1,51 @@
+---
+import SectionBackdrop from "./SectionBackdrop.astro";
+
+const never = ["Tu NIP", "Tu CVV", "Tus contraseñas", "Códigos de verificación"];
+---
+
+<section class="section tone-light" aria-labelledby="security-title">
+  <SectionBackdrop variant="calm" />
+  <div class="section__inner">
+    <div class="safety">
+      <div>
+        <div class="safety__head">
+          <span class="chip">
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+              <rect x="5" y="13" width="22" height="16" rx="3" />
+              <path d="M10 13V9a6 6 0 0 1 12 0v4M16 19v4" />
+            </svg>
+          </span>
+          <div>
+            <p class="safety__label">Tu seguridad va primero</p>
+            <h2 id="security-title">Tus claves son <span>solo tuyas.</span></h2>
+          </div>
+        </div>
+        <div class="safety__copy">
+          <p>
+            Nunca compartas tu NIP, CVV, contraseñas ni códigos de verificación. Capta Card y tu ejecutivo no te los
+            pedirán por correo, mensaje o llamada.
+          </p>
+        </div>
+      </div>
+
+      <div class="safety__side">
+        <h3>Nunca compartas</h3>
+        <ul class="never">
+          {
+            never.map((item) => (
+              <li>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+        <p class="safety__alert">
+          <strong>¿Algo no cuadra?</strong> Si pierdes tu tarjeta o ves un cargo que no reconoces, bloquéala desde la
+          app y repórtalo.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

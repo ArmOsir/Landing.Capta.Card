@@ -1,0 +1,72 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import SectionBackdrop from "./SectionBackdrop.astro";
+
+const methods = [
+  {
+    kind: "Transferencia",
+    name: "SPEI",
+    text: "Transfiere desde cualquier banco a tu CLABE Capta Card.",
+    need: "Tu CLABE Capta Card",
+    paths: ["M5 11h18m0 0-4-4m4 4-4 4M27 21H9m0 0 4-4m-4 4 4 4"],
+  },
+  {
+    kind: "En sucursal",
+    name: "BBVA",
+    text: "Paga en ventanilla o practicaja con tu referencia.",
+    need: "Tu referencia de pago",
+    paths: ["M4 12 16 5l12 7M7 13v10m6-10v10m6-10v10m6-10v10M4 27h24"],
+  },
+  {
+    kind: "En efectivo",
+    name: "OXXO",
+    text: "Paga en tienda con la referencia que encuentras en la app.",
+    need: "La referencia de la app",
+    paths: ["M5 11h22l-1.5 5.5a3 3 0 0 1-5.5 0 3 3 0 0 1-8 0 3 3 0 0 1-5.5 0L5 11ZM7 18v9h18v-9M13 27v-5h6v5"],
+  },
+];
+---
+
+<section class="section section--band tone-light" id="pagos" aria-labelledby="payments-title">
+  <SectionBackdrop variant="gust" />
+  <div class="section__inner">
+    <SectionHeading
+      id="payments-title"
+      title="Tres formas de"
+      accent="hacer tu pago."
+      lead="Encuentra tus datos de pago y referencia directamente en la app. Elige la opción que te quede mejor."
+      align="left"
+    />
+
+    <div class="pay__grid">
+      {
+        methods.map((method) => (
+          <article class="card pay">
+            <div class="pay__top">
+              <span class="pay__kind">{method.kind}</span>
+              <span class="chip">
+                <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+                  {method.paths.map((d) => (
+                    <path d={d} />
+                  ))}
+                </svg>
+              </span>
+            </div>
+            <h3 class="pay__name">{method.name}</h3>
+            <p>{method.text}</p>
+            <p class="pay__need">
+              <span>Lo que necesitas: <b>{method.need}</b></span>
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="notice">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 7.5h.01" />
+      </svg>
+      Paga como máximo el saldo total de tu cuenta.
+    </p>
+  </div>
+</section>

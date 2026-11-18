@@ -1,0 +1,18 @@
+---
+interface Props {
+  id: string;
+  badge?: string;
+  title: string;
+  accent: string;
+  lead?: string;
+  align?: "center" | "left";
+}
+
+const { id, badge, title, accent, lead, align = "center" } = Astro.props;
+---
+
+<div class:list={["section-heading", { "section-heading--left": align === "left", "section-heading--plain": !badge }]}>
+  {badge && <p class="badge">{badge}</p>}
+  <h2 id={id}>{title} <span>{accent}</span></h2>
+  {lead && <p class="section-heading__lead">{lead}</p>}
+</div>
