@@ -130,6 +130,22 @@ const vine = [
     inset: 0;
     overflow: hidden;
     pointer-events: none;
+    /* Glows y hojas se desvanecen hacia arriba y abajo: así nunca se ve un
+       corte recto en el borde de la sección ni una hoja partida a la mitad */
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0,
+      #000 var(--seam, 140px),
+      #000 calc(100% - var(--seam, 140px)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0,
+      #000 var(--seam, 140px),
+      #000 calc(100% - var(--seam, 140px)),
+      transparent 100%
+    );
   }
 
   /* ── Fondos propios de cada sección ────────────────────────── */

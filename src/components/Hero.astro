@@ -38,7 +38,7 @@ import { legal } from "../data/site";
 
   <header class="landing-header" data-header data-scrolled="false">
     <a class="landing-logo" href="#inicio" aria-label="Capta Card, inicio">
-      <img class="landing-logo__img landing-logo__img--on-dark" src="/images/logo-capta-claro.png" alt="" width="473" height="200" />
+      <img class="landing-logo__img landing-logo__img--on-dark" src="/images/logo-capta-claro.png" alt="" width="473" height="200" fetchpriority="high" />
       <img class="landing-logo__img landing-logo__img--on-light" src="/images/logo-capta.png" alt="" width="473" height="200" />
     </a>
     <nav class="landing-header__nav" id="landing-navigation" aria-label="Navegación principal">
@@ -131,7 +131,7 @@ import { legal } from "../data/site";
         >
           <div class="landing-card-flipper" id="capta-card-3d" data-card-flipper>
             <div class="landing-card-face landing-card-face--front">
-              <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" decoding="async" draggable="false" />
+              <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" fetchpriority="high" draggable="false" />
             </div>
             <div class="landing-card-face landing-card-face--back">
               <img src="/images/TC%20Capta%20Card%20trasera.svg" alt="" width="482" height="300" loading="lazy" decoding="async" draggable="false" />
@@ -243,18 +243,32 @@ import { legal } from "../data/site";
         }
       };
 
-      // Se crea solo cuando la tarjeta se acerca a la pantalla (con la intro
-      // animada, el Hero empieza varias pantallas más abajo): así Three.js no
-      // compite con la carga inicial de la página.
-      const nearby = new IntersectionObserver(
+      // La versión 3D (Three.js) no entra en la carga inicial: se crea con el
+      // primer gesto de la persona (mover el mouse, tocar, hacer scroll o una
+      // tecla) y solo si la tarjeta está cerca de la pantalla. Mientras tanto
+      // se ve la versión plana, que es idéntica a simple vista.
+      let near = false;
+      let interacted = false;
+      let started = false;
+      const tryLoad = () => {
+        if (started || !near || !interacted) return;
+        started = true;
+        load3D();
+      };
+      const GESTURES = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"] as const;
+      const onGesture = () => {
+        interacted = true;
+        GESTURES.forEach((g) => window.removeEventListener(g, onGesture));
+        tryLoad();
+      };
+      GESTURES.forEach((g) => window.addEventListener(g, onGesture, { passive: true }));
+      new IntersectionObserver(
         (entries) => {
-          if (!entries.some((e) => e.isIntersecting)) return;
-          nearby.disconnect();
-          load3D();
+          near = entries.some((e) => e.isIntersecting);
+          tryLoad();
         },
         { rootMargin: "50% 0px" },
-      );
-      nearby.observe(cardTilt);
+      ).observe(cardTilt);
     }
   }
 
@@ -312,7 +326,7 @@ import { legal } from "../data/site";
   const header = document.querySelector<HTMLElement>("[data-header]");
   if (header) {
     const syncHeader = () => {
-      // Se mide desde el inicio del Hero (antes puede haber una intro animada)
+      // Se mide desde el inicio del Hero
       const heroTop = shell ? shell.getBoundingClientRect().top : -window.scrollY;
       header.dataset.scrolled = String(heroTop < -8);
     };
@@ -339,6 +353,20 @@ import { legal } from "../data/site";
     color: #fff;
     background-color: #051c13;
     background-image: radial-gradient(ellipse 70% 55% at 50% 62%, rgb(22 84 52 / 55%), transparent 75%);
+  }
+
+  /* El borde inferior se funde con el color base: sin escalón con la sección
+     siguiente (que arranca justo con ese color) */
+  .landing-shell::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--seam, 140px);
+    background: linear-gradient(180deg, transparent, var(--bg));
+    pointer-events: none;
   }
 
   .landing-shell[data-theme="light"] {

@@ -1,0 +1,337 @@
+---
+/**
+ * Sección "Paga con un toque": la escena 3D del pago sin contacto dentro de
+ * su propia sección, con el escenario fijo (sticky) mientras se recorre.
+ * Los tres pasos del texto se resaltan al ritmo de la escena.
+ *
+ * La escena se carga al acercarse la sección (no en la carga inicial). Con
+ * prefers-reduced-motion o sin WebGL se ve una versión estática con los pasos.
+ */
+
+const steps = [
+  { title: "Acerca tu tarjeta", text: "Sin insertarla y sin firmar nada." },
+  { title: "Un toque y listo", text: "La terminal la lee en un instante." },
+  { title: "Pago aprobado", text: "Y lo ves al momento en tu app." },
+];
+---
+
+<section class="tap" id="paga-con-un-toque" data-pay aria-labelledby="pay-title">
+  <div class="tap__stage" data-pay-stage>
+    <div class="tap__copy">
+      <p class="tap__kicker">Pago sin contacto</p>
+      <h2 id="pay-title">Paga con un toque</h2>
+      <p class="tap__lead">Acerca tu Capta Card a la terminal y listo. Funciona en cualquier comercio con Mastercard sin contacto.</p>
+      <ol class="tap__steps">
+        {
+          steps.map((s, i) => (
+            <li data-step={i}>
+              <span class="tap__num" aria-hidden="true">{i + 1}</span>
+              <span>
+                <strong>{s.title}</strong>
+                <span>{s.text}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    <div class="tap__progress" aria-hidden="true"><span data-pay-bar></span></div>
+  </div>
+</section>
+
+<script>
+  const section = document.querySelector<HTMLElement>("[data-pay]");
+  const stage = section?.querySelector<HTMLElement>("[data-pay-stage]");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (section && stage) {
+    const steps = [...section.querySelectorAll<HTMLElement>("[data-step]")];
+    const bar = section.querySelector<HTMLElement>("[data-pay-bar]");
+    const pin = () => Math.max(1, section.offsetHeight - stage.offsetHeight);
+
+    // Avance 0–1 mientras el escenario está fijo
+    const getProgress = () => Math.min(1, Math.max(0, -section.getBoundingClientRect().top / pin()));
+
+    let lastStep = -2;
+    const update = (p: number) => {
+      const active = p < 0.42 ? 0 : p < 0.55 ? 1 : 2;
+      const step = p <= 0 ? -1 : active;
+      if (step !== lastStep) {
+        lastStep = step;
+        steps.forEach((el, i) => el.classList.toggle("is-active", i === step));
+      }
+      if (bar) {
+        bar.style.transform = `scaleX(${p.toFixed(3)})`;
+        // Llena, se desvanece: no queda una línea verde en el borde de la sección
+        bar.style.opacity = (1 - Math.min(1, Math.max(0, (p - 0.9) / 0.1))).toFixed(2);
+      }
+    };
+
+    let sceneReady = false;
+    const goStatic = () => section.classList.add("is-static");
+
+    if (reduce) {
+      goStatic();
+    } else {
+      window.addEventListener("scroll", () => !sceneReady && update(getProgress()), { passive: true });
+      update(getProgress());
+
+      const load = () =>
+        import("../scripts/paymentScene")
+          .then(({ createPaymentScene }) =>
+            createPaymentScene(stage, {
+              front: "/images/TC%20Capta%20Card%20frente.svg",
+              back: "/images/TC%20Capta%20Card%20trasera.svg",
+              getProgress,
+              onFrame: update,
+            }),
+          )
+          .then((scene) => {
+            if (!scene) return goStatic();
+            sceneReady = true;
+            section.classList.add("is-gl");
+          })
+          .catch(goStatic);
+
+      // Se carga cuando la sección está a una pantalla de distancia
+      const near = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          near.disconnect();
+          load();
+        },
+        { rootMargin: "100% 0px" },
+      );
+      near.observe(section);
+    }
+  }
+</script>
+
+<style>
+  .tap {
+    position: relative;
+    height: 260svh;
+    color: var(--text);
+    background-color: var(--bg);
+  }
+
+  /* Al final de la sección el brillo del escenario se funde con el fondo de
+     la página, que es el color con el que arranca la sección siguiente */
+  .tap::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 120px;
+    background: linear-gradient(180deg, transparent, var(--bg));
+    pointer-events: none;
+  }
+
+  .tap.is-static::after {
+    display: none;
+  }
+
+  .tap__stage {
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    height: 100svh;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse 70% 55% at 50% 62%, var(--glow-deep), transparent 75%),
+      radial-gradient(circle at 78% 40%, var(--glow-green), transparent 40%);
+  }
+
+  .tap__stage :global(.tap__canvas) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .tap.is-gl .tap__stage :global(.tap__canvas) {
+    opacity: 1;
+  }
+
+  .tap__copy {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: clamp(20px, 6vw, 96px);
+    width: min(440px, 42vw);
+    transform: translateY(-50%);
+  }
+
+  .tap__kicker {
+    margin: 0;
+    color: var(--label);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .tap h2 {
+    margin: 10px 0 0;
+    font-size: clamp(34px, 4.4vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.04;
+  }
+
+  .tap__lead {
+    margin: 14px 0 0;
+    color: var(--body);
+    font-size: clamp(17px, 1.5vw, 19px);
+    line-height: 1.55;
+  }
+
+  .tap__steps {
+    display: grid;
+    gap: 10px;
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tap__steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 14px;
+    border: 1px solid transparent;
+    border-radius: 16px 16px 16px 4px;
+    opacity: 0.5;
+    transition:
+      opacity 0.35s ease,
+      background-color 0.35s ease,
+      border-color 0.35s ease;
+  }
+
+  .tap__steps li.is-active,
+  .tap.is-static .tap__steps li {
+    border-color: var(--chip-border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    opacity: 1;
+  }
+
+  .tap__steps strong {
+    display: block;
+    font-size: 18px;
+  }
+
+  .tap__steps li span span {
+    display: block;
+    margin-top: 2px;
+    color: var(--body);
+    font-size: 16px;
+  }
+
+  .tap__num {
+    display: grid;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--btn-fg);
+    background: var(--btn-bg);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .tap__progress {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    /* Sin riel: solo se ve el avance, para no dibujar una línea en el borde */
+    background: transparent;
+  }
+
+  .tap__progress span {
+    display: block;
+    height: 100%;
+    background: var(--accent-gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  /* Versión estática: sin animación, todos los pasos visibles */
+  .tap.is-static {
+    height: auto;
+  }
+
+  .tap.is-static .tap__stage {
+    position: relative;
+    height: auto;
+    padding: clamp(72px, 9vw, 112px) 0;
+  }
+
+  .tap.is-static .tap__copy {
+    position: relative;
+    top: auto;
+    width: min(560px, calc(100% - 40px));
+    margin-inline: auto;
+    transform: none;
+  }
+
+  .tap.is-static .tap__progress {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .tap {
+      height: 240svh;
+    }
+
+    /* En móvil la terminal va arriba y el texto abajo, solo el paso activo */
+    .tap__copy {
+      top: auto;
+      right: 20px;
+      bottom: 28px;
+      left: 20px;
+      width: auto;
+      transform: none;
+    }
+
+    .tap h2 {
+      font-size: 30px;
+    }
+
+    .tap__lead {
+      display: none;
+    }
+
+    .tap__steps {
+      margin-top: 14px;
+    }
+
+    .tap__steps li:not(.is-active) {
+      display: none;
+    }
+
+    .tap.is-static .tap__lead,
+    .tap.is-static .tap__steps li {
+      display: flex;
+    }
+
+    .tap.is-static .tap__lead {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tap {
+      height: auto;
+    }
+  }
+</style>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import CinematicIntro from "../components/CinematicIntro.astro";
 import CookieNotice from "../components/CookieNotice.astro";
 import CardDetails from "../components/CardDetails.astro";
 import FeatureSection from "../components/FeatureSection.astro";
@@ -9,6 +8,7 @@ import Hero from "../components/Hero.astro";
 import HowItWorks from "../components/HowItWorks.astro";
 import LeafSprite from "../components/LeafSprite.astro";
 import Invitation from "../components/Invitation.astro";
+import PaySection from "../components/PaySection.astro";
 import Payments from "../components/Payments.astro";
 import SecuritySection from "../components/SecuritySection.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -21,12 +21,12 @@ import "../styles/global.css";
 >
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <LeafSprite />
-  <CinematicIntro />
   <Hero />
   <div class="page">
     <main id="contenido">
       <FeatureSection />
       <HowItWorks />
+      <PaySection />
       <CardDetails />
       <Payments />
       <SecuritySection />

@@ -3,8 +3,8 @@
    Un solo lenguaje visual para hero y secciones: verde bosque,
    cuadrícula tenue, tarjetas de cristal con esquinas asimétricas,
    botones tipo píldora y titulares con degradado verde → lima.
-   El modo claro/oscuro se controla con html[data-theme]. En modo oscuro,
-   las secciones de lectura usan .tone-light (Hero y bandas clave oscuras).
+   El modo claro/oscuro se controla con html[data-theme] y aplica a toda la
+   página por igual: en oscuro todo es oscuro y en claro todo es claro.
    ────────────────────────────────────────────────────────────── */
 
 :root {
@@ -71,8 +71,7 @@
   --panel-border: rgb(74 222 128 / 28%);
 }
 
-:root[data-theme="light"],
-.tone-light {
+:root[data-theme="light"] {
   color-scheme: light;
   --bg: #eaf5e9;
   --band: rgb(255 255 255 / 42%);
@@ -261,6 +260,9 @@ img {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  /* clip recorta igual que hidden pero no crea un contenedor de scroll,
+     así las secciones con escenario fijo (sticky) siguen funcionando */
+  overflow: clip;
   color: var(--text);
   background-color: var(--bg);
 }
@@ -269,19 +271,22 @@ img {
   position: relative;
   overflow: clip;
   padding: var(--section-y) var(--page-pad);
-  border-top: 1px solid var(--border-soft);
 }
 
+/* La banda se desvanece arriba y abajo: no hay escalón de color con la vecina */
 .section--band {
-  background-image: linear-gradient(var(--band), var(--band));
+  background-image: linear-gradient(
+    180deg,
+    transparent 0,
+    var(--band) var(--seam),
+    var(--band) calc(100% - var(--seam)),
+    transparent 100%
+  );
 }
 
-/* Tono claro por sección: el Hero y las bandas clave quedan oscuros y el
-   contenido de lectura usa los tokens del modo claro. */
-.tone-light {
-  color-scheme: light;
-  color: var(--text);
-  background-color: var(--bg);
+/* Alto del desvanecido de fondos y hojas en el borde de cada sección */
+:root {
+  --seam: 140px;
 }
 
 .section--band > .section__inner {
@@ -644,8 +649,7 @@ img {
   opacity: 0.6;
 }
 
-:root[data-theme="light"] .spark,
-.tone-light .spark {
+:root[data-theme="light"] .spark {
   background: #65a30d;
   box-shadow:
     0 0 8px 2px rgb(101 163 13 / 35%),
@@ -1436,8 +1440,8 @@ img {
   position: relative;
   z-index: 1;
   padding: 56px var(--page-pad) 36px;
-  border-top: 1px solid var(--border);
-  background: var(--band);
+  /* La banda del pie entra con un desvanecido: sin escalón con la sección de arriba */
+  background: linear-gradient(180deg, transparent 0, var(--band) var(--seam));
 }
 
 .site-footer__inner {
@@ -1979,4 +1983,147 @@ img {
   width: 1%;
   white-space: nowrap;
   overflow-wrap: normal;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Paneles de acento en tema claro
+   En oscuro son verde bosque; en claro pasan a una superficie clara con
+   los mismos tokens del tema, para que la página sea clara de punta a punta.
+   ────────────────────────────────────────────────────────────── */
+:root[data-theme="light"] {
+  --panel-bg: linear-gradient(155deg, #ffffff 0%, #f4fbf2 55%, #e6f4e4 100%);
+  --panel-border: #b6d9bb;
+  --panel-line: rgb(29 111 63 / 18%);
+}
+
+/* Beneficios: tarjeta destacada */
+:root[data-theme="light"] .card--accent h3 {
+  color: var(--text);
+}
+
+:root[data-theme="light"] .card--accent p {
+  color: var(--body);
+}
+
+:root[data-theme="light"] .card--accent .chip {
+  border-color: var(--chip-border);
+  color: var(--chip-fg);
+  background: var(--chip-bg);
+}
+
+/* Tu tarjeta: ejemplo de fechas */
+:root[data-theme="light"] .cycle-panel {
+  color: var(--text);
+}
+
+:root[data-theme="light"] .cycle-panel::before,
+:root[data-theme="light"] .cycle-panel::after,
+:root[data-theme="light"] .invite::before,
+:root[data-theme="light"] .invite::after {
+  border-color: var(--panel-line);
+}
+
+:root[data-theme="light"] .cycle-panel__title {
+  color: var(--label);
+}
+
+:root[data-theme="light"] .timeline::before {
+  border-left-color: rgb(29 111 63 / 30%);
+}
+
+:root[data-theme="light"] .timeline__dot {
+  border-color: var(--chip-border);
+  color: var(--chip-fg);
+  background: var(--chip-bg);
+}
+
+:root[data-theme="light"] .timeline li:nth-child(2) .timeline__dot {
+  border-color: transparent;
+  color: #ffffff;
+  background: linear-gradient(135deg, #218b43, #4e9a2f);
+}
+
+:root[data-theme="light"] .timeline p,
+:root[data-theme="light"] .rollout > p {
+  color: var(--body);
+}
+
+:root[data-theme="light"] .cycle-panel__note,
+:root[data-theme="light"] .rates dt,
+:root[data-theme="light"] .rollout li span,
+:root[data-theme="light"] .rollout li em,
+:root[data-theme="light"] .invite__copy .invite__hint {
+  color: var(--muted);
+}
+
+:root[data-theme="light"] .rates {
+  border-top-color: var(--border);
+}
+
+:root[data-theme="light"] .rates dd,
+:root[data-theme="light"] .rollout h3,
+:root[data-theme="light"] .rollout li,
+:root[data-theme="light"] .invite__path h3 {
+  color: var(--text);
+}
+
+/* Descarga: ¿Ya recibiste tu invitación? */
+:root[data-theme="light"] .invite {
+  color: var(--text);
+  box-shadow: 0 30px 60px -24px rgb(22 74 40 / 22%);
+}
+
+:root[data-theme="light"] .invite .badge {
+  --badge-bg: rgb(255 255 255 / 72%);
+  --badge-border: #b7d9bb;
+  --badge-fg: #244b32;
+}
+
+:root[data-theme="light"] .invite h2 span {
+  color: var(--accent);
+  background: var(--accent-gradient);
+  background-clip: text;
+}
+
+:root[data-theme="light"] .invite__copy > p:not(.badge, .invite__hint),
+:root[data-theme="light"] .invite__path p {
+  color: var(--body);
+}
+
+:root[data-theme="light"] .invite__path,
+:root[data-theme="light"] .rollout {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+:root[data-theme="light"] .rollout li {
+  border-top-color: var(--border-soft);
+}
+
+:root[data-theme="light"] .rollout li::before {
+  border-color: var(--accent);
+}
+
+:root[data-theme="light"] .rollout li:first-child::before {
+  background: var(--accent);
+}
+
+:root[data-theme="light"] .rollout li time,
+:root[data-theme="light"] .invite__hint a {
+  color: var(--accent);
+}
+
+:root[data-theme="light"] .invite .btn--ghost {
+  border-color: var(--btn-ghost-border);
+  color: var(--btn-ghost-fg);
+  background: var(--btn-ghost-bg);
+}
+
+:root[data-theme="light"] .invite .btn--ghost:hover {
+  background: var(--surface-hover);
+}
+
+:root[data-theme="light"] .invite__card {
+  border-color: var(--border);
+  box-shadow: 0 24px 48px -16px rgb(22 74 40 / 30%);
 }
