@@ -68,31 +68,48 @@ const captions = [
     const getProgress = () => Math.min(1, Math.max(0, -cine.getBoundingClientRect().top / pinDistance()));
     const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 
+    // Escribe un estilo solo si cambió: evita recalcular estilos en cada cuadro
+    const lastStyle = new WeakMap<HTMLElement, Record<string, string>>();
+    const setStyle = (el: HTMLElement | null, prop: string, value: string) => {
+      if (!el) return;
+      const cache = lastStyle.get(el) ?? {};
+      if (cache[prop] === value) return;
+      cache[prop] = value;
+      lastStyle.set(el, cache);
+      el.style.setProperty(prop, value);
+    };
+
     const update = (p: number) => {
       const FADE = 0.03;
       captions.forEach((el) => {
         const from = Number(el.dataset.from);
         const to = Number(el.dataset.to);
         const o = clamp01((p - from) / FADE) * clamp01((to - p) / FADE);
-        el.style.opacity = o.toFixed(3);
-        el.style.transform = `translateY(${((1 - o) * 14).toFixed(1)}px)`;
+        setStyle(el, "opacity", o.toFixed(2));
+        setStyle(el, "transform", `translateY(${((1 - o) * 14).toFixed(1)}px)`);
       });
-      if (hint) hint.style.opacity = String(1 - clamp01(p / 0.05));
-      if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
-      // El logo y "Saltar intro" se van antes para no duplicar el encabezado del Hero
-      if (topBar) topBar.style.opacity = (1 - clamp01((p - 0.84) / 0.06)).toFixed(3);
-      // Al final el escenario se desvanece y deja ver el Hero
-      const out = clamp01((p - 0.9) / 0.1);
-      stage.style.opacity = (1 - out).toFixed(3);
+      setStyle(hint, "opacity", (1 - clamp01(p / 0.05)).toFixed(2));
+      setStyle(bar, "transform", `scaleX(${p.toFixed(3)})`);
+      // El logo, "Saltar intro" y la barra de avance se van antes de revelar el Hero
+      const chrome = (1 - clamp01((p - 0.84) / 0.06)).toFixed(2);
+      setStyle(topBar, "opacity", chrome);
+      setStyle(bar?.parentElement ?? null, "opacity", chrome);
+      // La revelación circular del Hero la dibuja la escena WebGL (sin costo extra).
+      // Solo mientras la escena aún no carga se usa un desvanecido simple.
+      if (!stage.classList.contains("is-gl-solid")) {
+        setStyle(stage, "opacity", (1 - clamp01((p - 0.9) / 0.1)).toFixed(2));
+      }
     };
 
     // Si el escenario intercepta clics depende del scroll REAL, no del avance
     // suavizado del render: así el Hero responde en cuanto llegas a él, aunque
     // la animación vaya atrasada o el bucle esté en pausa.
+    let leaving: boolean | null = null;
+    let hidden: boolean | null = null;
     const syncInteractivity = () => {
       const p = getProgress();
-      stage.classList.toggle("is-leaving", p > 0.9);
-      stage.style.visibility = p >= 0.999 ? "hidden" : "";
+      if (leaving !== p > 0.9) stage.classList.toggle("is-leaving", (leaving = p > 0.9));
+      if (hidden !== p >= 0.999) stage.style.visibility = (hidden = p >= 0.999) ? "hidden" : "";
     };
 
     update(getProgress());
@@ -113,25 +130,54 @@ const captions = [
       document.querySelector<HTMLElement>("#inicio a, #inicio button")?.focus({ preventScroll: true });
     });
 
-    import("../scripts/paymentScene")
-      .then(({ createPaymentScene }) =>
-        createPaymentScene(stage, {
-          front: "/images/TC%20Capta%20Card%20frente.svg",
-          back: "/images/TC%20Capta%20Card%20trasera.svg",
-          getProgress,
-          getHandoffRect: () => heroCard?.getBoundingClientRect() ?? null,
-          onFrame: update,
-        }),
-      )
-      .then((scene) => {
-        if (!scene) {
-          // Sin WebGL: se quita la intro y la página empieza en el Hero
-          cine.remove();
-          return;
-        }
-        stage.dataset.ready = "1";
-      })
-      .catch(() => cine.remove());
+    // La escena 3D (Three.js, ~130 KB comprimidos + compilar shaders) NO se carga
+    // al abrir la página: se carga con el primer gesto de la persona (mover el
+    // mouse, tocar, hacer scroll o usar el teclado). Mientras tanto ya se ven el
+    // fondo, el título y "Desliza para pagar", que son HTML. Así la carga
+    // inicial es ligera y la terminal entra con un desvanecido al estar lista.
+    const removeIntro = () => {
+      // Si falla con la persona ya dentro de la intro, se compensa el scroll
+      const lost = cine.offsetHeight - stage.offsetHeight;
+      const y = window.scrollY;
+      cine.remove();
+      if (y > 0) window.scrollTo({ top: Math.max(0, y - lost), behavior: "instant" });
+    };
+
+    const TRIGGERS = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"] as const;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      TRIGGERS.forEach((t) => window.removeEventListener(t, start));
+      import("../scripts/paymentScene")
+        .then(({ createPaymentScene }) =>
+          createPaymentScene(stage, {
+            front: "/images/TC%20Capta%20Card%20frente.svg",
+            back: "/images/TC%20Capta%20Card%20trasera.svg",
+            getProgress,
+            getHandoffRect: () => heroCard?.getBoundingClientRect() ?? null,
+            onFrame: update,
+          }),
+        )
+        .then((scene) => {
+          if (!scene) {
+            // Sin WebGL: se quita la intro y la página empieza en el Hero
+            removeIntro();
+            return;
+          }
+          stage.dataset.ready = "1";
+          setStyle(stage, "opacity", "1");
+          // La terminal aparece con un desvanecido; el lienzo ya trae el mismo fondo
+          stage.classList.add("is-gl");
+          // Terminado el desvanecido, el fondo CSS sobra (el lienzo lo dibuja y
+          // así puede abrir el hueco final hacia el Hero)
+          window.setTimeout(() => stage.classList.add("is-gl-solid"), 700);
+        })
+        .catch(removeIntro);
+    };
+    // Si la página abre ya desplazada (recarga a media página), arranca de inmediato
+    if (getProgress() > 0) start();
+    else TRIGGERS.forEach((t) => window.addEventListener(t, start, { passive: true }));
   } else if (cine) {
     cine.remove();
   }
@@ -142,7 +188,7 @@ const captions = [
     position: relative;
     /* Por encima del Hero (z-index 10) y de su encabezado fijo */
     z-index: 20;
-    height: 400svh;
+    height: 300svh;
     /* La última pantalla del recorrido se superpone al inicio del Hero */
     margin-bottom: -100svh;
     /* El contenedor es transparente y cubre la primera pantalla del Hero:
@@ -167,6 +213,19 @@ const captions = [
     pointer-events: none;
   }
 
+  /* Con la escena WebGL lista, el fondo se dibuja en el lienzo */
+  .cine__stage.is-gl-solid {
+    background: none;
+  }
+
+  .cine__stage.is-gl-solid .cine__glow {
+    display: none;
+  }
+
+  .cine__stage.is-gl :global(.cine__canvas) {
+    opacity: 1;
+  }
+
   .cine__glow {
     position: absolute;
     inset: 0;
@@ -177,6 +236,8 @@ const captions = [
   }
 
   .cine__stage :global(.cine__canvas) {
+    opacity: 0;
+    transition: opacity 0.6s ease;
     position: absolute;
     inset: 0;
     display: block;
@@ -348,7 +409,7 @@ const captions = [
 
   @media (max-width: 720px) {
     .cine {
-      height: 340svh;
+      height: 260svh;
     }
 
     .cine__logo {

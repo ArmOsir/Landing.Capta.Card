@@ -20,25 +20,34 @@ import {
   CanvasTexture,
   CatmullRomCurve3,
   Color,
+  CustomBlending,
   DirectionalLight,
   DoubleSide,
   Euler,
   InstancedMesh,
+  Mesh,
   MathUtils,
   MeshBasicMaterial,
   NoToneMapping,
+  OneMinusSrcAlphaFactor,
+  OrthographicCamera,
   Object3D,
   PerspectiveCamera,
+  PlaneGeometry,
   PMREMGenerator,
   PointLight,
   Points,
   PointsMaterial,
   Quaternion,
   Scene,
+  ShaderMaterial,
   Shape,
   ShapeGeometry,
+  SRGBColorSpace,
+  Vector2,
   Vector3,
   WebGLRenderer,
+  ZeroFactor,
 } from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { buildCard, CARD_W, svgTexture } from "./card3d";
@@ -78,6 +87,31 @@ function glowTexture() {
   return new CanvasTexture(c);
 }
 
+/**
+ * Fondo de la escena (el mismo que tenía en CSS): verde bosque con un halo
+ * elíptico y dos resplandores. Se dibuja en WebGL para que el recorte final
+ * pueda abrir un hueco real hacia el Hero.
+ */
+function drawBackground(ctx: CanvasRenderingContext2D, w: number, h: number) {
+  ctx.fillStyle = "#051c13";
+  ctx.fillRect(0, 0, w, h);
+  const blob = (x: number, y: number, rx: number, ry: number, color: string, stop: number) => {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(1, ry / rx);
+    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+    g.addColorStop(0, color);
+    g.addColorStop(stop, "rgba(0,0,0,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(-x, -y / (ry / rx), w, h / (ry / rx));
+    ctx.restore();
+  };
+  const diag = Math.hypot(w, h);
+  blob(w * 0.5, h * 0.62, w * 0.7, h * 0.55, "rgba(22,84,52,0.55)", 0.75);
+  blob(w * 0.78, h * 0.4, diag * 0.4, diag * 0.4, "rgba(74,222,128,0.14)", 1);
+  blob(w * 0.15, h * 0.85, diag * 0.45, diag * 0.45, "rgba(163,230,53,0.06)", 1);
+}
+
 function leafShape() {
   const s = new Shape();
   s.moveTo(0, -0.5);
@@ -94,7 +128,9 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     return null;
   }
   const small = window.matchMedia("(max-width: 720px)").matches;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.5 : 2));
+  // Resolución de render contenida: la escena es suave y no necesita la
+  // densidad completa de pantallas retina (es lo que más consume en GPU)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.25 : 1.5));
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = NoToneMapping;
   const canvas = renderer.domElement;
@@ -105,6 +141,43 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
   const pmrem = new PMREMGenerator(renderer);
   const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   const camera = new PerspectiveCamera(35, 1, 0.1, 80);
+  renderer.autoClear = false;
+
+  // ── Fondo y recorte final, en pantalla completa (cámara ortográfica) ──
+  const screenCam = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const quadGeo = new PlaneGeometry(2, 2);
+  const bgCanvas = document.createElement("canvas");
+  const bgCtx = bgCanvas.getContext("2d")!;
+  const bgTex = new CanvasTexture(bgCanvas);
+  bgTex.colorSpace = SRGBColorSpace;
+  const bgMat = new MeshBasicMaterial({ map: bgTex, depthTest: false, depthWrite: false, toneMapped: false });
+  const bgScene = new Scene();
+  bgScene.add(new Mesh(quadGeo, bgMat));
+
+  // Revelación final: un círculo que vuelve transparente el lienzo (alfa → 0)
+  // alrededor de la tarjeta del Hero. Se hace en la GPU, sin máscaras CSS.
+  const holeMat = new ShaderMaterial({
+    uniforms: { uCenter: { value: new Vector2() }, uRadius: { value: 0 }, uSoft: { value: 48 } },
+    vertexShader: "void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }",
+    fragmentShader: `
+      uniform vec2 uCenter;
+      uniform float uRadius;
+      uniform float uSoft;
+      void main() {
+        float d = distance(gl_FragCoord.xy, uCenter);
+        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0 - smoothstep(uRadius, uRadius + uSoft, d));
+      }`,
+    transparent: true,
+    depthTest: false,
+    depthWrite: false,
+    blending: CustomBlending,
+    blendSrc: ZeroFactor,
+    blendDst: OneMinusSrcAlphaFactor,
+    blendSrcAlpha: ZeroFactor,
+    blendDstAlpha: OneMinusSrcAlphaFactor,
+  });
+  const holeScene = new Scene();
+  holeScene.add(new Mesh(quadGeo, holeMat));
 
   // ── Luces ──
   scene.add(new AmbientLight(0xffffff, 0.35));
@@ -130,8 +203,9 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
   try {
     await document.fonts?.ready;
     [frontMap, backMap] = await Promise.all([
-      svgTexture(options.front, anisotropy),
-      svgTexture(options.back, anisotropy),
+      // En la escena la tarjeta nunca ocupa más de ~600 px: 1024 px basta
+      svgTexture(options.front, anisotropy, 1024),
+      svgTexture(options.back, anisotropy, 1024),
     ]);
   } catch {
     terminal.dispose();
@@ -232,6 +306,7 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
   const frame = new Vector3();
   const finalPos = new Vector3();
   const tilt = q(0, 0, 0.08);
+  const tmpE = new Euler();
 
   // ── Tamaño ──
   let W = 1;
@@ -249,11 +324,26 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     poseB.pos.x = portrait ? 0.9 : 1.5;
     poseE.pos.set(portrait ? 0.5 : 1.35, portrait ? -0.75 : 0.55, 2.1);
     camera.updateProjectionMatrix();
+    // Fondo a media resolución: es un degradado suave, no necesita más
+    bgCanvas.width = Math.max(2, Math.round(W / 2));
+    bgCanvas.height = Math.max(2, Math.round(H / 2));
+    drawBackground(bgCtx, bgCanvas.width, bgCanvas.height);
+    bgTex.needsUpdate = true;
   };
   const ro = new ResizeObserver(resize);
   ro.observe(stage);
   resize();
   stage.prepend(canvas);
+
+  // Compila los shaders antes del primer cuadro, en paralelo si el navegador
+  // lo permite, para que la página no se congele al aparecer la escena.
+  try {
+    await renderer.compileAsync(scene, camera);
+    await renderer.compileAsync(bgScene, screenCam);
+    await renderer.compileAsync(holeScene, screenCam);
+  } catch {
+    /* si no está disponible, se compilan en el primer render */
+  }
 
   // ── Bucle ──
   let sp = options.getProgress();
@@ -262,8 +352,17 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
   let last = performance.now();
   const t0 = last;
 
+  let skip = false;
   const render = (now: number) => {
     raf = 0;
+    // Sin scroll en curso, la escena solo tiene movimientos suaves de fondo:
+    // basta con la mitad de cuadros (ahorra CPU/GPU y batería)
+    const settled = Math.abs(options.getProgress() - sp) < 0.0004;
+    skip = settled ? !skip : false;
+    if (skip) {
+      if (visible && !document.hidden) raf = requestAnimationFrame(render);
+      return;
+    }
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     const time = (now - t0) / 1000;
@@ -274,6 +373,17 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     if (Math.abs(target - sp) < 0.0004) sp = target;
     const p = sp;
     const pulse = (Math.sin(time * 3) + 1) / 2;
+
+    // Medidas del DOM una sola vez por cuadro y solo cuando se necesitan
+    let handoff: DOMRect | null = null;
+    let stageLeft = 0;
+    let stageTop = 0;
+    if (p >= 0.76) {
+      handoff = options.getHandoffRect();
+      const sRect = stage.getBoundingClientRect();
+      stageLeft = sRect.left;
+      stageTop = sRect.top;
+    }
 
     // Encuadre: en escritorio la terminal queda a la derecha (textos a la izquierda);
     // en móvil, arriba (textos abajo). Al final se centra para el aterrizaje.
@@ -347,15 +457,14 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     } else {
       // Aterrizaje: posición y tamaño exactos de la tarjeta del Hero
       const t = seg(p, 0.76, 0.97);
-      const rect = options.getHandoffRect();
+      const rect = handoff;
       // La cámara final está en (0, 0, 8·distScale) mirando al origen
       const camZ = 8 * distScale;
       const worldPerPx = (2 * camZ * Math.tan(MathUtils.degToRad(camera.fov / 2))) / H;
       let finalScale = CARD_SCALE;
       if (rect && rect.width > 0) {
-        const sRect = stage.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2 - sRect.left;
-        const cy = rect.top + rect.height / 2 - sRect.top;
+        const cx = rect.left + rect.width / 2 - stageLeft;
+        const cy = rect.top + rect.height / 2 - stageTop;
         finalPos.set((cx - W / 2) * worldPerPx, -(cy - H / 2) * worldPerPx, 0);
         finalScale = (rect.width * worldPerPx) / CARD_W;
       } else {
@@ -363,7 +472,7 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
       }
       g.position.lerpVectors(poseE.pos, finalPos, t);
       // Misma oscilación suave que la tarjeta del Hero
-      tmpQ2.setFromEuler(new Euler(Math.sin(time * 0.35) * 0.06, Math.sin(time * 0.45) * 0.22, 0));
+      tmpQ2.setFromEuler(tmpE.set(Math.sin(time * 0.35) * 0.06, Math.sin(time * 0.45) * 0.22, 0));
       g.quaternion.slerpQuaternions(poseE.quat, tmpQ2, t);
       scale = MathUtils.lerp(CARD_SCALE, finalScale, t);
     }
@@ -399,7 +508,23 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     ffPos.needsUpdate = true;
     ffMat.opacity = 0.55 + 0.3 * Math.sin(time * 1.7) ** 2;
 
+    renderer.clear();
+    renderer.render(bgScene, screenCam);
     renderer.render(scene, camera);
+
+    // Revelación del Hero: círculo desde su tarjeta hasta cubrir la pantalla
+    const out = clamp01((p - 0.9) / 0.1);
+    if (out > 0) {
+      const pr = renderer.getPixelRatio();
+      const cx = handoff && handoff.width ? handoff.left + handoff.width / 2 - stageLeft : W / 2;
+      const cy = handoff && handoff.width ? handoff.top + handoff.height / 2 - stageTop : H / 2;
+      const soft = 48;
+      const far = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy));
+      holeMat.uniforms.uCenter.value.set(cx * pr, (H - cy) * pr);
+      holeMat.uniforms.uRadius.value = out * out * (far + soft) * pr;
+      holeMat.uniforms.uSoft.value = soft * pr;
+      renderer.render(holeScene, screenCam);
+    }
     options.onFrame?.(p);
     if (visible && !document.hidden) raf = requestAnimationFrame(render);
   };
@@ -426,9 +551,9 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
       document.removeEventListener("visibilitychange", kick);
       card.dispose();
       terminal.dispose();
-      [frontMap, backMap, env, glow].forEach((t) => t.dispose());
-      [ffGeo, leafGeo].forEach((g) => g.dispose());
-      [ffMat, leafMat].forEach((m) => m.dispose());
+      [frontMap, backMap, env, glow, bgTex].forEach((t) => t.dispose());
+      [ffGeo, leafGeo, quadGeo].forEach((g) => g.dispose());
+      [ffMat, leafMat, bgMat, holeMat].forEach((m) => m.dispose());
       leaves.dispose();
       pmrem.dispose();
       renderer.dispose();

@@ -85,13 +85,12 @@ function faceGeometry(shape: Shape) {
  * Rasteriza el SVG a un lienzo con la proporción exacta de la tarjeta
  * (recorte tipo "cover", sin deformar) y alta resolución para que se vea nítido.
  */
-export async function svgTexture(url: string, maxAnisotropy: number) {
+export async function svgTexture(url: string, maxAnisotropy: number, width = 2048) {
   const img = new Image();
   img.decoding = "async";
   img.src = url;
   await img.decode();
 
-  const width = 2048;
   const height = Math.round(width * (CARD_H / CARD_W));
   const canvas = document.createElement("canvas");
   canvas.width = width;

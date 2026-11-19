@@ -38,7 +38,7 @@ import { legal } from "../data/site";
 
   <header class="landing-header" data-header data-scrolled="false">
     <a class="landing-logo" href="#inicio" aria-label="Capta Card, inicio">
-      <img class="landing-logo__img landing-logo__img--on-dark" src="/images/logo-capta-claro.png" alt="" width="473" height="200" fetchpriority="high" />
+      <img class="landing-logo__img landing-logo__img--on-dark" src="/images/logo-capta-claro.png" alt="" width="473" height="200" />
       <img class="landing-logo__img landing-logo__img--on-light" src="/images/logo-capta.png" alt="" width="473" height="200" />
     </a>
     <nav class="landing-header__nav" id="landing-navigation" aria-label="Navegación principal">
@@ -131,10 +131,10 @@ import { legal } from "../data/site";
         >
           <div class="landing-card-flipper" id="capta-card-3d" data-card-flipper>
             <div class="landing-card-face landing-card-face--front">
-              <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" fetchpriority="high" draggable="false" />
+              <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" decoding="async" draggable="false" />
             </div>
             <div class="landing-card-face landing-card-face--back">
-              <img src="/images/TC%20Capta%20Card%20trasera.svg" alt="" fetchpriority="high" draggable="false" />
+              <img src="/images/TC%20Capta%20Card%20trasera.svg" alt="" width="482" height="300" loading="lazy" decoding="async" draggable="false" />
             </div>
           </div>
         </div>
@@ -243,10 +243,18 @@ import { legal } from "../data/site";
         }
       };
 
-      const schedule = () =>
-        "requestIdleCallback" in window ? requestIdleCallback(() => load3D(), { timeout: 2000 }) : setTimeout(load3D, 600);
-      if (document.readyState === "complete") schedule();
-      else window.addEventListener("load", schedule, { once: true });
+      // Se crea solo cuando la tarjeta se acerca a la pantalla (con la intro
+      // animada, el Hero empieza varias pantallas más abajo): así Three.js no
+      // compite con la carga inicial de la página.
+      const nearby = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          nearby.disconnect();
+          load3D();
+        },
+        { rootMargin: "50% 0px" },
+      );
+      nearby.observe(cardTilt);
     }
   }
 
