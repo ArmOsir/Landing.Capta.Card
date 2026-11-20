@@ -1,15 +1,20 @@
 /**
- * Terminal punto de venta modelada en código (sin archivos externos).
+ * Terminal inteligente (tipo Android) modelada en código, con la imagen de
+ * Capta Card. Sin archivos 3D externos.
  *
- * Cuerpo verde bosque con bisel, pantalla con contenido dibujado en vivo
- * (monto → leyendo → aprobado), teclado numérico con etiquetas, emblema de
- * pago sin contacto que pulsa, ondas de lectura y un ticket que se imprime.
- * Unidades: la terminal mide 1.7 de ancho por 3.2 de alto, centrada en el origen.
+ * Frente blanco con pantalla táctil grande, carcasa trasera verde bosque con
+ * el compartimento de la impresora arriba y la empuñadura abajo, logotipo
+ * Capta impreso bajo la pantalla y emblema sin contacto que pulsa. La pantalla
+ * se dibuja en vivo (monto → leyendo → aprobado) y el ticket sale por la
+ * ranura de la impresora.
+ * Unidades: el frente mide 1.7 de ancho por 3.2 de alto, centrado en el origen.
  */
 import {
   AdditiveBlending,
   BoxGeometry,
   CanvasTexture,
+  CapsuleGeometry,
+  CylinderGeometry,
   DoubleSide,
   ExtrudeGeometry,
   Group,
@@ -28,15 +33,22 @@ import { roundedRect } from "./card3d";
 
 export const TERM_W = 1.7;
 export const TERM_H = 3.2;
-const TERM_D = 0.36;
-const BEVEL = 0.05;
+const TERM_D = 0.18;
+const BEVEL = 0.06;
 /** Z de la cara frontal del cuerpo. */
 export const FRONT_Z = TERM_D / 2 + BEVEL;
+const TOP = TERM_H / 2 + BEVEL;
 
 export type ScreenState = "amount" | "reading" | "approved";
 
 const AMOUNT = "$349.00";
 const FONT = '"DM Sans", "Avenir Next", Arial, sans-serif';
+const LOGO_URL = "/images/logo-capta.png";
+
+/** Pantalla: 1.38 × 1.96 unidades, dibujada a 400 px por unidad. */
+const DISPLAY_W = 1.38;
+const DISPLAY_H = 1.96;
+const PX = 400;
 
 function canvasTexture(w: number, h: number, draw: (ctx: CanvasRenderingContext2D) => void) {
   const canvas = document.createElement("canvas");
@@ -71,68 +83,111 @@ function drawContactless(ctx: CanvasRenderingContext2D, cx: number, cy: number, 
   ctx.restore();
 }
 
-/** Pantalla de 640×580 px dibujada según el estado de la transacción. */
+/** Hoja Capta simple (dos curvas y nervadura). */
+function drawLeaf(ctx: CanvasRenderingContext2D, cx: number, cy: number, s: number, color: string) {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(-0.5);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(0, s);
+  ctx.quadraticCurveTo(-s * 0.95, 0, 0, -s);
+  ctx.quadraticCurveTo(s * 0.95, 0, 0, s);
+  ctx.fill();
+  ctx.restore();
+}
+
+/** Interfaz de la terminal según el estado de la transacción. */
 function drawScreen(ctx: CanvasRenderingContext2D, state: ScreenState, t: number, pulse: number) {
   const W = ctx.canvas.width;
   const H = ctx.canvas.height;
+  const cx = W / 2;
   const bg = ctx.createLinearGradient(0, 0, 0, H);
   bg.addColorStop(0, "#0b3122");
   bg.addColorStop(1, "#051c13");
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
-
-  // Barra superior
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
-  ctx.fillRect(0, 0, W, 64);
-  ctx.fillStyle = "#a3e635";
-  ctx.font = `700 26px ${FONT}`;
   ctx.textBaseline = "middle";
-  ctx.fillText("Capta Card", 32, 33);
-  ctx.fillStyle = "#aab9b1";
-  ctx.font = `500 22px ${FONT}`;
+
+  // Barra de estado: hora, señal y batería
+  ctx.fillStyle = "#c2cec8";
+  ctx.font = `600 22px ${FONT}`;
+  ctx.textAlign = "left";
+  ctx.fillText("10:42", 26, 26);
+  ctx.strokeStyle = "#c2cec8";
+  ctx.lineWidth = 2.5;
+  roundRectPath(ctx, W - 66, 17, 38, 18, 4);
+  ctx.stroke();
+  ctx.fillStyle = "#4ade80";
+  roundRectPath(ctx, W - 63, 20, 26, 12, 2);
+  ctx.fill();
+  ctx.fillStyle = "#c2cec8";
+  for (let i = 0; i < 4; i++) ctx.fillRect(W - 110 + i * 8, 33 - (i + 1) * 4.5, 5, (i + 1) * 4.5);
+
+  // Encabezado de la app
+  ctx.fillStyle = "rgba(255,255,255,0.05)";
+  ctx.fillRect(0, 52, W, 84);
+  drawLeaf(ctx, 44, 94, 17, "#4ade80");
+  ctx.fillStyle = "#f7faf8";
+  ctx.font = `700 28px ${FONT}`;
+  ctx.fillText("Capta", 68, 84);
+  ctx.fillStyle = "#a3e635";
+  ctx.font = `600 18px ${FONT}`;
+  ctx.fillText("Card", 70, 111);
   ctx.textAlign = "right";
-  ctx.fillText("Café La Hoja", W - 32, 33);
+  ctx.fillStyle = "#aab9b1";
+  ctx.font = `500 21px ${FONT}`;
+  ctx.fillText("Café La Hoja", W - 28, 94);
   ctx.textAlign = "center";
 
   if (state === "amount") {
     ctx.fillStyle = "#aab9b1";
     ctx.font = `500 30px ${FONT}`;
-    ctx.fillText("Total a pagar", W / 2, 140);
+    ctx.fillText("Total a pagar", cx, 214);
     ctx.fillStyle = "#f7faf8";
-    ctx.font = `700 92px ${FONT}`;
-    ctx.fillText(AMOUNT, W / 2, 222);
+    ctx.font = `700 86px ${FONT}`;
+    ctx.fillText(AMOUNT, cx, 296);
     ctx.fillStyle = "#c2cec8";
-    ctx.font = `500 28px ${FONT}`;
-    ctx.fillText("MXN", W / 2, 290);
-    drawContactless(ctx, W / 2 + 14, 400, 120, "#4ade80", 0.55 + pulse * 0.45);
+    ctx.font = `500 26px ${FONT}`;
+    ctx.fillText("MXN", cx, 356);
+    // Zona de lectura con halo que respira
+    ctx.fillStyle = `rgba(74,222,128,${0.06 + pulse * 0.08})`;
+    ctx.beginPath();
+    ctx.arc(cx, 492, 96 + pulse * 10, 0, Math.PI * 2);
+    ctx.fill();
+    drawContactless(ctx, cx + 16, 492, 130, "#4ade80", 0.55 + pulse * 0.45);
     ctx.fillStyle = "#f7faf8";
     ctx.font = `600 32px ${FONT}`;
-    ctx.fillText("Acerca tu tarjeta", W / 2, 510);
+    ctx.fillText("Acerca tu tarjeta", cx, 640);
   } else if (state === "reading") {
     ctx.fillStyle = "#f7faf8";
-    ctx.font = `700 64px ${FONT}`;
-    ctx.fillText(AMOUNT, W / 2, 170);
-    drawContactless(ctx, W / 2 + 14, 320, 130, "#a3e635", 1);
+    ctx.font = `700 62px ${FONT}`;
+    ctx.fillText(AMOUNT, cx, 236);
+    ctx.fillStyle = "rgba(163,230,53,0.12)";
+    ctx.beginPath();
+    ctx.arc(cx, 410, 104, 0, Math.PI * 2);
+    ctx.fill();
+    drawContactless(ctx, cx + 16, 410, 140, "#a3e635", 1);
     ctx.fillStyle = "#f7faf8";
     ctx.font = `600 32px ${FONT}`;
-    ctx.fillText("Leyendo tarjeta…", W / 2, 440);
-    // Barra de progreso
-    roundRectPath(ctx, 120, 490, W - 240, 18, 9);
+    ctx.fillText("Leyendo tarjeta…", cx, 566);
+    roundRectPath(ctx, 96, 618, W - 192, 18, 9);
     ctx.fillStyle = "rgba(255,255,255,0.12)";
     ctx.fill();
-    roundRectPath(ctx, 120, 490, Math.max(18, (W - 240) * t), 18, 9);
+    roundRectPath(ctx, 96, 618, Math.max(18, (W - 192) * t), 18, 9);
     ctx.fillStyle = "#4ade80";
     ctx.fill();
   } else {
-    // Aprobado: círculo verde con palomita
-    const r = 92;
+    // Aprobado: círculo verde con palomita que se traza
+    const cy = 300;
+    const r = 96;
     ctx.fillStyle = "rgba(74,222,128,0.16)";
     ctx.beginPath();
-    ctx.arc(W / 2, 205, r + 26 * pulse, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r + 26 * pulse, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = "#4ade80";
     ctx.beginPath();
-    ctx.arc(W / 2, 205, r, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.fill();
     ctx.strokeStyle = "#051c13";
     ctx.lineWidth = 18;
@@ -140,26 +195,47 @@ function drawScreen(ctx: CanvasRenderingContext2D, state: ScreenState, t: number
     ctx.lineJoin = "round";
     const k = Math.min(1, t * 1.6);
     ctx.beginPath();
-    ctx.moveTo(W / 2 - 42, 207);
+    ctx.moveTo(cx - 44, cy + 2);
     if (k < 0.4) {
       const q = k / 0.4;
-      ctx.lineTo(W / 2 - 42 + 30 * q, 207 + 30 * q);
+      ctx.lineTo(cx - 44 + 31 * q, cy + 2 + 31 * q);
     } else {
       const q = (k - 0.4) / 0.6;
-      ctx.lineTo(W / 2 - 12, 237);
-      ctx.lineTo(W / 2 - 12 + 58 * q, 237 - 70 * q);
+      ctx.lineTo(cx - 13, cy + 33);
+      ctx.lineTo(cx - 13 + 60 * q, cy + 33 - 72 * q);
     }
     ctx.stroke();
     ctx.fillStyle = "#f7faf8";
-    ctx.font = `700 52px ${FONT}`;
-    ctx.fillText("Pago aprobado", W / 2, 370);
+    ctx.font = `700 50px ${FONT}`;
+    ctx.fillText("Pago aprobado", cx, 470);
     ctx.fillStyle = "#c2cec8";
     ctx.font = `500 30px ${FONT}`;
-    ctx.fillText(`${AMOUNT} MXN`, W / 2, 428);
+    ctx.fillText(`${AMOUNT} MXN`, cx, 528);
     ctx.fillStyle = "#aab9b1";
-    ctx.font = `500 26px ${FONT}`;
-    ctx.fillText("Mastercard •••• 4821", W / 2, 490);
+    ctx.font = `500 25px ${FONT}`;
+    ctx.fillText("Mastercard •••• 4821", cx, 576);
+    ctx.fillStyle = "#a3e635";
+    ctx.font = `600 22px ${FONT}`;
+    ctx.fillText("Imprimiendo comprobante…", cx, 648);
   }
+
+  // Barra de navegación del sistema
+  ctx.fillStyle = "rgba(0,0,0,0.25)";
+  ctx.fillRect(0, H - 60, W, 60);
+  ctx.strokeStyle = "#8fa39a";
+  ctx.fillStyle = "#8fa39a";
+  ctx.lineWidth = 3;
+  const ny = H - 30;
+  ctx.beginPath();
+  ctx.moveTo(cx - 140, ny - 11);
+  ctx.lineTo(cx - 156, ny);
+  ctx.lineTo(cx - 140, ny + 11);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx, ny, 11, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.strokeRect(cx + 137, ny - 10, 20, 20);
   ctx.textAlign = "left";
 }
 
@@ -215,10 +291,49 @@ export function buildTerminal(envTexture: Texture) {
   const textures: Texture[] = [];
   const track = <G extends BufferGeometry>(g: G) => (geometries.push(g), g);
   const trackM = <M extends Material>(m: M) => (materials.push(m), m);
+  let disposed = false;
 
-  // ── Cuerpo ──
+  // ── Materiales de la carcasa ──
+  const whiteMat = trackM(
+    new MeshPhysicalMaterial({
+      color: 0xe6ebe4,
+      envMap: envTexture,
+      envMapIntensity: 0.6,
+      roughness: 0.42,
+      metalness: 0,
+      clearcoat: 0.5,
+      clearcoatRoughness: 0.3,
+    }),
+  );
+  const greenMat = trackM(
+    new MeshPhysicalMaterial({
+      color: 0x0f3a27,
+      envMap: envTexture,
+      envMapIntensity: 0.55,
+      roughness: 0.5,
+      metalness: 0.1,
+      clearcoat: 0.45,
+      clearcoatRoughness: 0.4,
+    }),
+  );
+  // Carcasa trasera: blanco un poco más gris que el frente, para dar volumen
+  const shellMat = trackM(
+    new MeshPhysicalMaterial({
+      color: 0xd5ddd3,
+      envMap: envTexture,
+      envMapIntensity: 0.6,
+      roughness: 0.5,
+      metalness: 0,
+      clearcoat: 0.35,
+      clearcoatRoughness: 0.4,
+    }),
+  );
+  const darkMat = trackM(new MeshBasicMaterial({ color: 0x010403 }));
+  const limeMat = trackM(new MeshBasicMaterial({ color: 0xa3e635, toneMapped: false }));
+
+  // ── Frente: placa blanca con cantos suaves ──
   const bodyGeo = track(
-    new ExtrudeGeometry(roundedRect(TERM_W, TERM_H, 0.24), {
+    new ExtrudeGeometry(roundedRect(TERM_W, TERM_H, 0.26), {
       depth: TERM_D,
       bevelEnabled: true,
       bevelThickness: BEVEL,
@@ -228,31 +343,59 @@ export function buildTerminal(envTexture: Texture) {
     }),
   );
   bodyGeo.translate(0, 0, -TERM_D / 2);
-  const bodyMat = trackM(
-    new MeshPhysicalMaterial({
-      color: 0x0f3a27,
-      envMap: envTexture,
-      envMapIntensity: 0.55,
-      roughness: 0.45,
-      metalness: 0.15,
-      clearcoat: 0.6,
-      clearcoatRoughness: 0.35,
-    }),
-  );
-  group.add(new Mesh(bodyGeo, bodyMat));
+  group.add(new Mesh(bodyGeo, whiteMat));
 
-  // Franja lima en el canto inferior (detalle de marca)
-  const stripe = new Mesh(
-    track(new BoxGeometry(TERM_W * 0.5, 0.025, 0.02)),
-    trackM(new MeshBasicMaterial({ color: 0xa3e635, toneMapped: false })),
-  );
-  stripe.position.set(0, -TERM_H / 2 + 0.14, FRONT_Z + 0.001);
+  // ── Carcasa trasera: impresora arriba, empuñadura abajo ──
+  const backZ = -TERM_D / 2;
+  const printerR = 0.4;
+  const printerY = TOP - printerR - 0.02;
+  const printerZ = backZ - 0.26;
+  const printer = new Mesh(track(new CapsuleGeometry(printerR, TERM_W - 0.2 - printerR * 2, 10, 28)), shellMat);
+  printer.rotation.z = Math.PI / 2;
+  printer.position.set(0, printerY, printerZ);
+  group.add(printer);
+  // Bandas verde Capta en los extremos de la impresora
+  const bandGeo = track(new CylinderGeometry(printerR + 0.006, printerR + 0.006, 0.07, 32, 1, true));
+  [-1, 1].forEach((side) => {
+    const band = new Mesh(bandGeo, greenMat);
+    band.rotation.z = Math.PI / 2;
+    band.position.set(side * (TERM_W / 2 - 0.1 - printerR), printerY, printerZ);
+    group.add(band);
+  });
+
+  // Puente entre la impresora y la empuñadura (lomo trasero)
+  const spine = new Mesh(track(new BoxGeometry(TERM_W - 0.3, 1.2, 0.2)), shellMat);
+  spine.position.set(0, 0.3, backZ - 0.06);
+  group.add(spine);
+
+  const grip = new Mesh(track(new CapsuleGeometry(0.3, 1.0, 10, 28)), shellMat);
+  grip.scale.set(2.3, 1, 0.9);
+  grip.position.set(0, -0.6, backZ - 0.06);
+  group.add(grip);
+
+  // Franja lima en la parte baja del frente (detalle de marca)
+  const stripe = new Mesh(track(new BoxGeometry(TERM_W * 0.32, 0.024, 0.01)), limeMat);
+  stripe.position.set(0, -TOP + 0.2, FRONT_Z + 0.001);
   group.add(stripe);
 
-  // ── Pantalla: cristal negro + contenido dibujado ──
-  const screenY = 0.72;
+  // Ranura del papel en la parte alta de la impresora
+  const slotY = printerY + printerR - 0.005;
+  const slot = new Mesh(track(new BoxGeometry(1.02, 0.025, 0.06)), darkMat);
+  slot.position.set(0, slotY, printerZ);
+  group.add(slot);
+
+  // Lector de chip en el canto inferior y botón de encendido lateral
+  const chipSlot = new Mesh(track(new BoxGeometry(0.82, 0.02, 0.05)), darkMat);
+  chipSlot.position.set(0, -TOP + 0.004, 0.01);
+  group.add(chipSlot);
+  const power = new Mesh(track(new CylinderGeometry(0.025, 0.025, 0.22, 12)), greenMat);
+  power.position.set(TERM_W / 2 + BEVEL - 0.005, 0.95, 0);
+  group.add(power);
+
+  // ── Pantalla: cristal negro + interfaz dibujada ──
+  const screenY = TOP - 0.12 - 1.1;
   const glass = new Mesh(
-    track(new ExtrudeGeometry(roundedRect(1.46, 1.34, 0.08), { depth: 0.01, bevelEnabled: false, curveSegments: 12 })),
+    track(new ExtrudeGeometry(roundedRect(1.5, 2.2, 0.12), { depth: 0.01, bevelEnabled: false, curveSegments: 12 })),
     trackM(
       new MeshPhysicalMaterial({
         color: 0x020806,
@@ -268,10 +411,16 @@ export function buildTerminal(envTexture: Texture) {
   glass.position.set(0, screenY, FRONT_Z);
   group.add(glass);
 
-  const screen = canvasTexture(640, 580, (ctx) => drawScreen(ctx, "amount", 0, 0));
+  // Cámara frontal en el marco superior
+  const cam = new Mesh(track(new CylinderGeometry(0.022, 0.022, 0.004, 16)), trackM(new MeshBasicMaterial({ color: 0x1b2a24 })));
+  cam.rotation.x = Math.PI / 2;
+  cam.position.set(0, screenY + 1.04, FRONT_Z + 0.012);
+  group.add(cam);
+
+  const screen = canvasTexture(DISPLAY_W * PX, DISPLAY_H * PX, (ctx) => drawScreen(ctx, "amount", 0, 0));
   textures.push(screen.tex);
   const screenMat = trackM(new MeshBasicMaterial({ map: screen.tex, toneMapped: false }));
-  const screenMesh = new Mesh(track(new PlaneGeometry(1.34, 1.214)), screenMat);
+  const screenMesh = new Mesh(track(new PlaneGeometry(DISPLAY_W, DISPLAY_H)), screenMat);
   screenMesh.position.set(0, screenY, FRONT_Z + 0.012);
   group.add(screenMesh);
 
@@ -280,30 +429,51 @@ export function buildTerminal(envTexture: Texture) {
     const g = ctx.createLinearGradient(0, 0, 256, 256);
     g.addColorStop(0, "rgba(255,255,255,0)");
     g.addColorStop(0.42, "rgba(255,255,255,0)");
-    g.addColorStop(0.5, "rgba(255,255,255,0.10)");
+    g.addColorStop(0.5, "rgba(255,255,255,0.09)");
     g.addColorStop(0.62, "rgba(255,255,255,0)");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, 256, 256);
   });
   textures.push(sheen.tex);
   const sheenMesh = new Mesh(
-    track(new PlaneGeometry(1.34, 1.214)),
+    track(new PlaneGeometry(1.5, 2.2)),
     trackM(new MeshBasicMaterial({ map: sheen.tex, transparent: true, depthWrite: false, toneMapped: false })),
   );
   sheenMesh.position.set(0, screenY, FRONT_Z + 0.016);
   group.add(sheenMesh);
 
-  // ── Emblema sin contacto sobre la pantalla ──
+  // ── Logotipo Capta impreso bajo la pantalla ──
+  const LOGO_W = 0.9;
+  const LOGO_H = LOGO_W * (200 / 473);
+  const logo = canvasTexture(474, 200, () => {});
+  textures.push(logo.tex);
+  const logoImg = new Image();
+  logoImg.decoding = "async";
+  logoImg.onload = () => {
+    if (disposed) return;
+    logo.ctx.drawImage(logoImg, 0, 0, 474, 200);
+    logo.tex.needsUpdate = true;
+  };
+  logoImg.src = LOGO_URL;
+  const logoMesh = new Mesh(
+    track(new PlaneGeometry(LOGO_W, LOGO_H)),
+    trackM(new MeshStandardMaterial({ map: logo.tex, transparent: true, roughness: 0.5, depthWrite: false })),
+  );
+  const logoY = screenY - 1.1 - 0.26;
+  logoMesh.position.set(0, logoY, FRONT_Z + 0.002);
+  group.add(logoMesh);
+
+  // ── Emblema sin contacto bajo el logotipo ──
   const emblem = new Group();
   const emblemMat = trackM(
-    new MeshBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.8, toneMapped: false }),
+    new MeshBasicMaterial({ color: 0x1d7f3e, transparent: true, opacity: 0.8, toneMapped: false }),
   );
   [0.05, 0.085, 0.12].forEach((r) => {
-    const arc = new Mesh(track(new TorusGeometry(r, 0.011, 8, 32, Math.PI / 1.7)), emblemMat);
+    const arc = new Mesh(track(new TorusGeometry(r, 0.012, 8, 32, Math.PI / 1.7)), emblemMat);
     arc.rotation.z = -Math.PI / 3.4;
     emblem.add(arc);
   });
-  emblem.position.set(-0.04, TERM_H / 2 - 0.09, FRONT_Z + 0.004);
+  emblem.position.set(-0.05, logoY - 0.34, FRONT_Z + 0.004);
   group.add(emblem);
 
   // ── Ondas de lectura: salen del frente hacia la tarjeta ──
@@ -327,68 +497,19 @@ export function buildTerminal(envTexture: Texture) {
   waves.position.set(0, screenY, FRONT_Z + 0.05);
   group.add(waves);
 
-  // ── Teclado ──
-  const keyGeo = track(
-    new ExtrudeGeometry(roundedRect(0.4, 0.22, 0.07), {
-      depth: 0.03,
-      bevelEnabled: true,
-      bevelThickness: 0.012,
-      bevelSize: 0.012,
-      bevelSegments: 3,
-      curveSegments: 8,
-    }),
-  );
-  const keyTopGeo = track(new PlaneGeometry(0.4, 0.22));
-  const labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"];
-  const keyBody = trackM(
-    new MeshPhysicalMaterial({ color: 0x174a33, roughness: 0.5, metalness: 0.05, clearcoat: 0.4, envMap: envTexture, envMapIntensity: 0.4 }),
-  );
-  const makeKey = (label: string, x: number, y: number, fg: string, bgColor: string, body: Material = keyBody) => {
-    const key = new Group();
-    key.add(new Mesh(keyGeo, body));
-    const tex = canvasTexture(200, 110, (ctx) => {
-      ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, 200, 110);
-      ctx.fillStyle = fg;
-      ctx.font = `600 ${label.length > 1 ? 30 : 52}px ${FONT}`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(label, 100, 58);
-    }).tex;
-    textures.push(tex);
-    const top = new Mesh(keyTopGeo, trackM(new MeshStandardMaterial({ map: tex, roughness: 0.55, transparent: false })));
-    top.position.z = 0.03 + 0.0125;
-    top.scale.set(0.93, 0.86, 1);
-    key.add(top);
-    key.position.set(x, y, FRONT_Z);
-    group.add(key);
-  };
-  labels.forEach((label, i) => {
-    const col = i % 3;
-    const row = Math.floor(i / 3);
-    makeKey(label, (col - 1) * 0.5, -0.17 - row * 0.3, "#e2e8e5", "#174a33");
-  });
-  const actionBody = (color: number) =>
-    trackM(new MeshPhysicalMaterial({ color, roughness: 0.5, clearcoat: 0.4, envMap: envTexture, envMapIntensity: 0.4 }));
-  makeKey("✕", -0.5, -1.38, "#ffffff", "#8f3b35", actionBody(0x8f3b35));
-  makeKey("‹", 0, -1.38, "#3a2a00", "#d9a93a", actionBody(0xd9a93a));
-  makeKey("OK", 0.5, -1.38, "#051c13", "#4ade80", actionBody(0x4ade80));
-
-  // ── Ticket: sale de la ranura superior ──
+  // ── Ticket: sale por la ranura de la impresora ──
   const receiptTex = canvasTexture(400, 500, drawReceipt).tex;
   textures.push(receiptTex);
-  const RECEIPT_H = 1.4;
+  const RECEIPT_W = 0.92;
+  const RECEIPT_H = RECEIPT_W * 1.25;
   const receipt = new Mesh(
-    track(new PlaneGeometry(1.12, RECEIPT_H)),
+    track(new PlaneGeometry(RECEIPT_W, RECEIPT_H)),
     trackM(new MeshStandardMaterial({ map: receiptTex, roughness: 0.9, side: DoubleSide })),
   );
-  const receiptHidden = TERM_H / 2 - RECEIPT_H / 2 - 0.05;
-  receipt.position.set(0, receiptHidden, 0);
-  receipt.rotation.x = -0.08;
+  const receiptHidden = slotY - RECEIPT_H / 2 - 0.03;
+  receipt.position.set(0, receiptHidden, printerZ);
+  receipt.rotation.x = -0.12;
   group.add(receipt);
-  const slot = new Mesh(track(new BoxGeometry(1.2, 0.03, 0.08)), trackM(new MeshBasicMaterial({ color: 0x010403 })));
-  slot.position.set(0, TERM_H / 2 + BEVEL - 0.01, 0);
-  group.add(slot);
 
   // ── API ──
   let lastKey = "";
@@ -423,6 +544,8 @@ export function buildTerminal(envTexture: Texture) {
       receipt.visible = t > 0.001;
     },
     dispose() {
+      disposed = true;
+      logoImg.onload = null;
       geometries.forEach((g) => g.dispose());
       materials.forEach((m) => m.dispose());
       textures.forEach((tx) => tx.dispose());

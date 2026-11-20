@@ -221,7 +221,7 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
   const q = (x: number, y: number, z: number) => new Quaternion().setFromEuler(new Euler(x, y, z));
   const poseA = { pos: new Vector3(4.8, -1.4, 2.6), quat: q(0.5, -2.4, 0.5) };
   const poseB = { pos: new Vector3(1.5, 0.9, 1.7), quat: q(0.1, -0.9, 0.15) };
-  const poseE = { pos: new Vector3(0.95, -0.5, 1.5), quat: q(-0.08, -0.3, -0.1) };
+  const poseE = { pos: new Vector3(1.05, -1.0, 1.5), quat: q(-0.08, -0.3, -0.1) };
   const hoverLocal = new Vector3(0, terminal.screenY + 0.05, FRONT_Z + 0.75);
   const touchLocal = new Vector3(0, terminal.screenY + 0.05, FRONT_Z + 0.3);
   const tmpV = new Vector3();
@@ -245,8 +245,8 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     const portrait = camera.aspect < 1;
     distScale = portrait ? Math.min(2, 0.95 / camera.aspect) : 1;
     poseB.pos.x = portrait ? 0.9 : 1.5;
-    // Al final la tarjeta queda sobre la esquina del teclado (o debajo en móvil)
-    poseE.pos.set(portrait ? 0.5 : 0.95, portrait ? -0.75 : -0.5, portrait ? 2.1 : 1.5);
+    // Al final la tarjeta queda junto a la parte baja de la terminal (o debajo en móvil)
+    poseE.pos.set(portrait ? 0.5 : 1.05, portrait ? -0.9 : -1.0, portrait ? 2.1 : 1.5);
     camera.updateProjectionMatrix();
   };
   const ro = new ResizeObserver(resize);
@@ -302,10 +302,11 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     lookPath.getPoint(p, lookTarget).add(frame);
     camera.lookAt(lookTarget);
 
-    // Terminal: sube al inicio
+    // Terminal: sube al inicio y queda recargada hacia atrás, de tres cuartos,
+    // para que se vea la impresora detrás del borde superior
     const enter = seg(p, 0, 0.15, easeOut);
     terminal.group.position.set(0, -1.8 * (1 - enter) + Math.sin(time * 0.8) * 0.02, 0);
-    terminal.group.rotation.set(0.22 * (1 - enter), -0.9 + 0.58 * enter, 0);
+    terminal.group.rotation.set(0.22 - 0.36 * enter, -0.9 + 1.25 * enter, 0);
     terminal.group.updateMatrixWorld();
 
     // Pantalla

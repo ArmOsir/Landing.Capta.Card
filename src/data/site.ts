@@ -50,7 +50,7 @@ export const cycleExample = {
   steps: [
     { mark: "1", date: "18 de diciembre", text: "Activas tu tarjeta en la app." },
     { mark: "2", date: "6 de enero", text: "Primer corte: se genera tu estado de cuenta." },
-    { mark: "3", date: "3 de febrero", text: "Fecha límite para pagar." },
+    { mark: "3", date: "1 de febrero", text: "Fecha límite para pagar." },
   ],
 };
 

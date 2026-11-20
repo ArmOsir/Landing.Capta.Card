@@ -24,7 +24,8 @@
   --bg: #051c13;
   --band: rgb(0 0 0 / 16%);
   --grid: rgb(74 222 128 / 5%);
-  --surface: rgb(11 49 34 / 72%);
+  /* Mismo translúcido que las tarjetas bajo la tarjeta del Hero */
+  --surface: rgb(11 49 34 / 62%);
   --surface-solid: #0b3122;
   --surface-hover: #154734;
   --border: rgb(74 222 128 / 18%);
@@ -76,7 +77,7 @@
   --bg: #eaf5e9;
   --band: rgb(255 255 255 / 42%);
   --grid: rgb(29 111 63 / 7%);
-  --surface: rgb(255 255 255 / 78%);
+  --surface: rgb(255 255 255 / 52%);
   --surface-solid: #f7fff5;
   --surface-hover: #ffffff;
   --border: #b6d9bb;
@@ -375,7 +376,6 @@ img {
   border-radius: 4px 25px 4px 25px;
   background: var(--surface);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(12px);
 }
 
 .card:nth-child(even) {
@@ -1110,7 +1110,7 @@ img {
   border: 1px solid var(--border-soft);
   border-radius: 15px;
   color: var(--text);
-  background: var(--surface-solid);
+  background: var(--surface);
   font-size: 14px;
   font-weight: 600;
 }
@@ -1373,7 +1373,7 @@ img {
 
 .faq details[open] {
   border-color: var(--chip-border);
-  background: var(--surface-solid);
+  background: var(--surface);
 }
 
 .faq summary {
