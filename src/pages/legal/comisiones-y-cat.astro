@@ -1,69 +1,104 @@
 ---
+/**
+ * Comisiones y CAT. Resumen en lenguaje claro de la Carátula y el Anexo A del
+ * contrato (public/docs/Contrato_TDC_CaptaVale_Modelo_v2_9.docx). Si cambian
+ * montos o condiciones en el contrato, actualízalos aquí también.
+ */
 import LegalLayout from "../../layouts/LegalLayout.astro";
 import Pending from "../../components/Pending.astro";
-import { cycleExample, legal } from "../../data/site";
+import { cycleExample, legal, legalHref } from "../../data/site";
 
 const sections = [
-  { id: "resumen", title: "Resumen de costos" },
-  { id: "cat", title: "Qué es el CAT" },
+  { id: "resumen", title: "Resumen" },
   { id: "comisiones", title: "Comisiones" },
-  { id: "ejemplo", title: "Ejemplo de ciclo de pago" },
-  { id: "evita", title: "Cómo evitar intereses" },
+  { id: "intereses", title: "Intereses" },
+  { id: "pago-minimo", title: "Pago mínimo" },
+  { id: "corte-y-pago", title: "Corte y fecha límite" },
+  { id: "cat", title: "Qué es el CAT" },
+  { id: "advertencias", title: "Advertencias" },
 ];
 
-// Cada comisión queda pendiente hasta tener el tabulador oficial.
+const contrato = legalHref("contrato");
+
 const fees = [
-  { name: "Anualidad", value: legal.annualFee, when: "Una vez al año" },
-  { name: "Pago tardío", value: "", when: "Si no cubres el pago mínimo a tiempo" },
-  { name: "Reposición de tarjeta", value: "", when: "Por robo, extravío o daño" },
-  { name: "Disposición de efectivo", value: "", when: "Al retirar efectivo con tu tarjeta" },
-  { name: "Compras en el extranjero", value: "", when: "Por conversión de divisas" },
+  {
+    name: "Anualidad",
+    value: "$300.00",
+    when: "Primer año sin costo. Después, en el corte posterior a cada aniversario de la activación. No se devuelve de forma proporcional.",
+  },
+  {
+    name: "Pago tardío",
+    value: "$300.00",
+    when: "Una vez por periodo en que no cubras al menos el pago mínimo en la fecha límite; o el saldo vencido, si es menor.",
+  },
+  {
+    name: "Reposición de tarjeta",
+    value: "$200.00",
+    when: "Por robo, extravío o daño atribuible a ti. Gratis por desgaste normal, falla de fabricación o renovación.",
+  },
+  {
+    name: "Disposición de efectivo",
+    value: "9.00%",
+    when: "Del monto retirado en cajero, nacional o del extranjero. El operador del cajero puede cobrar su propia comisión.",
+  },
+  { name: "Apertura", value: "Sin costo", when: "—" },
+  { name: "Pago anticipado o cancelación", value: "Sin costo", when: "En cualquier momento, sin penalización." },
 ];
 ---
 
 <LegalLayout
   title="Comisiones y CAT"
   slug="comisiones-y-cat"
-  summary="Todo lo que cuesta tu Capta Card, en un solo lugar y sin letras pequeñas."
+  summary="Lo que cuesta tu Capta Card, tomado de la Carátula y el Anexo A del contrato."
+  updated="Conforme al contrato modelo versión 2.9"
   sections={sections}
 >
   <section id="resumen">
-    <h2>Resumen de costos</h2>
+    <h2>Resumen</h2>
     <div class="legal__table">
       <table>
         <tbody>
           <tr>
             <th scope="row">CAT promedio</th>
             <td>
-              {legal.cat ? <>{legal.cat}% sin IVA</> : <Pending>CAT promedio sin IVA</Pending>}
+              {
+                legal.cat ? (
+                  <>
+                    {legal.cat}% sin IVA. Para fines informativos y de comparación
+                    {legal.catDate && <>, calculado al {legal.catDate}</>}.
+                  </>
+                ) : (
+                  <Pending>CAT promedio sin IVA y fecha de cálculo</Pending>
+                )
+              }
             </td>
           </tr>
           <tr>
-            <th scope="row">Tasa de interés anual</th>
-            <td>{legal.interestRate ? <>{legal.interestRate}% fija</> : <Pending>tasa</Pending>}</td>
+            <th scope="row">Tasa de interés ordinaria anual</th>
+            <td>Fija y sin IVA. La de tu contrato consta en tu carátula; en ningún caso es mayor a 90.00%.</td>
+          </tr>
+          <tr>
+            <th scope="row">Tasa moratoria</th>
+            <td>No aplica. Si te atrasas, solo se cobra la comisión por pago tardío.</td>
+          </tr>
+          <tr>
+            <th scope="row">Línea de crédito</th>
+            <td>Revolvente, en moneda nacional, desde $1,000.00.</td>
           </tr>
           <tr>
             <th scope="row">Anualidad</th>
-            <td>{legal.annualFee || <Pending>monto o "sin anualidad"</Pending>}</td>
+            <td>$300.00 + IVA. El primer año es sin costo.</td>
           </tr>
           <tr>
-            <th scope="row">Fecha de cálculo</th>
-            <td>{legal.catDate || <Pending>fecha de cálculo del CAT</Pending>}</td>
+            <th scope="row">Obligación</th>
+            <td>Individual, sin aval ni obligado solidario. Sin seguros ni servicios adicionales.</td>
           </tr>
         </tbody>
       </table>
     </div>
     <p>
-      CAT promedio sin IVA, para fines informativos y de comparación.
-      {legal.catDate ? <>Calculado al {legal.catDate}.</> : <Pending>vigencia del cálculo</Pending>}
-    </p>
-  </section>
-
-  <section id="cat">
-    <h2>Qué es el CAT</h2>
-    <p>
-      El Costo Anual Total (CAT) reúne en un solo porcentaje los intereses y las comisiones de un crédito. Sirve para
-      comparar tarjetas: entre dos opciones parecidas, la que tiene el CAT más bajo cuesta menos.
+      Los datos exactos de tu crédito (línea, tasa, CAT, día de corte y fecha límite de pago) están en la carátula de tu
+      contrato, que puedes consultar en la app. Consulta también el <a href={contrato}>modelo del contrato</a>.
     </p>
   </section>
 
@@ -74,46 +109,101 @@ const fees = [
         <thead>
           <tr>
             <th>Concepto</th>
-            <th>Cuándo se cobra</th>
             <th>Monto</th>
+            <th>Cuándo se cobra</th>
           </tr>
         </thead>
         <tbody>
-          {fees.map((f) => (
-            <tr>
-              <td>{f.name}</td>
-              <td>{f.when}</td>
-              <td>{f.value || <Pending>monto</Pending>}</td>
-            </tr>
-          ))}
+          {
+            fees.map((f) => (
+              <tr>
+                <th scope="row">{f.name}</th>
+                <td class="legal__amount" data-label="Monto">{f.value}</td>
+                <td data-label="Cuándo se cobra">{f.when}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
     <p>
-      Los montos no incluyen IVA. <Pending>confirmar lista completa con el tabulador oficial del emisor</Pending>
+      Los montos no incluyen IVA. Capta solo cobra las comisiones de esta lista; cualquier comisión nueva o aumento se te
+      avisa con al menos 30 días naturales de anticipación.
     </p>
   </section>
 
-  <section id="ejemplo">
-    <h2>Ejemplo de ciclo de pago</h2>
-    <p>Si activas tu tarjeta el {cycleExample.activation}:</p>
-    <ol class="legal__steps">
-      {cycleExample.steps.map((s) => (
-        <li>
-          <strong>{s.date}:</strong> {s.text}
-        </li>
-      ))}
-    </ol>
-    <p>Tienes 27 días desde tu fecha de corte para pagar.</p>
+  <section id="intereses">
+    <h2>Intereses</h2>
+    <ul>
+      <li>
+        Se calculan sobre tu saldo, todos los días, dividiendo la tasa anual entre 360. Se suman al corte y se pagan en
+        la fecha límite, más IVA.
+      </li>
+      <li>
+        <strong>Compras sin intereses:</strong> si pagas el total de tu estado de cuenta a más tardar en la fecha límite,
+        no pagas intereses por las compras de ese periodo.
+      </li>
+      <li>Los retiros de efectivo generan intereses desde el día del retiro.</li>
+      <li>Las compras en otra moneda se cargan en pesos, al tipo de cambio que aplique la red de pagos.</li>
+    </ul>
   </section>
 
-  <section id="evita">
-    <h2>Cómo evitar intereses</h2>
+  <section id="pago-minimo">
+    <h2>Pago mínimo</h2>
+    <p>Es la cantidad más alta entre estas dos, sin pasar de lo que debes en total:</p>
+    <ol>
+      <li>El 1.5% de lo que debes de compras y retiros, más los intereses y comisiones del periodo con su IVA.</li>
+      <li>El 1.25% de tu línea de crédito.</li>
+    </ol>
+    <p>
+      Si solo pagas el mínimo, sigues pagando intereses sobre lo que queda, tardas más en liquidar y el crédito te cuesta
+      más.
+    </p>
+  </section>
+
+  <section id="corte-y-pago">
+    <h2>Corte y fecha límite</h2>
+    <p>
+      Tu tarjeta corta una vez al mes. Tienes 27 días después del corte para pagar; si la fecha límite cae en día inhábil,
+      se recorre al siguiente día hábil. Tu estado de cuenta llega sin costo a la app y a tu correo dentro de los 5 días
+      siguientes al corte.
+    </p>
+    <p>Por ejemplo, si activas tu tarjeta el {cycleExample.activation}:</p>
+    <ol class="legal__steps">
+      {
+        cycleExample.steps.map((s) => (
+          <li>
+            <strong>{s.date}:</strong> {s.text}
+          </li>
+        ))
+      }
+    </ol>
+    <p>
+      Puedes pagar por transferencia SPEI a tu cuenta referenciada, por domiciliación si la contratas y por los demás
+      medios que se habiliten en la app.
+    </p>
+  </section>
+
+  <section id="cat">
+    <h2>Qué es el CAT</h2>
+    <p>
+      El Costo Anual Total (CAT) reúne en un solo porcentaje los intereses y las comisiones de un crédito. Sirve para
+      comparar: entre dos tarjetas parecidas, la de CAT más bajo cuesta menos. Se calcula conforme a la Circular 21/2009
+      de Banco de México y se expresa sin IVA, para fines informativos y de comparación.
+    </p>
+  </section>
+
+  <section id="advertencias">
+    <h2>Advertencias</h2>
     <div class="legal__callout">
-      <p>
-        Paga el total de tu estado de cuenta antes de la fecha límite. Si solo pagas el mínimo, se cobran intereses sobre
-        el saldo restante y tardarás más en liquidar.
-      </p>
+      <ul>
+        <li>Incumplir tus obligaciones te puede generar comisiones.</li>
+        <li>Contratar créditos que excedan tu capacidad de pago afecta tu historial crediticio.</li>
+        <li>
+          Cuida tu capacidad de pago: generalmente no debe exceder del 35% de tus ingresos periódicos. Los costos por mora
+          son muy elevados.
+        </li>
+      </ul>
     </div>
   </section>
 </LegalLayout>

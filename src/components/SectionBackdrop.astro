@@ -21,7 +21,7 @@ interface LeafSpec {
 }
 
 interface Props {
-  variant: "benefits" | "journey" | "breeze" | "gust" | "calm" | "corners" | "help";
+  variant: "benefits" | "journey" | "breeze" | "gust" | "calm" | "corners" | "help" | "advantages";
 }
 
 const { variant } = Astro.props;
@@ -57,6 +57,13 @@ const leaves: Record<Props["variant"], LeafSpec[]> = {
     { x: 50, y: 52, size: 560, rot: 8, motion: "sway", dur: 18 },
     { x: 7, y: 20, size: 40, rot: -20, motion: "drift", dur: 14, solid: true },
     { x: 94, y: 84, size: 34, rot: 36, motion: "drift", dur: 18, delay: -7, solid: true, hideSm: true },
+  ],
+  // Ventajas: el mosaico ya es denso, así que nada pasa por detrás de las
+  // tarjetas; una hoja mediana en el hueco junto al título y dos pequeñas.
+  advantages: [
+    { x: 11, y: 19, size: 200, rot: -28, motion: "sway", dur: 15 },
+    { x: 30, y: 6, size: 30, rot: 36, motion: "drift", dur: 16, solid: true },
+    { x: 96, y: 94, size: 32, rot: -40, motion: "drift", dur: 18, delay: -6, solid: true, hideSm: true },
   ],
   corners: [
     { x: 2, y: 88, size: 360, rot: -30, motion: "sway", dur: 14 },

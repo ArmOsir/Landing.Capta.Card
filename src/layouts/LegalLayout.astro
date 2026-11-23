@@ -1,13 +1,13 @@
 ---
 /**
- * Plantilla de las páginas legales: cabecera oscura con el título, índice
- * lateral y texto en tono claro para lectura larga. Mientras `legalDraft` sea
- * true se muestra un aviso de borrador arriba del contenido.
+ * Plantilla de las páginas legales: cabecera con el título, índice lateral y
+ * texto para lectura larga. La versión o fecha del documento va en `updated` o,
+ * si necesita marcado (p. ej. un dato pendiente), en el slot "updated".
+ * Mientras `legalDraft` sea true se muestra un aviso de borrador.
  */
 import BaseLayout from "./BaseLayout.astro";
 import LeafSprite from "../components/LeafSprite.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import CookieNotice from "../components/CookieNotice.astro";
 import { legalDraft, legalHref, legalPages } from "../data/site";
 import "../styles/global.css";
 
@@ -42,9 +42,15 @@ const { title, slug, summary, updated, sections } = Astro.props;
       <p class="legal-top__kicker">Información legal</p>
       <h1>{title}</h1>
       <p class="legal-top__summary">{summary}</p>
-      <p class="legal-top__updated">
-        Última actualización: {updated ?? <span class="pending pending--inline">Por definir</span>}
-      </p>
+      {
+        Astro.slots.has("updated") ? (
+          <p class="legal-top__updated">
+            <slot name="updated" />
+          </p>
+        ) : (
+          updated && <p class="legal-top__updated">{updated}</p>
+        )
+      }
     </div>
   </header>
 
@@ -92,7 +98,6 @@ const { title, slug, summary, updated, sections } = Astro.props;
     </main>
     <SiteFooter />
   </div>
-  <CookieNotice />
 </BaseLayout>
 
 <style>

@@ -1,6 +1,6 @@
 ---
 import Brand from "./Brand.astro";
-import { condusef, contact, legal, legalHref, legalPages, supportHref } from "../data/site";
+import { contact, legal, legalHref, legalPages, profeco, supportHref } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
@@ -36,12 +36,12 @@ const year = new Date().getFullYear();
         <li>
           Correo: <a href={`mailto:${contact.supportEmail}`}>{contact.supportEmail}</a>
         </li>
+        {contact.hours && <li>{contact.hours}</li>}
         <li>
-          <a href={legalHref("une-y-aclaraciones")}>Unidad Especializada de Atención (UNE) y aclaraciones</a>
+          <a href={legalHref("aclaraciones")}>Aclaraciones, robo o extravío</a>
         </li>
         <li>
-          <a href={condusef.url} rel="noopener">{condusef.name}</a>: Comisión Nacional para la Protección y Defensa de
-          los Usuarios de Servicios Financieros.
+          <a href={profeco.url} rel="noopener">{profeco.name}</a>: {profeco.fullName}, {profeco.phones}.
         </li>
       </ul>
     </div>
@@ -60,6 +60,7 @@ const year = new Date().getFullYear();
           {legal.interestRate && <>*Tasa de interés anual fija de {legal.interestRate}%. </>}
           Producto sujeto a aprobación de crédito. Consulta requisitos, <a href={legalHref("comisiones-y-cat")}>comisiones y CAT</a>. Las condiciones
           vigentes del producto prevalecen.
+          {legal.lender && <> Crédito otorgado por {legal.lender}</>}
           {legal.issuer && <> Tarjeta emitida por {legal.issuer} bajo la licencia de Mastercard Internacional.</>}
         </p>
         <nav class="site-footer__docs" aria-label="Documentos legales">

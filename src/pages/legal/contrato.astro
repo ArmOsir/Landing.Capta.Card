@@ -1,0 +1,279 @@
+---
+/**
+ * Contrato de adhesión. Texto tomado de public/docs (no editar a mano sin actualizar el documento fuente).
+ */
+import LegalLayout from "../../layouts/LegalLayout.astro";
+
+const sections = [
+  {
+    "id": "caratula",
+    "title": "Carátula"
+  },
+  {
+    "id": "contrato",
+    "title": "Contrato"
+  },
+  {
+    "id": "declaraciones",
+    "title": "Declaraciones"
+  },
+  {
+    "id": "clausulas",
+    "title": "Cláusulas"
+  },
+  {
+    "id": "anexo-a",
+    "title": "Anexo A · Comisiones e intereses"
+  },
+  {
+    "id": "anexo-b",
+    "title": "Anexo B · Información crediticia"
+  },
+  {
+    "id": "anexo-c",
+    "title": "Anexo C · Aviso de privacidad"
+  },
+  {
+    "id": "anexo-d",
+    "title": "Anexo D · Identificación y prevención"
+  }
+];
+---
+
+<LegalLayout
+  title="Contrato de adhesión"
+  slug="contrato"
+  summary="Contrato de adhesión de apertura de crédito en cuenta corriente con disposición mediante Tarjeta de Crédito Capta Card."
+  sections={sections}
+>
+  <Fragment slot="updated">Modelo versión 2.9</Fragment>
+  <p class="legal__lead">
+    Modelo vigente del contrato de la Tarjeta de Crédito Capta Card, con su Carátula y Anexos. Los campos entre
+    comillas angulares (<span class="legal__field">«así»</span>) se llenan con los datos de cada cliente: tu contrato
+    firmado, con tus datos, tu línea de crédito, tu tasa y tu CAT, está disponible en la app.
+  </p>
+
+  <section id="caratula">
+    <h2>Carátula</h2>
+    <p class="legal__note">Apertura de crédito en cuenta corriente · Capital Productivo del Noroeste, S.A.P.I. de C.V. · RFC CPN170816KC8 · Entidad Comercial (LTOSF)</p>
+    <div class="legal__table">
+      <table>
+        <tbody>
+          <tr><th scope="row">Cliente y contrato</th><td><span class="legal__field">«Nombre completo del Cliente»</span> · RFC <span class="legal__field">«RFC»</span> · Cliente <span class="legal__field">«Número de Cliente»</span> · Contrato <span class="legal__field">«Folio»</span> · Fecha <span class="legal__field">«Fecha de firma»</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legal__table">
+      <table>
+        <tbody>
+          <tr><th scope="row">CAT</th><td><span class="legal__field">«CAT del contrato»</span> Sin IVA. Costo Anual Total. Para fines informativos y de comparación exclusivamente.</td></tr>
+          <tr><th scope="row">Tasa de interés</th><td><span class="legal__field">«Tasa ordinaria anual»</span> fija, sin IVA (techo del modelo 90.00%). Tasa moratoria: no aplica; la mora solo genera la Comisión por Pago Tardío.</td></tr>
+          <tr><th scope="row">Línea de Crédito</th><td><span class="legal__field">«Monto con número y letra»</span> M.N., revolvente, sin accesorios. Mínima del producto: $1,000.00.</td></tr>
+          <tr><th scope="row">Pago Mínimo</th><td>El mayor entre: (i) 1.5% de la Parte Revolvente más los intereses y comisiones del periodo con su IVA, y (ii) 1.25% de la Línea de Crédito; nunca mayor al Saldo Insoluto.</td></tr>
+          <tr><th scope="row">Intereses</th><td>Sobre el Saldo Insoluto, devengo diario (tasa/360), capitalización al corte. Sin intereses por compras si pagas el total en la Fecha Límite de Pago; efectivo: desde el retiro.</td></tr>
+          <tr><th scope="row">Corte y pago</th><td>Corte: día <span class="legal__field">«día de corte»</span> de cada mes. Fecha Límite de Pago: día <span class="legal__field">«día límite de pago»</span> del mes siguiente, nunca antes de 20 días naturales del corte (si es inhábil, el día hábil siguiente).</td></tr>
+          <tr><th scope="row">Obligación</th><td>Individual, sin aval ni obligado solidario. Sin servicios adicionales ni seguros.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Comisiones (sin IVA; detalle en el Anexo A)</h3>
+    <div class="legal__table">
+      <table>
+        <thead><tr><th>Concepto</th><th>Monto</th><th>Condición</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-label="Concepto">Anualidad</th><td data-label="Monto">$300.00</td><td data-label="Condición">Primer año exento; después, en el corte posterior a cada aniversario de activación; sin devolución. Puede no cobrarse, total o parcialmente, por acuerdo: <span class="legal__field">«exención de Anualidad»</span>.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Pago Tardío</th><td data-label="Monto">$300.00</td><td data-label="Condición">Por periodo sin Pago Mínimo; o el saldo vencido, si es menor.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Reposición</th><td data-label="Monto">$200.00</td><td data-label="Condición">Por robo, extravío o daño imputable al Cliente; gratuita por falla o desgaste.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Efectivo</th><td data-label="Monto">9.00%</td><td data-label="Condición">Del monto retirado en cajero nacional o extranjero; el operador puede cobrar su propia comisión.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Apertura y prepago</th><td data-label="Monto">Sin costo</td><td data-label="Condición">Pago anticipado o terminación en cualquier momento, sin penalización.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legal__callout">
+      <p><strong>Advertencias</strong></p>
+      <ul>
+        <li>Incumplir tus obligaciones te puede generar comisiones.</li>
+        <li>Contratar créditos que excedan tu capacidad de pago afecta tu historial crediticio.</li>
+        <li>Cuide su capacidad de pago, generalmente no debe de exceder del 35% de sus ingresos periódicos, los costos por mora son muy elevados.</li>
+        <li>Si únicamente se paga el mínimo requerido usted pagará su crédito en <span class="legal__field">«número de meses»</span> meses.</li>
+      </ul>
+    </div>
+    <div class="legal__table">
+      <table>
+        <tbody>
+          <tr><th scope="row">Publicidad</th><td>Acepto el uso de mis datos con fines publicitarios:  Sí (   )   No (   )</td></tr>
+          <tr><th scope="row">Estado de cuenta</th><td>Mensual y sin costo, en la Aplicación (consulta gratuita) y por correo electrónico.</td></tr>
+          <tr><th scope="row">Atención a clientes</th><td><a href="mailto:soporte@captacard.com">soporte@captacard.com</a> · +52 55 3648 4526 · L-V 9:00-18:00 · Av. 16 de Septiembre 1660-1, Centro, 80000 Culiacán, Sin. · www.captacard.com</td></tr>
+          <tr><th scope="row">PROFECO</th><td>55 5568 8722 · 800 468 8722 · www.gob.mx/profeco</td></tr>
+          <tr><th scope="row">Registro PROFECO</th><td>Inscrito con el número <span class="legal__field">«número de inscripción»</span>, el <span class="legal__field">«fecha de inscripción»</span>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>La Carátula es parte integral del Contrato y prevalece en caso de discrepancia. La conocí y acepté antes de firmar. Firma electrónica avanzada del Cliente: <span class="legal__field">«constancia de firma»</span>.</p>
+  </section>
+
+  <section id="contrato">
+    <h2>Contrato de adhesión</h2>
+    <p class="legal__note">CONTRATO DE ADHESIÓN DE APERTURA DE CRÉDITO EN CUENTA CORRIENTE CON DISPOSICIÓN MEDIANTE TARJETA DE CRÉDITO</p>
+    <p>Contrato de Adhesión de Apertura de Crédito en Cuenta Corriente con Disposición mediante Tarjeta de Crédito que celebran, por una parte, CAPITAL PRODUCTIVO DEL NOROESTE, S.A.P.I. DE C.V. (el “Acreditante”), representada en este acto por quien suscribe al calce, con facultades suficientes para la celebración del presente Contrato; y, por la otra, la persona física identificada en la Carátula (el “Cliente” o el “Acreditado”), conjuntamente las “Partes”, al tenor de las siguientes Declaraciones y Cláusulas. El producto se comercializa e identifica bajo la marca “Capta Card”.</p>
+  </section>
+
+  <section id="declaraciones">
+    <h2>Declaraciones</h2>
+    <h3>I. Declara el Acreditante, por conducto de su representante</h3>
+    <ul class="legal__plain">
+      <li>a) Que es una sociedad mercantil constituida conforme a las leyes de los Estados Unidos Mexicanos mediante escritura pública número 60,940, de fecha 16 de agosto de 2017, otorgada ante la fe del Notario Público número 134, con ejercicio en el Estado de Sinaloa, inscrita en el Registro Público de Comercio bajo el folio mercantil electrónico N-2017071017, transformada en sociedad anónima promotora de inversión de capital variable mediante escritura pública número 2,518, de fecha 22 de diciembre de 2022.</li>
+      <li>b) Que su Registro Federal de Contribuyentes es CPN170816KC8 y que, para efectos de este Contrato, señala como domicilio convencional el ubicado en Avenida 16 de Septiembre No. 1660, Interior 1, Colonia Centro Sinaloa, C.P. 80000, Culiacán, Sinaloa.</li>
+      <li>c) Que su objeto social comprende el otorgamiento de créditos y financiamientos, actividad que realiza como acto de comercio, en ejercicio de la libertad de comercio prevista en el artículo 5º de la Constitución, sin que para ello requiera autorización especial ni registro ante autoridad financiera, y que para efectos de la Ley para la Transparencia y Ordenamiento de los Servicios Financieros tiene el carácter de Entidad Comercial.</li>
+      <li>d) Que quien lo representa en la celebración de este Contrato cuenta con las facultades suficientes para obligarlo en sus términos, las cuales a la fecha no le han sido revocadas ni limitadas.</li>
+      <li>e) Que es el emisor del crédito y el único responsable de la relación crediticia frente al Cliente; la emisión técnica de la Tarjeta y la conectividad con la red de pagos se realizan a través de un proveedor tecnológico que actúa como patrocinador del BIN ante el titular de la marca, sin que dicho proveedor asuma la relación crediticia ni obligación de pago alguna frente al Cliente.</li>
+      <li>f) Que se encuentra inscrito en el padrón de actividades vulnerables del Servicio de Administración Tributaria por las actividades previstas en el artículo 17, fracciones II, inciso a), y IV, de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, y que cumple las obligaciones que dicha Ley le impone.</li>
+    </ul>
+    <h3>II. Declara el Cliente, bajo protesta de decir verdad</h3>
+    <ul class="legal__plain">
+      <li>a) Que es persona física, mayor de edad, con plena capacidad legal, y que sus datos constan en la Carátula y en la solicitud presentada a través de la Aplicación.</li>
+      <li>b) Que la información y documentación que proporcionó es verdadera, completa y vigente, y que los recursos con los que pagará el crédito son de procedencia lícita.</li>
+      <li>c) Que actúa por cuenta propia y en su propio beneficio, en términos del Anexo D.</li>
+      <li>d) Que previamente a la firma conoció la Carátula, el CAT, las tasas, las comisiones y el contenido íntegro de este Contrato y sus Anexos, así como el Aviso de Privacidad del Acreditante.</li>
+      <li>e) Que autorizó expresamente la consulta de su historial crediticio en términos del Anexo B.</li>
+      <li>f) Que acepta que la firma electrónica avanzada y los demás medios electrónicos pactados producen los mismos efectos que la firma autógrafa.</li>
+    </ul>
+    <h3>III. Declaran las Partes</h3>
+    <p>que se reconocen la personalidad con la que comparecen, que en la celebración de este Contrato no media error, dolo, violencia ni lesión, y que es su voluntad obligarse conforme a las siguientes:</p>
+  </section>
+
+  <section id="clausulas">
+    <h2>Cláusulas</h2>
+    <h3 id="clausula-1">1. Definiciones</h3>
+    <ul class="legal__plain">
+      <li><strong>“Aplicación”:</strong> la aplicación móvil y demás plataformas digitales del Acreditante mediante las cuales se solicita, contrata, administra y opera la Tarjeta.</li>
+      <li><strong>“Carátula”:</strong> el documento que antecede a este clausulado, parte integral del Contrato, que contiene los términos económicos vigentes.</li>
+      <li><strong>“Credenciales de Acceso”:</strong> el usuario, contraseña, NIP, códigos de un solo uso (OTP) y elementos biométricos que el Cliente registra para identificarse y operar en la Aplicación.</li>
+      <li><strong>“Disposición”:</strong> cada operación con cargo a la Línea de Crédito realizada mediante la Tarjeta.</li>
+      <li><strong>“Disposición de Efectivo”:</strong> la Disposición consistente en el retiro de efectivo en cajero automático.</li>
+      <li><strong>“Anualidad”:</strong> la comisión anual prevista en la Carátula y en el Anexo A.</li>
+      <li><strong>“Estado de Cuenta”:</strong> el documento que refleja los movimientos, saldos e importes exigibles de cada periodo. “Fecha de Corte” y</li>
+      <li><strong>“Fecha Límite de Pago”:</strong> las señaladas en la Carátula.</li>
+      <li><strong>“Línea de Crédito”:</strong> el monto máximo revolvente que el Acreditante pone a disposición del Cliente.</li>
+      <li><strong>“Pago Mínimo”:</strong> el importe mínimo por periodo conforme a la Carátula.</li>
+      <li><strong>“Parte Revolvente”:</strong> el capital dispuesto y no pagado al cierre del periodo, sin incluir intereses, comisiones ni el impuesto al valor agregado correspondientes.</li>
+      <li><strong>“PAP”:</strong> la política de aplicación de pagos de la Cláusula 10.</li>
+      <li><strong>“Procesador”:</strong> el tercero proveedor de la infraestructura tecnológica de emisión y procesamiento.</li>
+      <li><strong>“Saldo Insoluto”:</strong> la suma del capital dispuesto no pagado más intereses, comisiones e IVA devengados.</li>
+      <li><strong>“Tarjeta”:</strong> el medio de disposición físico o digital emitido a nombre del Cliente.</li>
+    </ul>
+    <h3 id="clausula-2">2. Objeto</h3>
+    <p>El Acreditante abre al Cliente un crédito en cuenta corriente, revolvente y en moneda nacional, hasta por el monto de la Línea de Crédito señalado en la Carátula, para disponerse mediante la Tarjeta en términos de los artículos 291 a 301 de la Ley General de Títulos y Operaciones de Crédito. El Cliente se obliga a restituir las sumas dispuestas y a pagar los intereses, comisiones y accesorios pactados. Las cantidades que el Cliente abone quedan nuevamente disponibles en la parte proporcional de la Línea de Crédito.</p>
+    <p>Dentro de la Línea de Crédito, no se consideran incluidos aquellos montos accesorios qué de manera enunciativa, más no limitativa consisten en los Intereses, Comisiones, o cualesquier otro gasto adicional generado en virtud del cumplimiento de los términos y condiciones establecidos para la disposición y pago de dicha Línea de Crédito.</p>
+    <h3 id="clausula-3">3. Línea de Crédito; revisión y ajustes</h3>
+    <p>El monto de la Línea de Crédito se determina conforme a la metodología de evaluación del Acreditante, que considera el historial y la capacidad de pago del Cliente, y consta en la Carátula. La Línea de Crédito mínima del producto es de $1,000.00 M.N. El Acreditante puede revisar periódicamente la Línea de Crédito: los aumentos se ofrecerán al Cliente a través de la Aplicación y solo surtirán efectos con su aceptación; las reducciones o suspensiones por deterioro del perfil de riesgo, nivel de uso o comportamiento de pago se notificarán al Cliente por los medios pactados y no afectan las obligaciones ya contraídas. La metodología de evaluación puede apoyarse en modelos automatizados de análisis de riesgo. El Cliente puede solicitar por la Aplicación el incremento o la revisión de su Línea de Crédito, así como que la determinación adoptada sea revisada por personal del Acreditante; la respuesta se le comunica por los medios pactados.</p>
+    <h3 id="clausula-4">4. Disposiciones; uso de la Tarjeta; usos no permitidos</h3>
+    <p>El Cliente puede disponer de la Línea de Crédito mediante la Tarjeta para el pago de bienes y servicios en comercios físicos y electrónicos que la acepten, en territorio nacional y en el extranjero, incluidas las compras a distancia y en línea, así como para cargos recurrentes autorizados y las demás formas que el Acreditante habilite y comunique por la Aplicación. Las operaciones en moneda extranjera se cargarán en moneda nacional, convertidas al tipo de cambio que la red de pagos aplique en la fecha de procesamiento, el cual se reflejará en el Estado de Cuenta; las comisiones que, en su caso, correspondan a estas operaciones son las previstas en la Carátula y en el Anexo A. El Cliente puede asimismo realizar Disposiciones de Efectivo en cajeros automáticos, nacionales o del extranjero, con la comisión prevista en la Carátula. El operador del cajero puede cobrar su propia comisión, ajena al Acreditante. El Acreditante puede fijar un sublímite de Disposición de Efectivo y límites por operación o por día conforme a su política de riesgo, que informa al Cliente por la Aplicación y cuya modificación se rige por la Cláusula 24. La Tarjeta es personal e intransferible; el Cliente es responsable de su custodia y de la de sus Credenciales de Acceso.</p>
+    <p>Son usos no permitidos y facultan al Acreditante a rechazar operaciones, bloquear la Tarjeta o dar por vencido anticipadamente el Contrato: (i) disponer del crédito simulando compras mediante terminales, enlaces de pago o aplicativos propios o de terceros para allegarse efectivo (“auto-fondeo”); (ii) operaciones en establecimientos de apuestas o juegos con cruce de dinero, o para la compra de activos virtuales; (iii) cualquier operación contraria a la ley o destinada a actividades ilícitas; y (iv) el uso de la Tarjeta por persona distinta del Cliente.</p>
+    <h3 id="clausula-4-bis">4 Bis. Entrega, recepción y activación de la Tarjeta</h3>
+    <p>El Acreditante pone a disposición del Cliente una Tarjeta física, que puede ser innominada, es decir, sin el nombre del Cliente impreso en el plástico. La Tarjeta se entrega en la sucursal o punto de entrega que el Acreditante indique al Cliente a través de la Aplicación, previa verificación de su identidad con identificación oficial vigente, o bien, cuando el Acreditante habilite esa modalidad, en el domicilio que el Cliente registre por conducto de un proveedor de logística y mensajería, en cuyo caso el Cliente autoriza que su nombre y domicilio se comuniquen a dicho proveedor con la única finalidad de realizar la entrega y dar seguimiento a su estado. Al recibirla, el Cliente debe verificar que el plástico se encuentre íntegro y que corresponda a la Tarjeta que la Aplicación le asigne; cualquier anomalía debe reportarse de inmediato por los medios pactados. La Tarjeta queda vinculada a la cuenta del Cliente al asignársele, se entrega inactiva y sólo puede disponerse de la Línea de Crédito una vez que el Cliente la active a través de la Aplicación con sus Credenciales de Acceso. En caso de no entrega, devolución o pérdida antes de su recepción, el Acreditante gestiona una nueva asignación o emisión conforme a la Carátula y al Anexo A, sin que ello afecte las obligaciones del Cliente respecto de las Disposiciones efectivamente realizadas.</p>
+    <h3 id="clausula-4-ter">4 Ter. Billeteras digitales y tokenización</h3>
+    <p>A solicitud del Cliente, la Tarjeta puede habilitarse en billeteras digitales de terceros —por ejemplo, Apple Pay y Google Pay— para realizar operaciones desde un dispositivo compatible. Al hacerlo se genera un identificador digital (token) que representa a la Tarjeta y sustituye su número en cada operación, sin que el número real se revele al comercio. El alta de la Tarjeta en una billetera digital requiere un proceso de verificación de identidad y queda sujeta, además de a este Contrato, a los términos de uso y al aviso de privacidad del proveedor de la billetera y del fabricante del dispositivo, que el Cliente acepta directamente con ellos y respecto de los cuales el Acreditante no asume responsabilidad. Las operaciones efectuadas mediante el token se reputan realizadas con la Tarjeta y se rigen por este Contrato, incluidas la Política de Aplicación de Pagos y el régimen de Aclaraciones. El Acreditante puede suspender, bloquear o cancelar uno o más tokens de forma independiente de la Tarjeta física cuando concurra cualquiera de los supuestos previstos en las cláusulas 15 y 15 Bis. En caso de robo, extravío o cambio del dispositivo, el Cliente debe eliminar la Tarjeta de la billetera digital y reportarlo de inmediato por los medios pactados.</p>
+    <h3 id="clausula-5">5. Medios electrónicos y firma electrónica</h3>
+    <p>Las Partes reconocen como medios pactados de contratación, operación, autenticación y notificación la Aplicación, el correo electrónico y el número celular registrados por el Cliente. En términos de los artículos 89, 89 bis, 90 y 210-A del Código de Comercio, el uso de las Credenciales de Acceso —incluidos NIP, OTP y validaciones biométricas— constituye firma electrónica del Cliente, atribuye a éste las operaciones realizadas y produce los mismos efectos que la firma autógrafa, siendo admisible como prueba. Adicionalmente, para efectos de notificación y de aceptación de los ofrecimientos del Acreditante, las Partes reconocen como válidos la vía telefónica, la comunicación verbal o escrita y cualquier otro medio legalmente aceptado, dejando el Acreditante constancia de la comunicación de que se trate. Las operaciones autenticadas con Credenciales de Acceso se presumen realizadas por el Cliente, salvo prueba en contrario y salvo lo previsto en la Cláusula 16. El Cliente debe notificar de inmediato cualquier compromiso de sus Credenciales de Acceso para su bloqueo. Las Partes distinguen dos momentos. Los actos de solicitud, aceptación de avisos y autorizaciones, operación diaria y notificaciones se perfeccionan con las Credenciales de Acceso, que constituyen firma electrónica en los términos señalados. Este Contrato, su Carátula y sus Anexos se suscriben mediante firma electrónica avanzada, en ceremonia de firma ante prestador de servicios de certificación acreditado o con la e.firma del Cliente, con constancia de conservación conforme a la NOM-151-SCFI vigente; el Acreditante entrega al Cliente su ejemplar en formato electrónico descargable en la Aplicación y por correo. El Acreditante mantiene además de forma permanente a disposición del Cliente el modelo vigente de este Contrato, su Carátula y sus Anexos en la Aplicación y en su sitio de Internet, lo que las Partes pactan expresamente como forma de cumplimiento de la obligación prevista en el artículo 18 Bis, fracción III, de la Ley para la Transparencia y Ordenamiento de los Servicios Financieros.</p>
+    <h3 id="clausula-6">6. Intereses ordinarios</h3>
+    <p>En este Contrato se pacta una sola tasa de interés ordinaria, que es la asentada en la Carátula. El Saldo Insoluto devenga intereses ordinarios a dicha tasa anual fija, dividiendo la tasa anual entre 360 y multiplicando por los días naturales del periodo. Los intereses se devengan diariamente, se capitalizan por periodo vencido en la Fecha de Corte y se hacen exigibles en la Fecha Límite de Pago, más el IVA correspondiente. Si el Cliente cubre la totalidad del saldo del Estado de Cuenta a más tardar en la Fecha Límite de Pago, no se generan intereses ordinarios de ese periodo sobre las compras del mismo. Las Disposiciones de Efectivo generan intereses desde la fecha en que se realizan y no gozan del periodo sin intereses previsto en este párrafo.</p>
+    <h3 id="clausula-7">7. Ausencia de interés moratorio; único cargo por mora</h3>
+    <p>El Acreditante no cobra intereses moratorios. El único cargo aplicable por falta de pago oportuno del Pago Mínimo es la Comisión por Pago Tardío prevista en la Carátula y en el Anexo A, la cual se genera una sola vez por periodo incumplido y en ningún caso excede el saldo vencido. En ningún periodo se cobrará más de un cargo por el mismo incumplimiento de pago.</p>
+    <h3 id="clausula-8">8. Comisiones</h3>
+    <p>El Acreditante únicamente cobra las comisiones previstas en la Carátula y detalladas en el Anexo A, más el IVA correspondiente. La Anualidad se devenga desde la contratación, con el primer año exento, y se hace exigible en el primer corte posterior a cada aniversario de la activación de la Tarjeta; se devenga por año completo y no es objeto de devolución proporcional. El Acreditante puede eximir al Cliente de la Anualidad, total o parcialmente, por acuerdo con él o por promoción; la exención consta en la Carátula o se le comunica por la Aplicación, y su retiro posterior sólo procede conforme a la Cláusula 24. Cualquier comisión nueva o incremento se sujeta al procedimiento de la Cláusula 24. El CAT se expresa en la Carátula para fines informativos y de comparación, como un solo valor redondeado a un decimal y seguido de la leyenda "Sin IVA", y se calcula conforme a la Circular 21/2009 de Banco de México con los supuestos que dicha Circular establece para los créditos revolventes, sobre la Línea de Crédito y la tasa efectivamente pactadas en la fecha de celebración; la memoria de cálculo obra en el expediente del Acreditante y se pone a disposición del Cliente que la solicite.</p>
+    <h3 id="clausula-9">9. Corte, Pago Mínimo y Fecha Límite de Pago</h3>
+    <p>El periodo de la cuenta cierra en la Fecha de Corte. El Cliente debe cubrir, a más tardar en la Fecha Límite de Pago, cuando menos el Pago Mínimo calculado conforme a la fórmula de la Carátula: el monto mayor entre (i) la suma del 1.5% de la Parte Revolvente más los intereses y las comisiones del periodo con su impuesto al valor agregado, y (ii) el 1.25% del límite de la Línea de Crédito; sin exceder en ningún caso el Saldo Insoluto total. El pago del mínimo no interrumpe el devengo de intereses sobre el saldo remanente y, si el Cliente cubre únicamente ese importe, el plazo para liquidar el adeudo se prolonga y el costo financiero total se incrementa.</p>
+    <h3 id="clausula-10">10. Pagos y Política de Aplicación de Pagos (PAP)</h3>
+    <p>Los pagos se realizan en moneda nacional por los medios habilitados en la Aplicación: transferencia electrónica (SPEI) a la cuenta referenciada del Cliente, domiciliación si el Cliente la contrata, y los demás canales que el Acreditante comunique. Los pagos por transferencia se acreditan el mismo día hábil de su recepción; los realizados por domiciliación, el día hábil en que el Acreditante recibe la confirmación del cargo por parte de la institución de crédito del Cliente; y los efectuados por los demás canales que el Acreditante habilite, a más tardar el día hábil siguiente al de su recepción. En todos los casos la fecha de acreditación consta en el Estado de Cuenta. Salvo disposición legal en contrario, los pagos se aplican en el siguiente orden: (i) comisiones vencidas e IVA; (ii) intereses vencidos e IVA; (iii) intereses del periodo e IVA; y (iv) capital, empezando por los saldos de mayor antigüedad. Los pagos en exceso del Saldo Insoluto no constituyen depósito ni generan rendimiento; quedan como saldo a favor aplicable a Disposiciones futuras o reembolsable a solicitud del Cliente.</p>
+    <h3 id="clausula-11">11. Estado de Cuenta</h3>
+    <p>El Acreditante emite mensualmente, sin costo, un Estado de Cuenta con: los movimientos del periodo, las Disposiciones y pagos, los intereses y comisiones cobrados con sus tasas y montos, el Saldo Insoluto, el Pago Mínimo, la Fecha Límite de Pago, el CAT vigente y los datos de contacto para aclaraciones y de la PROFECO. El Estado de Cuenta se pone a disposición del Cliente en la Aplicación, donde puede consultarse y descargarse en cualquier momento sin costo, y se envía al correo electrónico registrado dentro de los 5 días naturales siguientes a la Fecha de Corte; a solicitud del Cliente se entrega además en el domicilio del Acreditante señalado en la Carátula.</p>
+    <h3 id="clausula-12">12. Aclaraciones</h3>
+    <p>El Cliente puede objetar los movimientos de su Estado de Cuenta o presentar aclaraciones dentro de los 90 días naturales siguientes a la Fecha de Corte respectiva, a través del buzón de la Aplicación o del correo de atención señalado en la Carátula, recibiendo un folio de seguimiento. El Acreditante entregará respuesta y, en su caso, el dictamen correspondiente en un plazo máximo de 45 días naturales. Durante el trámite, el Cliente no está obligado a pagar el monto objetado ni sus accesorios, y el Acreditante no lo reportará como vencido ante las sociedades de información crediticia por ese concepto. Si la aclaración resulta procedente, el cargo y sus accesorios se revierten en el periodo siguiente. Lo anterior sin perjuicio del derecho del Cliente de acudir a la PROFECO en cualquier momento.</p>
+    <h3 id="clausula-13">13. Comprobantes fiscales</h3>
+    <p>El Acreditante emite los CFDI que correspondan por los intereses y comisiones efectivamente cobrados, conforme a la legislación fiscal vigente, utilizando el RFC registrado por el Cliente, quien se obliga a mantenerlo actualizado.</p>
+    <h3 id="clausula-14">14. Obligaciones del Cliente; actualización de información</h3>
+    <p>El Cliente se obliga a: (i) pagar puntualmente el crédito dispuesto con sus accesorios; (ii) custodiar la Tarjeta y sus Credenciales de Acceso; (iii) informar de inmediato el robo, extravío o uso no reconocido; (iv) usar la Tarjeta lícitamente y conforme a este Contrato; y (v) mantener actualizados sus datos de identificación, contacto, domicilio, actividad y demás información proporcionada, notificando cualquier cambio a través de la Aplicación de inmediato y a más tardar dentro de los 5 días naturales siguientes a que ocurra; y (vi) contar con y mantener vigente su Registro Federal de Contribuyentes (RFC), requisito necesario para la contratación de la Tarjeta y para la emisión de los comprobantes fiscales digitales que correspondan. El Cliente reconoce que la actualización oportuna de sus datos es condición necesaria para la operación de la Tarjeta y que el Acreditante debe reflejar dichos cambios ante el Procesador en plazos regulatorios y contractuales estrictos.</p>
+    <h3 id="clausula-15">15. Vencimiento anticipado</h3>
+    <p>El Acreditante puede dar por vencido anticipadamente el plazo y exigir de inmediato el pago total del Saldo Insoluto, sin necesidad de declaración judicial, si el Cliente: (i) omite el pago de tres Pagos Mínimos, consecutivos o no, dentro de un periodo de doce meses; (ii) proporcionó información o documentación falsa o alterada; (iii) incurre en los usos no permitidos de la Cláusula 4; o (iv) resulta con coincidencia confirmada en las listas a que se refiere la Cláusula 17.</p>
+    <h3 id="clausula-15-bis">15 Bis. Bloqueo y cancelación de la Tarjeta</h3>
+    <p>El Acreditante puede bloquear temporalmente o cancelar la Tarjeta, sin responsabilidad y con aviso al Cliente por los medios pactados, cuando: (i) detecte operaciones inusuales o indicios de fraude; (ii) existan inconsistencias en la información del Cliente o éste omita actualizarla o entregar la documentación requerida; (iii) exista coincidencia en las listas a que se refiere la Cláusula 17 o alertas en materia de prevención de operaciones con recursos de procedencia ilícita; (iv) lo instruya el Procesador o el titular de la marca conforme a sus reglas operativas; o (v) lo ordene autoridad competente. El bloqueo no suspende la obligación de pago de los adeudos ya generados. Levantada la causa, el Acreditante restablecerá el servicio a la brevedad.</p>
+    <h3 id="clausula-16">16. Robo, extravío y cargos no reconocidos</h3>
+    <p>El Cliente debe reportar de inmediato el robo o extravío de la Tarjeta o el compromiso de sus Credenciales de Acceso a través de la Aplicación, que permite el bloqueo inmediato, o por los canales de atención de la Carátula. El Cliente no es responsable de las Disposiciones realizadas con posterioridad al reporte. Respecto de cargos no reconocidos anteriores al reporte, el Acreditante los analizará conforme al procedimiento de aclaraciones de la Cláusula 12 y a las reglas de la red de pagos; no serán exigibles al Cliente los cargos en los que se acredite falla de los sistemas de autenticación o fraude de terceros no imputable a su dolo o negligencia. La reposición de la Tarjeta se sujeta a la comisión de la Carátula.</p>
+    <h3 id="clausula-17">17. Prevención de operaciones con recursos de procedencia ilícita</h3>
+    <p>El Acreditante es sujeto obligado en términos del artículo 17, fracciones II, inciso a), y IV, de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita. En consecuencia, el Cliente acepta y se obliga a: (i) proporcionar y mantener actualizada la información y documentación de identificación que el Acreditante le requiera, incluida la relativa a su carácter de persona políticamente expuesta y a la actuación por cuenta propia o de terceros, en términos del Anexo D; (ii) que el Acreditante verifique sus datos, en el proceso de contratación y de manera periódica, contra listas nacionales e internacionales de personas bloqueadas o sancionadas y de personas políticamente expuestas; (iii) que el Acreditante conserve su expediente por un plazo de 10 años y presente los avisos e informes que la ley le exige ante las autoridades competentes; y (iv) que el Acreditante comparta su información con el Procesador, el titular de la marca y las autoridades competentes cuando ello sea necesario para el cumplimiento de dichas obligaciones, conforme al Aviso de Privacidad. La negativa injustificada del Cliente a proporcionar información, o la existencia de coincidencias confirmadas en las listas señaladas, faculta al Acreditante a suspender la operación de la Tarjeta o a dar por terminado el Contrato en términos de las Cláusulas 15 y 15 Bis, sin responsabilidad alguna.</p>
+    <h3 id="clausula-18">18. Información crediticia</h3>
+    <p>El Cliente autorizó expresamente al Acreditante, en términos del artículo 28 de la Ley para Regular las Sociedades de Información Crediticia y del Anexo B, a consultar periódicamente, las veces que lo considere necesario durante la vigencia del presente Contrato, su historial y comportamiento crediticio ante las sociedades de información crediticia, así como a reportar a éstas el cumplimiento o incumplimiento de sus obligaciones de pago derivadas de este Contrato.</p>
+    <h3 id="clausula-19">19. Datos personales</h3>
+    <p>El tratamiento de los datos personales del Cliente se rige por el Aviso de Privacidad de Capital Productivo del Noroeste, S.A.P.I. de C.V. para el producto Capta Card, que el Cliente conoció y aceptó desde el inicio de su solicitud y que se encuentra disponible de forma permanente en la Aplicación y en el sitio del Acreditante, en cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares. El Anexo C de este Contrato identifica la versión del Aviso de Privacidad aceptada por el Cliente.</p>
+    <h3 id="clausula-19-bis">19 Bis. Publicidad y Registro Público de Consumidores</h3>
+    <p>Todo consumidor que no desee recibir publicidad por parte de los proveedores en términos de la Ley Federal de Protección al Consumidor, puede inscribir de manera gratuita su número telefónico en el Registro Público de Consumidores (también denominado Registro Público para Evitar Publicidad) de la Profeco, a través del portal web <a href="https://repep.profeco.gob.mx/" rel="noopener">https://repep.profeco.gob.mx/</a> o al 5596280000 (desde la Ciudad de México, Guadalajara y Monterrey) u 8009628000 (desde el resto de la República Mexicana). Queda prohibido a los proveedores que utilicen información sobre consumidores con fines mercadotécnicos o publicitarios y a sus clientes, utilizar la información relativa a los consumidores con fines diferentes a los mercadotécnicos o publicitarios, así como enviar publicidad a los consumidores que expresamente les hubieren manifestado su voluntad de no recibirla o que estén inscritos en el Registro Público de Consumidores (también denominado Registro Público para Evitar Publicidad). Los proveedores que sean objeto de publicidad son corresponsables del manejo de la información de consumidores cuando dicha publicidad la envíen a través de terceros.</p>
+    <h3 id="clausula-20">20. Cesión</h3>
+    <p>El Acreditante puede ceder, descontar, afectar en fideicomiso o transmitir en cualquier forma, total o parcialmente, los derechos y obligaciones derivados de este Contrato, sin necesidad de consentimiento del Cliente, notificándolo cuando la ley lo requiera; en tal caso el cesionario respetará íntegramente los términos pactados. El Cliente no puede ceder sus derechos u obligaciones sin autorización previa y por escrito del Acreditante.</p>
+    <h3 id="clausula-21">21. Vigencia y terminación</h3>
+    <p>Este Contrato es de vigencia indefinida. El Cliente puede darlo por terminado en cualquier momento, sin comisión ni penalización, mediante solicitud en la Aplicación o en los canales de atención; la Tarjeta y los demás medios de disposición se cancelan el mismo día en que se presenta la solicitud; si no existe Saldo Insoluto, el Contrato termina el día hábil siguiente y, si lo hay, termina una vez liquidado. En ambos casos el Acreditante entrega al Cliente, por los medios pactados y dentro de los 10 días hábiles siguientes a la terminación, la constancia de que la relación concluyó y de que no existe adeudo pendiente. Conforme al artículo 11 Bis 1 de la Ley para la Transparencia y Ordenamiento de los Servicios Financieros, el Cliente puede además dar por terminado este Contrato dentro de los 10 días hábiles siguientes a su firma, sin responsabilidad alguna y sin cargo, siempre que no haya realizado Disposiciones; en ese supuesto no se genera cargo alguno. Cuando se cobre Anualidad, la ya devengada no es objeto de devolución proporcional en ningún caso de terminación; fuera de ella, la terminación no genera comisión ni penalización. El Acreditante puede darlo por terminado con aviso al Cliente con 30 días naturales de anticipación, sin afectar los adeudos generados, o de forma inmediata en los supuestos de las Cláusulas 15, 15 Bis y 17.</p>
+    <h3 id="clausula-22">22. Fallecimiento</h3>
+    <p>En caso de fallecimiento del Cliente, sus causahabientes, albacea o cualquier persona con conocimiento del hecho deberán comunicarlo al Acreditante a la brevedad, por los canales de atención señalados en la Carátula. A partir de que el Acreditante tenga conocimiento del fallecimiento suspenderá y bloqueará de forma definitiva la Tarjeta y las Credenciales de Acceso asociadas, sin responsabilidad a su cargo por dicha suspensión. El Saldo Insoluto exigible a la fecha del fallecimiento se integrará al pasivo de la sucesión y se cubrirá con cargo a la masa hereditaria en los términos de la legislación civil aplicable. Los consumos, disposiciones o cargos generados con posterioridad a la fecha del fallecimiento no serán imputables al Cliente y recibirán el tratamiento de cargos no reconocidos previsto en la Cláusula 16, quedando el Acreditante facultado para desconocerlos y ejercer las acciones que correspondan contra quien los hubiere realizado. El Contrato se tendrá por terminado una vez cubierto o extinguido el Saldo Insoluto exigible a dicha fecha.</p>
+    <h3 id="clausula-23">23. Notificaciones y domicilios</h3>
+    <p>Las notificaciones al Cliente se realizan por la Aplicación, al correo electrónico o al número celular registrados y, cuando así proceda, por vía telefónica, de forma verbal o escrita o por cualquier otro medio legalmente aceptado, y surten efectos el día de su envío o comunicación acreditados; las del Cliente al Acreditante, por los canales de atención de la Carátula. Las Partes señalan como domicilios los indicados en la Carátula; cualquier cambio debe notificarse conforme a esta cláusula para surtir efectos.</p>
+    <h3 id="clausula-24">24. Modificaciones</h3>
+    <p>El Acreditante puede modificar este Contrato, incluidas tasas y comisiones, notificando al Cliente por los medios pactados con al menos 30 días naturales de anticipación a su entrada en vigor. Si el Cliente no está de acuerdo, puede solicitar la terminación del Contrato dentro de los 60 días naturales siguientes al aviso y pagar el Saldo Insoluto bajo las condiciones anteriores a la modificación, sin comisión ni penalización alguna. El uso de la Tarjeta con posterioridad a la entrada en vigor se entiende como aceptación de las modificaciones, sin perjuicio del derecho de terminación señalado. El techo de tasa del modelo previsto en el Anexo A permite al Acreditante fijar la tasa de cada nuevo Contrato sin modificar este modelo; no lo faculta para cambiar la de un Contrato vigente, cuya tasa fija y comisiones, incluido el retiro de una exención de Anualidad, sólo se modifican conforme a esta cláusula.</p>
+    <h3 id="clausula-25">25. Encabezados; integridad; nulidad parcial</h3>
+    <p>Los títulos de las cláusulas son de referencia y no limitan su contenido. Este Contrato, su Carátula y sus Anexos constituyen el acuerdo íntegro entre las Partes. La nulidad de alguna disposición no afecta la validez de las restantes.</p>
+    <h3 id="clausula-26">26. Legislación aplicable y jurisdicción</h3>
+    <p>Este Contrato se rige por la legislación mercantil de los Estados Unidos Mexicanos. La Procuraduría Federal del Consumidor es competente en la vía administrativa para conocer de las controversias derivadas de este Contrato. Para la vía judicial, las Partes se someten expresamente a la competencia de los tribunales de la ciudad de Culiacán, Sinaloa, renunciando a cualquier otro fuero que pudiera corresponderles por razón de sus domicilios presentes o futuros.</p>
+    <p>Leído que fue el presente Contrato con su Carátula y Anexos, y enteradas las Partes de su contenido y alcance, lo firman mediante firma electrónica avanzada en la fecha señalada en la Carátula.</p>
+    <p class="legal__note">Firmas: el Acreditante, por su representante con facultades suficientes, y el Cliente, ambos mediante firma electrónica avanzada.</p>
+  </section>
+
+  <section id="anexo-a">
+    <h2>Anexo A · Comisiones, intereses y términos económicos</h2>
+    <p>Parte integral del Contrato. Montos sin IVA; el IVA se traslada conforme a la legislación vigente.</p>
+    <div class="legal__table">
+      <table>
+        <thead><tr><th>Concepto</th><th>Monto / tasa</th><th>Metodología y condiciones</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-label="Concepto">Tasa de interés ordinaria anual (fija)</th><td data-label="Monto / tasa">La asentada en la Carátula (techo del modelo: 90.00%)</td><td data-label="Metodología y condiciones">Sobre el Saldo Insoluto del periodo; base anual de 360 días; devengo diario, capitalización por periodo vencido en la Fecha de Corte, exigible en la Fecha Límite de Pago. Sin intereses del periodo por las compras si se paga el total del saldo a más tardar en la Fecha Límite de Pago. El Acreditante puede otorgar tasas preferenciales conforme a su política interna de tasas y en ningún caso aplica una tasa superior al techo del modelo; la tasa de cada contrato consta en su Carátula.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Tasa de interés moratoria</th><td data-label="Monto / tasa">No aplica</td><td data-label="Metodología y condiciones">La mora genera exclusivamente la Comisión por Pago Tardío. En ningún periodo se cobra más de un cargo por el mismo incumplimiento.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Comisión por Pago Tardío</th><td data-label="Monto / tasa">$300.00 M.N.</td><td data-label="Metodología y condiciones">Una vez por periodo en que no se cubra al menos el Pago Mínimo en la Fecha Límite de Pago; se cobra esta comisión o el saldo vencido, lo que resulte menor.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Anualidad</th><td data-label="Monto / tasa">$300.00 M.N. anuales</td><td data-label="Metodología y condiciones">Se devenga desde la contratación, con el primer año exento como beneficio de contratación. El primer cargo se realiza en el primer corte posterior al aniversario de la activación de la Tarjeta y, en lo sucesivo, en cada aniversario; se devenga por año completo y no es objeto de devolución proporcional en caso de terminación anticipada. El Acreditante puede eximir al Cliente de la Anualidad, total o parcialmente, por acuerdo con él o por promoción; la exención consta en la Carátula o se comunica por la Aplicación y su retiro posterior se sujeta a la Cláusula 24. No hay comisión por apertura.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Reposición de tarjeta física</th><td data-label="Monto / tasa">$200.00 M.N.</td><td data-label="Metodología y condiciones">Por robo, extravío o daño atribuible al Cliente. Gratuita por deterioro normal, falla de fabricación o renovación por vencimiento.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Disposición de efectivo</th><td data-label="Monto / tasa">9.00% sobre el monto dispuesto</td><td data-label="Metodología y condiciones">Por cada retiro de efectivo en cajero automático, nacional o del extranjero, sin monto mínimo y con la misma tarifa en ambos casos. El operador del cajero puede cobrar su propia comisión, ajena al Acreditante. Los intereses se generan desde la fecha del retiro, sin periodo sin intereses. El sublímite y los límites por operación o por día se fijan conforme a la política de riesgo del Acreditante y se informan por la Aplicación; su modificación se rige por la Cláusula 24.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Prepago / terminación anticipada</th><td data-label="Monto / tasa">Sin costo</td><td data-label="Metodología y condiciones">En cualquier momento, sin penalización. Cuando aplique, la Anualidad ya devengada no es objeto de devolución proporcional. Aplica además el derecho de terminación dentro de los 10 días hábiles siguientes a la firma previsto en el artículo 11 Bis 1 de la LTOSF, en los términos de la Cláusula 21.</td></tr>
+          <tr><th scope="row" data-label="Concepto">Pago Mínimo (fórmula)</th><td data-label="Monto / tasa">—</td><td data-label="Metodología y condiciones">El mayor entre: (i) 1.5% de la Parte Revolvente —capital dispuesto y no pagado al corte, sin intereses, comisiones ni IVA— más los intereses y las comisiones del periodo con su IVA, y (ii) 1.25% del límite de la Línea de Crédito; sin exceder el Saldo Insoluto total. El IVA se causa exclusivamente sobre los intereses y las comisiones, no sobre el capital.</td></tr>
+          <tr><th scope="row" data-label="Concepto">CAT</th><td data-label="Monto / tasa"><span class="legal__field">«CAT del contrato»</span> Sin IVA</td><td data-label="Metodología y condiciones">Para fines informativos y de comparación, calculado conforme a la Circular 21/2009 de Banco de México, con los supuestos que dicha Circular establece para los créditos revolventes, sobre la Línea de Crédito y la tasa efectivamente pactadas; la cifra vigente al momento de la contratación consta en la Carátula, como un solo valor redondeado a un decimal. Ningún contrato de este modelo tiene una tasa superior al techo de 90.00% anual y la Anualidad no excede la prevista en este Anexo, por lo que el CAT de cada contrato queda acotado por el que resulta de aplicar ese techo y esa Anualidad, con su primer año exento, a la Línea de Crédito mínima del producto, conforme a la memoria de cálculo que obra en el expediente del Acreditante.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="anexo-b">
+    <h2>Anexo B · Autorización para solicitar y reportar información crediticia</h2>
+    <p>(Artículo 28 de la Ley para Regular las Sociedades de Información Crediticia.)</p>
+    <p>Por este conducto, yo, <span class="legal__field">«Nombre completo del Cliente»</span>, con Registro Federal de Contribuyentes <span class="legal__field">«RFC»</span> y domicilio en <span class="legal__field">«Domicilio del Cliente»</span>, AUTORIZO EXPRESAMENTE a Capital Productivo del Noroeste, S.A.P.I. de C.V. para que, por conducto de sus funcionarios facultados, lleve a cabo investigaciones sobre mi comportamiento crediticio ante las sociedades de información crediticia que estime conveniente, incluyendo Trans Union de México, S.A., S.I.C. (Buró de Crédito) y Círculo de Crédito, S.A. de C.V., S.I.C.</p>
+    <p>Declaro que conozco la naturaleza y alcance de la información que se solicitará y del uso que se le dará, y que se realizarán consultas periódicas de mi historial durante la vigencia de la relación jurídica. Esta autorización se otorga para: (i) la evaluación, otorgamiento, administración y renovación del crédito; (ii) la revisión periódica de mi comportamiento crediticio; y (iii) la integración de mi expediente y el cumplimiento de las obligaciones legales del Acreditante. Reconozco que esta autorización tiene una vigencia de 3 años contados a partir de su otorgamiento o durante todo el tiempo que se mantenga la relación jurídica, y que el Acreditante reportará a dichas sociedades el cumplimiento o incumplimiento de mis obligaciones de pago.</p>
+    <p>Otorgada mediante firma electrónica (NIP/OTP) el <span class="legal__field">«fecha y hora»</span> desde el dispositivo registrado. Constancia de aceptación: <span class="legal__field">«folio de constancia»</span>.</p>
+  </section>
+
+  <section id="anexo-c">
+    <h2>Anexo C · Aviso de privacidad</h2>
+    <p>El Cliente reconoce que, previamente a la captura de sus datos, le fue puesto a disposición el Aviso de Privacidad de Capital Productivo del Noroeste, S.A.P.I. de C.V. para el producto Capta Card, cuya versión íntegra aceptada corresponde a la identificada como <span class="legal__field">«versión y fecha del Aviso de Privacidad»</span>, disponible permanentemente en la Aplicación y en el sitio del Acreditante. La constancia de aceptación forma parte del expediente del Cliente con folio <span class="legal__field">«folio de aceptación»</span>.</p>
+  </section>
+
+  <section id="anexo-d">
+    <h2>Anexo D · Declaraciones del cliente en materia de identificación y prevención</h2>
+    <p>El Cliente formula las siguientes declaraciones, bajo protesta de decir verdad, mediante su aceptación electrónica registrada en el proceso de contratación:</p>
+    <div class="legal__table legal__table--numbered">
+      <table>
+        <tbody>
+          <tr><th scope="row">1</th><td>Actúo por cuenta propia y en mi propio beneficio; no actúo a nombre, por cuenta ni en beneficio de tercera persona. Me obligo a informar de inmediato al Acreditante si esta situación cambia.</td></tr>
+          <tr><th scope="row">2</th><td>Los recursos con los que cumpliré mis obligaciones de pago provienen y provendrán de fuentes lícitas.</td></tr>
+          <tr><th scope="row">3</th><td>Declaro que <span class="legal__field">«sí / no»</span> desempeño ni he desempeñado en los últimos doce meses un cargo público destacado, en México o en el extranjero, ni soy cónyuge, concubino o pariente hasta el segundo grado de quien lo desempeñe (persona políticamente expuesta). En caso afirmativo, proporcionaré la información adicional que el Acreditante requiera.</td></tr>
+          <tr><th scope="row">4</th><td>Los recursos y las operaciones que realice con la Tarjeta no provienen ni se destinarán a actividades ilícitas, ni al financiamiento de éstas o de actos terroristas.</td></tr>
+          <tr><th scope="row">5</th><td>Me obligo a mantener actualizada mi información y a entregar la documentación adicional que el Acreditante me requiera para el cumplimiento de sus obligaciones legales, dentro de los plazos que se me señalen.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Aceptación registrada mediante firma electrónica avanzada junto con el Contrato. Constancia: <span class="legal__field">«folio de constancia»</span>.</p>
+  </section>
+</LegalLayout>

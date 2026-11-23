@@ -1,0 +1,100 @@
+---
+/**
+ * Ventajas: lo que incluye la tarjeta, en un mosaico (bento). Reúne los datos
+ * que antes flotaban en el Hero (27 días para pagar, Mastercard, app y formas
+ * de pago) y lo que dice el contrato: sin comisión por apertura, primer año
+ * sin anualidad (Anexo A) y sin aval (Carátula).
+ */
+import SectionHeading from "./SectionHeading.astro";
+import SectionBackdrop from "./SectionBackdrop.astro";
+import { legalHref } from "../data/site";
+---
+
+<section class="section" id="ventajas" aria-labelledby="advantages-title">
+  <SectionBackdrop variant="advantages" />
+  <div class="section__inner">
+    <SectionHeading
+      id="advantages-title"
+      title="Todo lo que incluye"
+      accent="tu Capta Card."
+      lead="Lo importante, claro desde el primer día: cuánto tiempo tienes para pagar, cuánto cuesta y qué incluye."
+      align="right"
+    />
+
+    <div class="adv">
+      <article class="card adv__item adv__item--days">
+        <p class="adv__label">Después de tu fecha de corte</p>
+        <p class="adv__big"><span>27</span> días</p>
+        <h3>para pagar, sin prisas.</h3>
+        <p>Tiempo para organizar tu pago. Si cubres el total antes de la fecha límite, tus compras no generan intereses.</p>
+      </article>
+
+      <article class="card adv__item">
+        <p class="adv__num">$0</p>
+        <h3>Comisión por apertura</h3>
+        <p>Contratar tu tarjeta no te cuesta.</p>
+      </article>
+
+      <article class="card adv__item">
+        <p class="adv__num">$0</p>
+        <h3>Anualidad el primer año</h3>
+        <p>Después, $300 + IVA al año.</p>
+      </article>
+
+      <article class="card adv__item adv__item--wide adv__item--row">
+        <span class="chip" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 32 32">
+            <path d="M16 3 27 7v8c0 7-4.7 11.6-11 14-6.3-2.4-11-7-11-14V7l11-4Z" />
+            <path d="m11 16 3.3 3.3 7-7" />
+          </svg>
+        </span>
+        <div>
+          <h3>Sin aval</h3>
+          <p>Tu crédito es solo tuyo: no necesitas aval ni obligado solidario, y no incluye seguros ni servicios adicionales.</p>
+        </div>
+      </article>
+
+      <article class="card adv__item">
+        <span class="chip" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 32 32">
+            <path d="M12.5 22a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" />
+            <path d="M19.5 22a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" />
+          </svg>
+        </span>
+        <h3>Mastercard</h3>
+        <p>Compras en comercios y en línea, en México y en el extranjero.</p>
+      </article>
+
+      <article class="card adv__item">
+        <span class="chip" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 32 32">
+            <path d="M12 3.5h8a3 3 0 0 1 3 3v19a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3v-19a3 3 0 0 1 3-3Z" />
+            <path d="M13 7h6M14 24.5h4" />
+          </svg>
+        </span>
+        <h3>Desde la app</h3>
+        <p>Consulta tu disponible y controla tu tarjeta.</p>
+      </article>
+
+      <article class="card adv__item adv__item--wide">
+        <span class="chip" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 32 32">
+            <path d="M5 11h22M5 11l4-4M27 21H5m22 0-4 4" />
+          </svg>
+        </span>
+        <h3>Paga como prefieras</h3>
+        <p>Elige la opción que te quede más cerca.</p>
+        <ul class="adv__tags" aria-label="Formas de pago">
+          <li>OXXO</li>
+          <li>BBVA</li>
+          <li>Transferencia SPEI</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="section__note">
+      Montos sin IVA. Sujeto a aprobación de crédito. Consulta
+      <a href={legalHref("comisiones-y-cat")}>comisiones y CAT</a>.
+    </p>
+  </div>
+</section>

@@ -1,133 +1,124 @@
 ---
+/**
+ * Aviso de privacidad. Texto tomado de public/docs (no editar a mano sin actualizar el documento fuente).
+ */
 import LegalLayout from "../../layouts/LegalLayout.astro";
-import Pending from "../../components/Pending.astro";
-import { contact, legal, legalHref } from "../../data/site";
 
 const sections = [
-  { id: "responsable", title: "Quién es responsable de tus datos" },
-  { id: "datos", title: "Qué datos recabamos" },
-  { id: "finalidades", title: "Para qué usamos tus datos" },
-  { id: "transferencias", title: "Con quién los compartimos" },
-  { id: "derechos", title: "Tus derechos ARCO" },
-  { id: "limitar", title: "Cómo limitar el uso de tus datos" },
-  { id: "cookies", title: "Cookies y tecnologías similares" },
-  { id: "cambios", title: "Cambios a este aviso" },
+  {
+    "id": "responsable-del-tratamiento",
+    "title": "Responsable del tratamiento"
+  },
+  {
+    "id": "datos-personales-que-recabamos",
+    "title": "Datos personales que recabamos"
+  },
+  {
+    "id": "finalidades-primarias",
+    "title": "Finalidades primarias"
+  },
+  {
+    "id": "finalidades-secundarias",
+    "title": "Finalidades secundarias"
+  },
+  {
+    "id": "transferencias",
+    "title": "Transferencias"
+  },
+  {
+    "id": "derechos-arco-revocacion-y-limitacion-de-uso",
+    "title": "Derechos ARCO, revocación y limitación de uso"
+  },
+  {
+    "id": "seguridad-y-conservacion",
+    "title": "Seguridad y conservación"
+  },
+  {
+    "id": "cambios-a-este-aviso",
+    "title": "Cambios a este aviso"
+  }
 ];
 ---
 
 <LegalLayout
   title="Aviso de privacidad"
   slug="aviso-de-privacidad"
-  summary="Cómo recabamos, usamos y protegemos tus datos personales cuando conoces, activas y usas Capta Card."
+  summary="Aviso de privacidad integral del producto Tarjeta de Crédito Capta Card."
   sections={sections}
 >
-  <section id="responsable">
-    <h2>Quién es responsable de tus datos</h2>
-    <p>
-      <Pending>razón social del responsable</Pending>, con domicilio en <Pending>domicilio completo</Pending>, es
-      responsable del tratamiento de tus datos personales conforme a la legislación mexicana aplicable en materia de
-      protección de datos personales.
-    </p>
-    <p>
-      La tarjeta es emitida por {legal.issuer}. <Pending>confirmar si el responsable es Capta, el emisor o ambos, y cómo
-      se reparte la responsabilidad</Pending>
-    </p>
-    <p>
-      Para cualquier tema de privacidad puedes escribir a <Pending>correo del departamento de datos personales</Pending>.
-    </p>
+  <Fragment slot="updated">Versión 1.6 · 2 de noviembre de 2026</Fragment>
+  <section id="responsable-del-tratamiento">
+    <h2>1. Responsable del tratamiento</h2>
+    <p>Capital Productivo del Noroeste, S.A.P.I. de C.V. (“CPN”), con domicilio en Avenida 16 de Septiembre No. 1660, Interior 1, Colonia Centro Sinaloa, C.P. 80000, Culiacán, Sinaloa, es responsable del tratamiento y protección de tus datos personales recabados con motivo de la solicitud, contratación, operación y cobranza del producto Tarjeta de Crédito Capta Card, en cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares publicada en el Diario Oficial de la Federación el 20 de marzo de 2025. Este aviso se pone a tu disposición desde el momento en que inicias tu solicitud y antes de la captura de cualquier dato. Canal de privacidad: <a href="mailto:privacidad@captacard.com">privacidad@captacard.com</a>.</p>
   </section>
 
-  <section id="datos">
-    <h2>Qué datos recabamos</h2>
-    <p>Para invitarte, verificar tu identidad y administrar tu tarjeta, podemos recabar:</p>
-    <ul>
-      <li><strong>Identificación:</strong> nombre, fecha de nacimiento, CURP, RFC e identificación oficial.</li>
-      <li><strong>Contacto:</strong> número de celular, correo electrónico y domicilio.</li>
-      <li><strong>Financieros y patrimoniales:</strong> ingresos, historial crediticio y movimientos de tu tarjeta.</li>
-      <li><strong>Del dispositivo:</strong> modelo, sistema operativo y datos de uso de la app.</li>
-      <li>
-        <strong>Biométricos:</strong> <Pending>confirmar si la app usa prueba de vida o reconocimiento facial</Pending>.
-        Si se usan, son datos sensibles y requieren tu consentimiento expreso.
-      </li>
-    </ul>
-    <p><Pending>validar la lista final con el proceso real de alta en la app</Pending></p>
-  </section>
-
-  <section id="finalidades">
-    <h2>Para qué usamos tus datos</h2>
-    <h3>Finalidades necesarias</h3>
-    <p>Sin estas no podemos darte la tarjeta:</p>
-    <ul>
-      <li>Verificar tu identidad y prevenir fraudes.</li>
-      <li>Evaluar tu solicitud y asignar tu línea de crédito.</li>
-      <li>Entregarte, activar y administrar tu tarjeta.</li>
-      <li>Enviarte estados de cuenta, avisos de pago y notificaciones de seguridad.</li>
-      <li>Atender tus dudas, aclaraciones y quejas.</li>
-      <li>Cumplir con obligaciones legales y regulatorias.</li>
-    </ul>
-    <h3>Finalidades adicionales</h3>
-    <p>Puedes negarte a estas sin que afecte tu tarjeta:</p>
-    <ul>
-      <li>Enviarte promociones y beneficios.</li>
-      <li>Hacer encuestas de satisfacción y estudios para mejorar el servicio.</li>
-    </ul>
-    <p><Pending>confirmar finalidades adicionales reales</Pending></p>
-  </section>
-
-  <section id="transferencias">
-    <h2>Con quién los compartimos</h2>
-    <p>Solo compartimos tus datos cuando es necesario para darte el servicio o la ley lo exige:</p>
+  <section id="datos-personales-que-recabamos">
+    <h2>2. Datos personales que recabamos</h2>
     <div class="legal__table">
       <table>
-        <thead>
-          <tr><th>Con quién</th><th>Para qué</th></tr>
-        </thead>
+        <thead><tr><th>Categoría</th><th>Datos</th></tr></thead>
         <tbody>
-          <tr><td>{legal.issuer}</td><td>Emitir y operar la tarjeta.</td></tr>
-          <tr><td>Sociedades de información crediticia</td><td>Consultar y reportar tu historial de crédito.</td></tr>
-          <tr><td>Mastercard</td><td>Procesar tus compras.</td></tr>
-          <tr><td>Autoridades competentes</td><td>Cumplir requerimientos legales.</td></tr>
-          <tr><td><Pending>otros proveedores</Pending></td><td><Pending>finalidad</Pending></td></tr>
+          <tr><th scope="row" data-label="Categoría">Identificación y contacto</th><td data-label="Datos">Nombre completo, fecha y país de nacimiento, nacionalidad, país de residencia, CURP, RFC, domicilio, teléfono celular, correo electrónico, firma electrónica.</td></tr>
+          <tr><th scope="row" data-label="Categoría">Identificación oficial</th><td data-label="Datos">Credencial para votar o pasaporte (imagen de anverso y reverso) y los datos contenidos en ellos.</td></tr>
+          <tr><th scope="row" data-label="Categoría">Biométricos (datos sensibles)</th><td data-label="Datos">Fotografía de tu rostro y prueba de vida capturadas en la solicitud, utilizadas exclusivamente para verificar tu identidad y prevenir suplantaciones. La verificación puede realizarse a través de un proveedor especializado que puede encontrarse en el extranjero. Su tratamiento requiere tu consentimiento expreso, que se recaba por separado.</td></tr>
+          <tr><th scope="row" data-label="Categoría">Patrimoniales y financieros</th><td data-label="Datos">Ocupación o actividad, ingreso declarado, historial crediticio obtenido de sociedades de información crediticia con tu autorización, movimientos y saldos de tu tarjeta, comportamiento de pago.</td></tr>
+          <tr><th scope="row" data-label="Categoría">De dispositivo y operación</th><td data-label="Datos">Identificadores del dispositivo, dirección IP, sistema operativo y, con tu permiso, ubicación aproximada al realizar operaciones, con fines de seguridad y prevención de fraudes.</td></tr>
+          <tr><th scope="row" data-label="Categoría">De terceros que tú nos proporcionas</th><td data-label="Datos">Nombre, parentesco y datos de contacto de tus referencias personales y, en su caso, los datos de identificación del dueño beneficiario por cuya cuenta actúes. Los usamos para evaluar y administrar tu crédito, integrar tu expediente y, cuando corresponda, realizar gestiones de cobranza. Al proporcionarlos manifiestas que cuentas con su consentimiento; CPN pondrá este aviso a su disposición en el primer contacto que tenga con ellas.</td></tr>
+          <tr><th scope="row" data-label="Categoría">Relación con el Programa Capta Vale</th><td data-label="Datos">Si eres distribuidora o cliente del vale de Grupo Capta Vale: tu historial en el Programa (antigüedad, colocación, pagos quincenales, atrasos y, en el caso de distribuidoras, comisiones). Si eres cliente del vale, la autorización de la distribuidora que te refiere. Los usamos para evaluar tu solicitud, determinar y revisar tu línea y aplicar tus pagos.</td></tr>
+          <tr><th scope="row" data-label="Categoría">Laborales (solo colaboradores del grupo)</th><td data-label="Datos">Puesto, antigüedad, sueldo, descuentos de nómina vigentes y RFC, que tu patrón nos entrega únicamente con tu autorización específica y por escrito (documento de autorización separado del contrato), para evaluar tu solicitud y determinar y revisar tu línea.</td></tr>
         </tbody>
       </table>
     </div>
+    <p><strong>Lo que NO recabamos:</strong> no accedemos a tus contactos, mensajes SMS, fotografías o archivos de tu dispositivo, ni a la lista de aplicaciones instaladas. No recabamos datos de origen étnico, salud, creencias, afiliación sindical, opiniones políticas ni preferencia sexual.</p>
   </section>
 
-  <section id="derechos">
-    <h2>Tus derechos ARCO</h2>
-    <p>
-      Tienes derecho a <strong>Acceder</strong> a tus datos, <strong>Rectificarlos</strong> si están mal,
-      <strong>Cancelarlos</strong> y <strong>Oponerte</strong> a su uso. También puedes revocar tu consentimiento.
-    </p>
-    <p>Para ejercerlos:</p>
-    <ol class="legal__steps">
-      <li>Envía tu solicitud a <Pending>correo o formulario ARCO</Pending>.</li>
-      <li>Incluye tu nombre, una identificación oficial y qué derecho quieres ejercer.</li>
-      <li>Te responderemos en un plazo de <Pending>plazo de respuesta según la ley vigente</Pending>.</li>
-    </ol>
+  <section id="finalidades-primarias">
+    <h2>3. Finalidades primarias</h2>
+    <p>Son necesarias para la relación jurídica contigo: (i) verificar tu identidad y prevenir fraudes y suplantaciones; (ii) integrar tu expediente y cumplir las obligaciones de identificación y conocimiento del cliente que la ley impone a CPN, incluida la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y su verificación contra listas oficiales; (iii) evaluar tu solicitud y tu capacidad crediticia, determinar tu línea de crédito y revisarla periódicamente (incrementos, reducciones o suspensiones), con apoyo de modelos automatizados de análisis de riesgo, incluidos modelos de inteligencia artificial, cuya determinación puedes pedir que revise una persona de CPN; (iv) celebrar, ejecutar y administrar el contrato, emitir y operar tu tarjeta a través de nuestros proveedores tecnológicos; (v) procesar tus pagos y generar tus estados de cuenta y comprobantes fiscales; (vi) consultar y reportar tu historial ante sociedades de información crediticia, con tu autorización; (vii) atender tus aclaraciones y solicitudes; (viii) realizar la cobranza extrajudicial y, en su caso, judicial de los adeudos; y (ix) cumplir requerimientos de autoridades competentes y demás obligaciones legales. Asimismo, a tu solicitud: (x) habilitar y operar tu tarjeta en billeteras digitales de terceros (por ejemplo, Apple Pay y Google Pay) mediante la generación de un identificador digital (token) que representa tu tarjeta en las operaciones; (xi) gestionar la entrega del plástico en el domicilio que registres, por conducto de un proveedor de logística y mensajería; (xii) si eres cliente del vale, solicitar a la distribuidora que te refiere su autorización previa a la emisión de tu tarjeta; y (xiii) si eres distribuidora, recibir tus pagos por la relación de pagos quincenal del Programa Capta Vale y aplicarlos entre los productos del Programa que tengas contratados, conforme a la instrucción que nos otorgues.</p>
   </section>
 
-  <section id="limitar">
-    <h2>Cómo limitar el uso de tus datos</h2>
-    <p>
-      Puedes dejar de recibir promociones desde la app o escribiendo a <Pending>correo</Pending>. También puedes
-      inscribirte en el Registro Público de Usuarios (REUS) de la CONDUSEF.
-    </p>
+  <section id="finalidades-secundarias">
+    <h2>4. Finalidades secundarias</h2>
+    <p>No son necesarias para la relación jurídica: (i) enviarte ofertas, promociones e información de productos de CPN y de empresas de su grupo; y (ii) invitarte a participar en encuestas de calidad. Estas finalidades requieren tu consentimiento, que se te solicita mediante una casilla separada en la solicitud y que puedes negar u revocar en cualquier momento escribiendo a <a href="mailto:privacidad@captacard.com">privacidad@captacard.com</a>, sin que ello afecte tu contrato ni el servicio.</p>
   </section>
 
-  <section id="cookies">
-    <h2>Cookies y tecnologías similares</h2>
-    <p>
-      Este sitio usa almacenamiento local para recordar tus preferencias. Consulta el detalle en la
-      <a href={legalHref("politica-de-cookies")}>Política de cookies</a>.
-    </p>
+  <section id="transferencias">
+    <h2>5. Transferencias</h2>
+    <div class="legal__table">
+      <table>
+        <thead><tr><th>Destinatario</th><th>Finalidad</th><th>Ámbito</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-label="Destinatario">Proveedor de procesamiento y emisión de tarjetas (Pomelo Tech, S.A. de C.V. y sus afiliadas) y titular de la marca (Mastercard)</th><td data-label="Finalidad">Emisión, procesamiento, autorización de operaciones, prevención de fraude y cumplimiento de reglas de la red de pagos</td><td data-label="Ámbito">Nacional e internacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Proveedor de verificación de identidad y prevención de fraude</th><td data-label="Finalidad">Verificación de tu identidad, validación de tu documento oficial y prueba de vida (datos biométricos) para prevenir suplantaciones y fraudes; verificación contra listas y monitoreo transaccional en materia de prevención de operaciones con recursos de procedencia ilícita</td><td data-label="Ámbito">Nacional o internacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Proveedor de infraestructura tecnológica y de servicios en la nube</th><td data-label="Finalidad">Alojamiento, procesamiento y resguardo de la información en la nube</td><td data-label="Ámbito">Nacional o internacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Proveedor de billeteras digitales y red de tokenización (por ejemplo, Apple, Google y Mastercard)</th><td data-label="Finalidad">Habilitar y operar tu tarjeta en billeteras digitales mediante la generación y gestión de un token que la representa, cuando tú lo solicites</td><td data-label="Ámbito">Nacional o internacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Proveedor de logística y mensajería (última milla), solo si se habilita la entrega a domicilio</th><td data-label="Finalidad">Entrega del plástico en el domicilio que indiques y seguimiento del estado del envío</td><td data-label="Ámbito">Nacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Proveedor de firma electrónica y conservación de mensajes de datos</th><td data-label="Finalidad">Firma de tu contrato; constancias de conservación</td><td data-label="Ámbito">Nacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Sociedades de información crediticia</th><td data-label="Finalidad">Consulta y reporte de historial, con tu autorización</td><td data-label="Ámbito">Nacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Despachos de cobranza y, en su caso, cesionarios de la cartera</th><td data-label="Finalidad">Recuperación de adeudos; cesión de derechos prevista en el contrato</td><td data-label="Ámbito">Nacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Empresas del grupo empresarial de CPN</th><td data-label="Finalidad">Administración corporativa, auditoría interna y aplicación de pagos entre los productos del Programa Capta Vale que tengas contratados</td><td data-label="Ámbito">Nacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Autoridades competentes (SAT, UIF, PROFECO, autoridades judiciales)</th><td data-label="Finalidad">Cumplimiento de obligaciones legales y requerimientos</td><td data-label="Ámbito">Nacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Proveedor de desarrollo y soporte de la Aplicación</th><td data-label="Finalidad">Desarrollo, operación y soporte de la aplicación y del panel de administración, bajo instrucciones de CPN</td><td data-label="Ámbito">Nacional o internacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Distribuidora del Programa Capta Vale que te refiere (solo clientes del vale)</th><td data-label="Finalidad">Recabar su autorización previa a la emisión de tu tarjeta e informarle si tu solicitud fue aprobada. No se le comparten tu línea, saldos ni movimientos</td><td data-label="Ámbito">Nacional</td></tr>
+          <tr><th scope="row" data-label="Destinatario">Tu patrón dentro del grupo empresarial (solo colaboradores)</th><td data-label="Finalidad">Recibir de él tus datos laborales con tu autorización específica</td><td data-label="Ámbito">Nacional</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>El tratamiento de tus datos podrá realizarse a través de personas encargadas que actúan por cuenta, bajo instrucciones y en representación de CPN, con las debidas obligaciones contractuales de confidencialidad y seguridad. Las transferencias que CPN efectúa a terceros son aquellas estrictamente necesarias para el mantenimiento, cumplimiento y ejecución de la relación jurídica contigo, para el funcionamiento de los servicios contratados o las exigidas por la ley, por lo que no requieren de tu consentimiento adicional en términos del artículo 36 de la Ley. En caso de transferencias o tratamientos fuera del territorio nacional, CPN adopta las medidas necesarias para garantizar la debida protección y confidencialidad de tu información, conservando en todo momento su carácter de responsable. CPN no vende tus datos ni los transmite a terceros para finalidades no autorizadas en este aviso.</p>
   </section>
 
-  <section id="cambios">
-    <h2>Cambios a este aviso</h2>
-    <p>
-      Si cambiamos este aviso, te lo informaremos en la app y en esta página. Si tienes dudas, escríbenos a
-      <a href={`mailto:${contact.supportEmail}`}>{contact.supportEmail}</a>.
-    </p>
+  <section id="derechos-arco-revocacion-y-limitacion-de-uso">
+    <h2>6. Derechos ARCO, revocación y limitación de uso</h2>
+    <p>Puedes ejercer en todo momento tus derechos de acceso, rectificación, cancelación y oposición, así como revocar tu consentimiento o solicitar la limitación del uso o divulgación de tus datos, enviando tu solicitud a <a href="mailto:privacidad@captacard.com">privacidad@captacard.com</a> con: tu nombre completo, un medio para comunicarte la respuesta, copia de tu identificación oficial y la descripción clara de los datos y el derecho que deseas ejercer. Tratándose de solicitudes de rectificación, deberás indicar las modificaciones que solicitas y aportar la documentación que sustente tu petición. Te comunicaremos la determinación que corresponda en un plazo máximo de veinte días contados desde la recepción de tu solicitud y, de resultar procedente, la haremos efectiva dentro de los quince días siguientes; ambos plazos pueden ampliarse por una sola vez y por un periodo igual cuando las circunstancias lo justifiquen, lo que te será notificado. Para limitar el uso o divulgación de tus datos con fines mercadotécnicos o publicitarios puedes solicitar tu inscripción en el listado de exclusión interno de CPN escribiendo al mismo buzón, e inscribirte en el Registro Público para Evitar Publicidad (REPEP) que la Procuraduría Federal del Consumidor pone a disposición del público. La cancelación u oposición no procede respecto de los datos que CPN deba conservar por obligación legal, incluidos los plazos de conservación de expedientes en materia de prevención de operaciones con recursos de procedencia ilícita (10 años) y las obligaciones fiscales aplicables. La autoridad competente en la materia es la Secretaría Anticorrupción y Buen Gobierno.</p>
+  </section>
+
+  <section id="seguridad-y-conservacion">
+    <h2>7. Seguridad y conservación</h2>
+    <p>CPN mantiene medidas de seguridad administrativas, técnicas y físicas para proteger tus datos, incluido el cifrado de tu expediente digital y controles de acceso por perfiles. Tus datos se conservan durante la vigencia de la relación jurídica y por los plazos legales posteriores; concluidos éstos, se suprimen o anonimizan.</p>
+  </section>
+
+  <section id="cambios-a-este-aviso">
+    <h2>8. Cambios a este aviso</h2>
+    <p>Cualquier modificación se publicará en la aplicación y en www.captacard.com con la fecha de versión visible; los cambios relevantes se te comunicarán además por los medios de contacto registrados. La versión que aceptaste queda identificada en el Anexo C de tu contrato.</p>
   </section>
 </LegalLayout>

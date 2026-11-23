@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import CookieNotice from "../components/CookieNotice.astro";
+import Advantages from "../components/Advantages.astro";
 import CardDetails from "../components/CardDetails.astro";
 import FeatureSection from "../components/FeatureSection.astro";
 import HelpSection from "../components/HelpSection.astro";
@@ -24,6 +24,7 @@ import "../styles/global.css";
   <Hero />
   <div class="page">
     <main id="contenido">
+      <Advantages />
       <FeatureSection />
       <HowItWorks />
       <PaySection />
@@ -35,5 +36,4 @@ import "../styles/global.css";
     </main>
     <SiteFooter />
   </div>
-  <CookieNotice />
 </BaseLayout>

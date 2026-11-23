@@ -1,0 +1,154 @@
+---
+/**
+ * Aclaraciones y atención. Resume las cláusulas 12, 16, 19 Bis y 21 del
+ * contrato y los canales de su Carátula (public/docs/Contrato_TDC_CaptaVale_Modelo_v2_9.docx).
+ * Capta es Entidad Comercial: la autoridad competente es PROFECO (no CONDUSEF).
+ */
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import Pending from "../../components/Pending.astro";
+import { contact, legal, legalHref, profeco } from "../../data/site";
+
+const sections = [
+  { id: "canales", title: "Canales de atención" },
+  { id: "aclaraciones", title: "Aclaraciones" },
+  { id: "robo-o-extravio", title: "Robo o extravío" },
+  { id: "cancelacion", title: "Cancelar tu tarjeta" },
+  { id: "profeco", title: "PROFECO" },
+  { id: "publicidad", title: "Publicidad" },
+];
+
+const contrato = legalHref("contrato");
+---
+
+<LegalLayout
+  title="Aclaraciones y atención"
+  slug="aclaraciones"
+  summary="Cómo aclarar un cargo, reportar tu tarjeta y contactarnos."
+  updated="Conforme al contrato modelo versión 2.9"
+  sections={sections}
+>
+  <section id="canales">
+    <h2>Canales de atención</h2>
+    <div class="legal__table">
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row">App Capta Card</th>
+            <td>Buzón de aclaraciones, bloqueo inmediato de tu tarjeta y seguimiento con folio.</td>
+          </tr>
+          <tr>
+            <th scope="row">Correo</th>
+            <td><a href={`mailto:${contact.supportEmail}`}>{contact.supportEmail}</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Teléfono</th>
+            <td><a href={`tel:+52${contact.phone.replace(/\s+/g, "")}`}>{contact.phone}</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Horario</th>
+            <td>{contact.hours}</td>
+          </tr>
+          <tr>
+            <th scope="row">Domicilio</th>
+            <td>{contact.address}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="aclaraciones">
+    <h2>Aclaraciones</h2>
+    <p>Si no reconoces un cargo o no estás de acuerdo con un movimiento de tu estado de cuenta:</p>
+    <ol class="legal__steps">
+      <li>
+        <strong>Preséntala a tiempo:</strong> tienes 90 días naturales a partir de la fecha de corte del estado de cuenta
+        donde aparece el movimiento. Hazlo desde el buzón de la app o por correo.
+      </li>
+      <li><strong>Guarda tu folio:</strong> con él das seguimiento a tu aclaración.</li>
+      <li><strong>Recibe respuesta:</strong> en un plazo máximo de 45 días naturales, con el dictamen que corresponda.</li>
+    </ol>
+    <p>
+      Mientras se resuelve, no tienes que pagar el monto que objetaste ni sus intereses o comisiones, y no se reporta como
+      vencido en el buró de crédito. Si la aclaración procede, el cargo se revierte en el siguiente periodo. Detalle en la
+      <a href={`${contrato}#clausula-12`}>cláusula 12 del contrato</a>.
+    </p>
+  </section>
+
+  <section id="robo-o-extravio">
+    <h2>Robo o extravío</h2>
+    <p>
+      Reporta de inmediato el robo o extravío de tu tarjeta, o si alguien más conoce tus claves de acceso. Desde la app la
+      puedes bloquear al momento; también puedes hacerlo por los canales de atención.
+    </p>
+    <ul>
+      <li>No eres responsable de los cargos hechos después de tu reporte.</li>
+      <li>
+        Los cargos que no reconozcas de antes del reporte se revisan con el procedimiento de aclaraciones. No se te cobran
+        si hubo una falla en los sistemas de autenticación o un fraude que no fue por tu culpa.
+      </li>
+      <li>
+        La reposición cuesta $200.00 + IVA por robo, extravío o daño atribuible a ti, y es gratis por desgaste o falla.
+      </li>
+    </ul>
+    <p>Detalle en la <a href={`${contrato}#clausula-16`}>cláusula 16 del contrato</a>.</p>
+  </section>
+
+  <section id="cancelacion">
+    <h2>Cancelar tu tarjeta</h2>
+    <p>
+      Puedes cancelar en cualquier momento, sin comisión ni penalización, desde la app o por los canales de atención. La
+      tarjeta se cancela el mismo día; si no debes nada, el contrato termina el día hábil siguiente y, si tienes saldo,
+      cuando lo liquides. Dentro de los 10 días hábiles siguientes recibes la constancia de que no hay adeudo.
+    </p>
+    <p>
+      También puedes cancelar dentro de los 10 días hábiles siguientes a la firma, sin costo, si no has usado la tarjeta.
+      La anualidad ya cobrada no se devuelve de forma proporcional. Detalle en la
+      <a href={`${contrato}#clausula-21`}>cláusula 21 del contrato</a>.
+    </p>
+  </section>
+
+  <section id="profeco">
+    <h2>PROFECO</h2>
+    <p>
+      Capital Productivo del Noroeste, S.A.P.I. de C.V. otorga el crédito como Entidad Comercial. Si no quedas conforme
+      con nuestra respuesta, o en cualquier momento, puedes acudir a la {profeco.fullName}, competente en la vía
+      administrativa.
+    </p>
+    <div class="legal__table">
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row">Teléfono del Consumidor</th>
+            <td>{profeco.phones}</td>
+          </tr>
+          <tr>
+            <th scope="row">Sitio</th>
+            <td><a href={profeco.url} rel="noopener">www.gob.mx/profeco</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Registro del contrato</th>
+            <td>
+              {
+                legal.profecoRegistry || (
+                  <Pending>número y fecha de inscripción en el Registro de Contratos de Adhesión de PROFECO</Pending>
+                )
+              }
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="publicidad">
+    <h2>Publicidad</h2>
+    <p>
+      Si no quieres recibir publicidad, inscribe gratis tu número en el Registro Público para Evitar Publicidad de la
+      PROFECO, en <a href="https://repep.profeco.gob.mx/" rel="noopener">repep.profeco.gob.mx</a> o al 55 9628 0000
+      (Ciudad de México, Guadalajara y Monterrey) u 800 962 8000 (resto del país). Para dejar de recibir promociones de
+      Capta, escribe a <a href={`mailto:${contact.privacyEmail}`}>{contact.privacyEmail}</a>; consulta también el
+      <a href={legalHref("aviso-de-privacidad")}>aviso de privacidad</a>.
+    </p>
+  </section>
+</LegalLayout>

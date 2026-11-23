@@ -1,114 +1,191 @@
 ---
+/**
+ * Términos y condiciones de la app. Texto tomado de public/docs (no editar a mano sin actualizar el documento fuente).
+ */
 import LegalLayout from "../../layouts/LegalLayout.astro";
 import Pending from "../../components/Pending.astro";
-import { contact, legal, legalHref } from "../../data/site";
 
 const sections = [
-  { id: "aceptacion", title: "Aceptación" },
-  { id: "producto", title: "Qué es Capta Card" },
-  { id: "invitacion", title: "Invitación y requisitos" },
-  { id: "app", title: "Uso de la app" },
-  { id: "credito", title: "Línea de crédito y pagos" },
-  { id: "costos", title: "Intereses y comisiones" },
-  { id: "robo", title: "Robo, extravío y cargos no reconocidos" },
-  { id: "cancelacion", title: "Cancelación" },
-  { id: "modificaciones", title: "Cambios a estos términos" },
-  { id: "jurisdiccion", title: "Ley aplicable" },
+  {
+    "id": "que-regulan-estos-terminos-y-que-no",
+    "title": "Qué regulan estos Términos y qué no"
+  },
+  {
+    "id": "requisitos-para-usar-la-aplicacion",
+    "title": "Requisitos para usar la Aplicación"
+  },
+  {
+    "id": "cuenta-y-verificacion-de-identidad",
+    "title": "Cuenta y verificación de identidad"
+  },
+  {
+    "id": "credenciales-de-acceso",
+    "title": "Credenciales de Acceso"
+  },
+  {
+    "id": "funciones-de-la-aplicacion",
+    "title": "Funciones de la Aplicación"
+  },
+  {
+    "id": "determinaciones-con-apoyo-de-modelos-automatizados",
+    "title": "Determinaciones con apoyo de modelos automatizados"
+  },
+  {
+    "id": "uso-permitido-y-usos-prohibidos",
+    "title": "Uso permitido y usos prohibidos"
+  },
+  {
+    "id": "disponibilidad-mantenimiento-y-canales-alternos",
+    "title": "Disponibilidad, mantenimiento y canales alternos"
+  },
+  {
+    "id": "actualizaciones-y-dispositivos",
+    "title": "Actualizaciones y dispositivos"
+  },
+  {
+    "id": "notificaciones-y-comunicaciones",
+    "title": "Notificaciones y comunicaciones"
+  },
+  {
+    "id": "propiedad-intelectual-y-licencia-de-uso",
+    "title": "Propiedad intelectual y licencia de uso"
+  },
+  {
+    "id": "servicios-de-terceros",
+    "title": "Servicios de terceros"
+  },
+  {
+    "id": "datos-personales",
+    "title": "Datos personales"
+  },
+  {
+    "id": "seguridad-y-responsabilidad",
+    "title": "Seguridad y responsabilidad"
+  },
+  {
+    "id": "suspension-y-cancelacion-de-la-cuenta",
+    "title": "Suspensión y cancelación de la cuenta"
+  },
+  {
+    "id": "modificaciones-a-estos-terminos",
+    "title": "Modificaciones a estos Términos"
+  },
+  {
+    "id": "atencion-al-usuario",
+    "title": "Atención al Usuario"
+  },
+  {
+    "id": "legislacion-aplicable-y-jurisdiccion",
+    "title": "Legislación aplicable y jurisdicción"
+  },
+  {
+    "id": "aceptacion-y-constancia",
+    "title": "Aceptación y constancia"
+  }
 ];
 ---
 
 <LegalLayout
-  title="Términos y condiciones"
+  title="Términos y condiciones de la app"
   slug="terminos-y-condiciones"
-  summary="Las reglas para usar este sitio, la app y tu tarjeta Capta Card, explicadas de forma clara."
+  summary="Términos y condiciones de uso de la aplicación Capta Card."
   sections={sections}
 >
-  <section id="aceptacion">
-    <h2>Aceptación</h2>
-    <p>
-      Al usar este sitio o la app de Capta Card aceptas estos términos. El contrato de tu tarjeta, que firmas en la
-      app, es el documento que rige tu crédito; si algo aquí no coincide con él, prevalece el contrato.
-    </p>
-    <p><Pending>liga al contrato de adhesión y su número de registro (RECA)</Pending></p>
+  <Fragment slot="updated">Versión 1.1 · Vigentes a partir del <Pending>fecha de publicación</Pending></Fragment>
+  <p class="legal__lead">Estos Términos y Condiciones (los "Términos") regulan el acceso y el uso de la aplicación móvil Capta Card y de las demás plataformas digitales asociadas a ella (la "Aplicación"), que pone a disposición Capital Productivo del Noroeste, S.A.P.I. de C.V. (la "Sociedad"), con Registro Federal de Contribuyentes CPN170816KC8 y domicilio en Avenida 16 de Septiembre No. 1660, Interior 1, Colonia Centro Sinaloa, C.P. 80000, Culiacán, Sinaloa. Al crear una cuenta en la Aplicación, la persona usuaria (el "Usuario") declara haber leído estos Términos y los acepta. Quien no esté de acuerdo con ellos no debe registrarse ni utilizar la Aplicación.</p>
+
+  <section id="que-regulan-estos-terminos-y-que-no">
+    <h2>1. Qué regulan estos Términos y qué no</h2>
+    <p>Estos Términos regulan la Aplicación como plataforma: la cuenta del Usuario, sus credenciales, las funciones disponibles, el uso permitido, la disponibilidad del servicio, la propiedad intelectual y la responsabilidad de la Sociedad respecto del funcionamiento de la Aplicación. No regulan el crédito. La tarjeta de crédito Capta Card, su Línea de Crédito, intereses, comisiones, pagos, aclaraciones y terminación se rigen exclusivamente por el Contrato de Adhesión de Apertura de Crédito en Cuenta Corriente con Disposición mediante Tarjeta de Crédito que el Usuario celebra con la Sociedad, con su Carátula y Anexos (el "Contrato"). En caso de contradicción entre estos Términos y el Contrato en materia de crédito, prevalece el Contrato. Tener una cuenta en la Aplicación no otorga por sí mismo un crédito ni obliga a la Sociedad a otorgarlo.</p>
   </section>
 
-  <section id="producto">
-    <h2>Qué es Capta Card</h2>
-    <p>
-      Capta Card es una tarjeta de crédito Mastercard emitida por {legal.issuer} y ofrecida a la comunidad Capta.
-      <Pending>describir la relación entre Capta y el emisor</Pending>
-    </p>
+  <section id="requisitos-para-usar-la-aplicacion">
+    <h2>2. Requisitos para usar la Aplicación</h2>
+    <p>El Usuario debe ser persona física mayor de dieciocho años, con plena capacidad legal, residente en los Estados Unidos Mexicanos, con un número de teléfono celular y una cuenta de correo electrónico de su titularidad, y con un dispositivo compatible con las versiones de la Aplicación que la Sociedad mantenga vigentes. Cada persona puede tener una sola cuenta. La Sociedad puede negar o cancelar el registro cuando no se cumplan estos requisitos o cuando no sea posible verificar la identidad del Usuario.</p>
   </section>
 
-  <section id="invitacion">
-    <h2>Invitación y requisitos</h2>
-    <p>Por ahora, Capta Card solo está disponible por invitación. Para activarla necesitas:</p>
-    <ul>
-      <li>Haber recibido una invitación por SMS.</li>
-      <li>Ser mayor de edad y residir en México.</li>
-      <li>Un celular con internet para descargar la app.</li>
-      <li>Identificación oficial vigente. <Pending>confirmar documentos requeridos</Pending></li>
-    </ul>
-    <p>La aprobación y el monto de tu línea de crédito están sujetos a evaluación.</p>
+  <section id="cuenta-y-verificacion-de-identidad">
+    <h2>3. Cuenta y verificación de identidad</h2>
+    <p>Para crear la cuenta el Usuario proporciona sus datos de identificación y de contacto y se somete al proceso de verificación de identidad que la Aplicación indique, que puede incluir la captura de su identificación oficial, la validación de sus datos contra fuentes oficiales y una comprobación biométrica del rostro con prueba de vida. El Usuario se obliga a proporcionar información veraz, completa y vigente, y a actualizarla en la Aplicación en cuanto cambie. La Sociedad conserva la información y la evidencia del proceso de verificación conforme a la ley y a su Aviso de Privacidad. Cuando el Usuario sea cliente del vale de Grupo Capta Vale, la solicitud de la tarjeta requiere además la autorización previa de la distribuidora que lo refiere; cuando sea colaborador de una sociedad del grupo, puede autorizar el uso de sus datos laborales en los términos del Contrato.</p>
   </section>
 
-  <section id="app">
-    <h2>Uso de la app</h2>
-    <p>Eres responsable de cuidar tu celular, tu contraseña y los códigos que recibas. Capta nunca te pedirá:</p>
-    <ul>
-      <li>Tu NIP o la contraseña de la app.</li>
-      <li>Los códigos de verificación que llegan por SMS.</li>
-      <li>El código de seguridad (CVV) de tu tarjeta por llamada o mensaje.</li>
-    </ul>
+  <section id="credenciales-de-acceso">
+    <h2>4. Credenciales de Acceso</h2>
+    <p>El usuario, la contraseña, el NIP, los códigos de un solo uso enviados al teléfono o correo registrados y los elementos biométricos que el Usuario registre son sus Credenciales de Acceso. Son personales e intransferibles. El Usuario es responsable de su custodia y de todas las operaciones que se realicen con ellas; debe mantener actualizado su número celular y su correo, no compartir sus Credenciales con nadie y notificar de inmediato a la Sociedad, por la propia Aplicación o por los canales de atención, cualquier pérdida, robo, uso no autorizado o sospecha de compromiso, para su bloqueo. En términos de los artículos 89, 89 bis, 90 y 210-A del Código de Comercio, el uso de las Credenciales de Acceso constituye firma electrónica del Usuario, le atribuye las operaciones realizadas y produce los mismos efectos que la firma autógrafa, siendo admisible como prueba.</p>
   </section>
 
-  <section id="credito">
-    <h2>Línea de crédito y pagos</h2>
-    <p>
-      Cada mes recibes un estado de cuenta con tu saldo, tu pago mínimo y tu fecha límite. Tienes
-      27 días desde la fecha de corte para pagar.
-    </p>
-    <p>Puedes pagar el total, el pago mínimo o cualquier monto intermedio. Pagar solo el mínimo genera intereses.</p>
+  <section id="funciones-de-la-aplicacion">
+    <h2>5. Funciones de la Aplicación</h2>
+    <p>A través de la Aplicación el Usuario puede, según la etapa en que se encuentre: crear y administrar su cuenta; solicitar la tarjeta de crédito Capta Card y firmar electrónicamente la documentación correspondiente; activar la tarjeta física y habilitarla en billeteras digitales; consultar saldos, movimientos, Estados de Cuenta y el CAT vigente; solicitar el incremento o la revisión de su Línea de Crédito y aceptar o rechazar las ofertas de incremento; realizar y programar pagos; bloquear y desbloquear la tarjeta; reportar robo, extravío o cargos no reconocidos; presentar aclaraciones y dar seguimiento a su folio; actualizar sus datos; recibir notificaciones; y consultar el modelo vigente del Contrato, la Carátula, los Anexos, el Aviso de Privacidad y estos Términos. La Sociedad puede agregar, modificar o retirar funciones, informándolo en la Aplicación; la modificación de cualquier condición del crédito se sujeta al procedimiento del Contrato, no a estos Términos.</p>
   </section>
 
-  <section id="costos">
-    <h2>Intereses y comisiones</h2>
-    <p>
-      {legal.interestRate ? <>La tasa de interés anual es fija de {legal.interestRate}%.</> : <Pending>tasa</Pending>}
-      Consulta el CAT, la anualidad y todas las comisiones en
-      <a href={legalHref("comisiones-y-cat")}>Comisiones y CAT</a>.
-    </p>
+  <section id="determinaciones-con-apoyo-de-modelos-automatizados">
+    <h2>5 Bis. Determinaciones con apoyo de modelos automatizados</h2>
+    <p>La evaluación de solicitudes, la determinación y la revisión de la Línea de Crédito, la detección de operaciones inusuales y la prevención de fraudes se apoyan en modelos automatizados de análisis, incluidos modelos de inteligencia artificial, que la Sociedad configura, supervisa y actualiza conforme a su política de riesgo. Las determinaciones que resulten de esos modelos son de la Sociedad y ésta responde de ellas. El Usuario puede solicitar por la Aplicación que una determinación sobre su solicitud o su Línea de Crédito sea revisada por personal de la Sociedad, y recibirá respuesta por los medios pactados. Los incrementos de Línea de Crédito sólo surten efectos con la aceptación del Usuario, conforme al Contrato.</p>
   </section>
 
-  <section id="robo">
-    <h2>Robo, extravío y cargos no reconocidos</h2>
-    <p>
-      Si pierdes tu tarjeta o ves un cargo que no hiciste, bloquéala de inmediato desde la app y repórtalo. Consulta cómo
-      presentar una aclaración en <a href={legalHref("une-y-aclaraciones")}>UNE y aclaraciones</a>.
-    </p>
-    <p><Pending>responsabilidad por cargos antes y después del reporte</Pending></p>
+  <section id="uso-permitido-y-usos-prohibidos">
+    <h2>6. Uso permitido y usos prohibidos</h2>
+    <p>El Usuario se obliga a utilizar la Aplicación de manera lícita, personal y conforme a estos Términos. Queda prohibido: acceder o intentar acceder a cuentas de terceros; usar la cuenta a nombre o por cuenta de otra persona; suplantar identidades o proporcionar datos falsos; alterar, descompilar, desensamblar, realizar ingeniería inversa o extraer el código fuente de la Aplicación; utilizar programas automatizados, robots o técnicas de raspado de datos; introducir código malicioso o interferir con la seguridad, la integridad o el funcionamiento de los sistemas; utilizar la Aplicación desde dispositivos con sistemas operativos alterados cuando la Sociedad lo restrinja por seguridad; y cualquier uso contrario a la ley o a la moral y las buenas costumbres. El uso de la tarjeta de crédito se rige además por los usos no permitidos que establece el Contrato.</p>
   </section>
 
-  <section id="cancelacion">
-    <h2>Cancelación</h2>
-    <p>
-      Puedes cancelar tu tarjeta en cualquier momento, sin costo, desde <Pending>canal de cancelación</Pending>. Antes
-      debes liquidar tu saldo pendiente.
-    </p>
+  <section id="disponibilidad-mantenimiento-y-canales-alternos">
+    <h2>7. Disponibilidad, mantenimiento y canales alternos</h2>
+    <p>La Sociedad procura que la Aplicación esté disponible de manera continua, pero no garantiza un servicio ininterrumpido ni libre de errores. Puede suspender temporalmente el servicio, total o parcialmente, por mantenimiento, actualizaciones, causas de seguridad, fallas de terceros o caso fortuito o fuerza mayor; los mantenimientos programados se avisan con anticipación en la Aplicación. Durante una interrupción el Usuario conserva los canales de atención señalados en la Carátula del Contrato para reportar robo o extravío, presentar aclaraciones y obtener información para realizar sus pagos. Una interrupción de la Aplicación no modifica las fechas de pago ni las obligaciones del Contrato, y la Sociedad no cobrará comisión por pago tardío cuando se demuestre que el pago no pudo realizarse por una falla imputable a sus propios sistemas.</p>
   </section>
 
-  <section id="modificaciones">
-    <h2>Cambios a estos términos</h2>
-    <p>
-      Te avisaremos de cualquier cambio con al menos <Pending>días de anticipación</Pending> por la app o por correo.
-    </p>
+  <section id="actualizaciones-y-dispositivos">
+    <h2>8. Actualizaciones y dispositivos</h2>
+    <p>La Sociedad puede publicar actualizaciones de la Aplicación y condicionar el acceso a la instalación de la versión vigente cuando la actualización sea necesaria por seguridad o por cambios regulatorios. El Usuario es responsable de mantener su dispositivo y su sistema operativo en condiciones de seguridad razonables, de la conexión a Internet que utilice y de los cargos que su proveedor de telefonía o datos le genere. La Aplicación puede solicitar permisos del dispositivo —cámara para la verificación de identidad y captura de documentos, notificaciones, y otros que se expliquen al momento de solicitarlos—; el Usuario puede negarlos, con la consecuencia de que la función correspondiente no esté disponible.</p>
   </section>
 
-  <section id="jurisdiccion">
-    <h2>Ley aplicable</h2>
-    <p>
-      Estos términos se rigen por las leyes de México. <Pending>tribunales competentes</Pending>. Dudas:
-      <a href={`mailto:${contact.supportEmail}`}>{contact.supportEmail}</a>.
-    </p>
+  <section id="notificaciones-y-comunicaciones">
+    <h2>9. Notificaciones y comunicaciones</h2>
+    <p>El Usuario acepta recibir por la Aplicación, por correo electrónico y por mensaje al número celular registrado las notificaciones operativas y de seguridad relativas a su cuenta y a su crédito, incluidas alertas de operaciones, recordatorios de pago, avisos de mantenimiento y los avisos que la ley o el Contrato exijan. Las comunicaciones con fines mercadotécnicos o publicitarios se envían únicamente si el Usuario lo autoriza en la Aplicación o en la Carátula del Contrato; la autorización puede revocarse en cualquier momento desde la configuración de la cuenta o por los canales de atención, y la Sociedad respeta la inscripción del Usuario en el Registro Público para Evitar Publicidad de la Procuraduría Federal del Consumidor.</p>
+  </section>
+
+  <section id="propiedad-intelectual-y-licencia-de-uso">
+    <h2>10. Propiedad intelectual y licencia de uso</h2>
+    <p>La Aplicación, su código, diseño, bases de datos, contenidos, así como la marca Capta Card, los logotipos, nombres comerciales y demás signos distintivos, son propiedad de la Sociedad o de sus licenciantes y están protegidos por la legislación de propiedad intelectual. La Sociedad otorga al Usuario una licencia limitada, personal, no exclusiva, intransferible y revocable para instalar y usar la Aplicación en sus dispositivos, únicamente para los fines previstos en estos Términos. Ningún elemento de la Aplicación puede reproducirse, distribuirse, modificarse ni explotarse comercialmente sin autorización escrita de la Sociedad. Las marcas de terceros que aparezcan en la Aplicación pertenecen a sus titulares.</p>
+  </section>
+
+  <section id="servicios-de-terceros">
+    <h2>11. Servicios de terceros</h2>
+    <p>La Aplicación se distribuye a través de las tiendas de aplicaciones de terceros y puede integrarse con billeteras digitales, proveedores de verificación de identidad, prestadores de servicios de certificación de firma electrónica, redes de pago y el procesador tecnológico de la tarjeta. Esos servicios se rigen por sus propios términos y avisos de privacidad, que el Usuario acepta directamente con cada tercero; la Sociedad no responde por su funcionamiento ni por sus condiciones. El tratamiento de datos que la Sociedad comparta con esos terceros se sujeta al Aviso de Privacidad.</p>
+  </section>
+
+  <section id="datos-personales">
+    <h2>12. Datos personales</h2>
+    <p>El tratamiento de los datos personales del Usuario se rige por el Aviso de Privacidad de Capital Productivo del Noroeste, S.A.P.I. de C.V. para el producto Capta Card, disponible de forma permanente en la Aplicación y en el sitio de la Sociedad (www.captacard.com), que el Usuario conoce y acepta antes de proporcionar sus datos, en cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares. Los derechos de acceso, rectificación, cancelación y oposición se ejercen por los medios que el propio Aviso señala.</p>
+  </section>
+
+  <section id="seguridad-y-responsabilidad">
+    <h2>13. Seguridad y responsabilidad</h2>
+    <p>La Sociedad implementa medidas de seguridad administrativas, técnicas y físicas razonables para proteger la Aplicación y la información del Usuario, y responde por las fallas de sus propios sistemas de autenticación en los términos del Contrato. No responde por daños derivados del uso indebido de las Credenciales de Acceso por causa imputable al Usuario, de la pérdida o compromiso de su dispositivo, de fallas de su conexión, de su proveedor de telefonía o de terceros ajenos a la Sociedad, ni de caso fortuito o fuerza mayor. Los cargos no reconocidos en la tarjeta se atienden conforme al procedimiento de aclaraciones del Contrato, con los plazos y derechos que ahí se establecen, sin que estos Términos los limiten.</p>
+  </section>
+
+  <section id="suspension-y-cancelacion-de-la-cuenta">
+    <h2>14. Suspensión y cancelación de la cuenta</h2>
+    <p>La Sociedad puede suspender o cancelar la cuenta del Usuario, con aviso por los medios pactados, cuando detecte un uso prohibido, indicios de fraude o de suplantación, inconsistencias en la información de identidad no subsanadas, incumplimiento de estos Términos, o cuando lo ordene autoridad competente o lo exija la ley. El Usuario puede solicitar la cancelación de su cuenta en cualquier momento desde la Aplicación o por los canales de atención. La cancelación de la cuenta no extingue las obligaciones derivadas del Contrato mientras exista saldo pendiente, ni impide a la Sociedad conservar la información que la ley le obliga a conservar; la tarjeta y el Contrato se terminan conforme a lo previsto en el propio Contrato.</p>
+  </section>
+
+  <section id="modificaciones-a-estos-terminos">
+    <h2>15. Modificaciones a estos Términos</h2>
+    <p>La Sociedad puede modificar estos Términos. Las modificaciones se publican en la Aplicación y en el sitio de la Sociedad (www.captacard.com) con al menos diez días naturales de anticipación a su entrada en vigor, con aviso al Usuario por los medios pactados. Si el Usuario no está de acuerdo, puede cancelar su cuenta antes de la entrada en vigor sin costo alguno; el uso de la Aplicación después de esa fecha se entiende como aceptación. Ninguna modificación a estos Términos altera las condiciones del crédito: cualquier cambio a tasas, comisiones o al clausulado del Contrato se sujeta únicamente al procedimiento y a los plazos de aviso que el Contrato establece.</p>
+  </section>
+
+  <section id="atencion-al-usuario">
+    <h2>16. Atención al Usuario</h2>
+    <p>Las dudas, reportes y quejas sobre la Aplicación se atienden por el buzón de la propia Aplicación y por los canales de atención señalados en la Carátula del Contrato y en el sitio de la Sociedad (www.captacard.com), con folio de seguimiento. Sin perjuicio de lo anterior, el Usuario puede acudir en cualquier momento a la Procuraduría Federal del Consumidor, competente en la vía administrativa (Teléfono del Consumidor 55 5568 8722 y 800 468 8722; www.gob.mx/profeco).</p>
+  </section>
+
+  <section id="legislacion-aplicable-y-jurisdiccion">
+    <h2>17. Legislación aplicable y jurisdicción</h2>
+    <p>Estos Términos se rigen por las leyes de los Estados Unidos Mexicanos. Para la interpretación y cumplimiento de estos Términos, las partes se someten a la competencia de los tribunales de la ciudad de Culiacán, Sinaloa, en congruencia con lo pactado en el Contrato, sin perjuicio de la competencia administrativa de la Procuraduría Federal del Consumidor.</p>
+  </section>
+
+  <section id="aceptacion-y-constancia">
+    <h2>18. Aceptación y constancia</h2>
+    <p>El Usuario acepta estos Términos al concluir el registro de su cuenta, mediante sus Credenciales de Acceso. La Sociedad conserva constancia electrónica de la aceptación con la versión aceptada, la fecha y hora, el identificador del dispositivo y el folio correspondiente, y la mantiene a disposición del Usuario en la Aplicación. La versión vigente de estos Términos se identifica por su número y su fecha de publicación; las versiones anteriores permanecen consultables.</p>
   </section>
 </LegalLayout>
