@@ -1,0 +1,60 @@
+---
+import SectionHeading from "../SectionHeading.astro";
+import SectionBackdrop from "../SectionBackdrop.astro";
+
+const steps = [
+  { title: "Recibe tu invitación", text: "Te llega por SMS a tu celular." },
+  { title: "Regístrate en la app", text: "Crea tu cuenta y verifica tu identidad." },
+  { title: "Conoce tu resultado", text: "Te avisamos en la app si fuiste aprobado." },
+  { title: "Recibe tu tarjeta", text: "Se entrega con validación de identidad." },
+  { title: "Actívala con tu NIP", text: "Y empieza a usarla." },
+];
+
+const needs = ["Celular con internet", "SMS de invitación", "Identificación oficial vigente"];
+---
+
+<section class="section section--band" id="descarga" aria-labelledby="p3-steps-title">
+  <SectionBackdrop variant="journey" />
+  <div class="section__inner">
+    <SectionHeading
+      id="p3-steps-title"
+      title="De tu invitación a tu primera compra,"
+      accent="en 5 pasos."
+      align="right"
+    />
+
+    <ol class="steps">
+      {
+        steps.map((step, index) => (
+          <li class:list={["step", { "step--last": index === steps.length - 1 }]}>
+            <span class="step__node" aria-hidden="true">
+              {index === steps.length - 1 ? (
+                <svg class="icon" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+              ) : (
+                `0${index + 1}`
+              )}
+            </span>
+            <div class="card">
+              <h3><span class="p3-sr">Paso {index + 1}: </span>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="needs">
+      <h3>Solo necesitas:</h3>
+      <ul>
+        {
+          needs.map((item) => (
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

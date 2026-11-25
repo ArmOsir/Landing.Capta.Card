@@ -1,0 +1,42 @@
+---
+import SectionBackdrop from "../SectionBackdrop.astro";
+
+const example = [
+  { mark: "1", date: "18 de diciembre", text: "Activas tu tarjeta" },
+  { mark: "2", date: "6 de enero", text: "Primer corte (al menos 15 días después de activarla)" },
+  { mark: "3", date: "1 de febrero", text: "Fecha límite de pago" },
+];
+---
+
+<section class="section section--band" id="como-funciona" aria-labelledby="p3-cycle-title">
+  <SectionBackdrop variant="breeze" />
+  <div class="section__inner cycle-layout">
+    <div class="cycle-copy">
+      <p class="p3-bignum" aria-hidden="true">27</p>
+      <div class="section-heading section-heading--left">
+        <h2 id="p3-cycle-title"><span class="p3-sr">27 </span>días para pagar <span>después de tu corte.</span></h2>
+      </div>
+      <p class="lead">
+        Tu fecha de corte es el día 6 de cada mes y tienes 27 días para pagar. Puedes liquidar el saldo del periodo o
+        realizar el pago mínimo, como mejor te acomode.
+      </p>
+    </div>
+
+    <div class="cycle-panel" role="group" aria-labelledby="p3-cycle-example">
+      <p class="cycle-panel__title" id="p3-cycle-example">Ejemplo</p>
+      <ol class="timeline">
+        {
+          example.map((item) => (
+            <li>
+              <span class="timeline__dot" aria-hidden="true">{item.mark}</span>
+              <div>
+                <strong>{item.date}</strong>
+                <p>{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

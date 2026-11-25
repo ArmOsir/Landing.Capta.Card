@@ -1,0 +1,51 @@
+---
+import SectionHeading from "../SectionHeading.astro";
+import SectionBackdrop from "../SectionBackdrop.astro";
+---
+
+<section class="section section--band" id="seguridad" aria-labelledby="p3-sec-title">
+  <SectionBackdrop variant="corners" />
+  <div class="section__inner">
+    <SectionHeading
+      id="p3-sec-title"
+      title="Tu dinero,"
+      accent="protegido."
+      lead="Tu Capta Card es segura: tienes el control desde la app y un equipo que te acompaña si algo no se ve bien."
+    />
+    <div class="p3-center-cta">
+      <a class="btn btn--primary" href="#ayuda">Más información</a>
+    </div>
+
+    <div class="p3-sec-cards">
+      <article class="p3-sec-card p3-sec-card--green">
+        <h3>¿Perdiste tu tarjeta? Bloquéala en segundos desde la app.</h3>
+        <div class="p3-sec-card__visual">
+          <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" loading="lazy" />
+        </div>
+        <div class="p3-sec-card__icons" aria-hidden="true">
+          <span><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></svg></span>
+          <span class="is-on"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg></span>
+          <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></svg></span>
+        </div>
+      </article>
+
+      <article class="p3-sec-card p3-sec-card--dark">
+        <h3>Tu NIP, CVV y códigos son solo tuyos.</h3>
+        <div class="p3-sec-card__rows">
+          <div><span>NIP</span><span aria-hidden="true">••••</span></div>
+          <div><span>CVV</span><span aria-hidden="true">•••</span></div>
+        </div>
+        <p class="p3-sec-card__note">Capta Card nunca te los pedirá por correo, mensaje ni llamada.</p>
+      </article>
+
+      <article class="p3-sec-card p3-sec-card--ink">
+        <h3>¿Un cargo que no reconoces? Te damos un folio de seguimiento.</h3>
+        <div class="p3-sec-card__claim">
+          <div class="p3-sec-card__row"><span>Aclaración</span><span class="p3-sec-card__pill">En revisión</span></div>
+          <strong>Folio [NÚMERO]</strong>
+          <div class="p3-sec-card__bar" aria-hidden="true"><i></i></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

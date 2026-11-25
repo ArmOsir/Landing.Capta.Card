@@ -4,17 +4,20 @@ interface Props {
   description?: string;
   /** Evita que buscadores indexen la página (demos y borradores). */
   noindex?: boolean;
+  /** Fija el tema de la página; sin este valor se usa el que la persona eligió. */
+  theme?: "light" | "dark";
 }
 
 const {
   title = "Capta Card — crédito que crece contigo",
   description = "Conoce Capta Card, la tarjeta de crédito Mastercard de la comunidad Capta. Recibe una invitación, solicita desde la app y controla tu tarjeta desde tu celular.",
   noindex = false,
+  theme,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es-MX">
+<html lang="es-MX" data-theme={theme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,12 +35,12 @@ const {
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script is:inline>
+    {!theme && <script is:inline>
       try {
         var saved = localStorage.getItem("capta-theme");
         if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
       } catch (e) {}
-    </script>
+    </script>}
     <title>{title}</title>
   </head>
   <body>

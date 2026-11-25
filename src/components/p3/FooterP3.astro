@@ -1,0 +1,49 @@
+---
+import Brand from "../Brand.astro";
+import { legalHref, legalPages } from "../../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <div>
+        <Brand footer />
+        <p>El crédito que hace crecer tu futuro.</p>
+      </div>
+      <nav class="site-footer__links" aria-label="Pie de página">
+        <a href="#beneficios">Beneficios</a>
+        <a href="#wallet">Wallet</a>
+        <a href="#mastercard">Mastercard</a>
+        <a href="#seguridad">Seguridad</a>
+        <a href="#ayuda">Ayuda</a>
+      </nav>
+    </div>
+
+    <div class="site-footer__contact">
+      <h2>Atención a clientes</h2>
+      <ul>
+        <li>Teléfono: <a href="tel:+525536484526">55 3648 4526</a></li>
+        <li>Correo: <a href="mailto:soporte@captacard.com">soporte@captacard.com</a></li>
+        <li>Lunes a viernes, 9:00 a 18:00</li>
+        <li><a href={legalHref("aclaraciones")}>Aclaraciones</a> · <a href={`${legalHref("aclaraciones")}#robo-o-extravio`}>Robo o extravío</a></li>
+        <li><a href="https://www.gob.mx/profeco" rel="noopener">PROFECO</a>: 55 5568 8722 · 800 468 8722</li>
+      </ul>
+    </div>
+
+    <div class="site-footer__legal">
+      <div>
+        <p>
+          Tasa de interés fija de 65% anual, sujeta a aprobación. Las condiciones vigentes del producto prevalecen.
+          Crédito otorgado por Capital Productivo del Noroeste, S.A.P.I. de C.V. Tarjeta emitida por Pomelo Tech S.A. de
+          C.V., bajo licencia de Mastercard Internacional.
+        </p>
+        <nav class="site-footer__docs" aria-label="Documentos legales">
+          {legalPages.map((p) => <a href={legalHref(p.slug)}>{p.title}</a>)}
+        </nav>
+      </div>
+      <p class="site-footer__copyright">© {year} Capta Card</p>
+    </div>
+  </div>
+</footer>

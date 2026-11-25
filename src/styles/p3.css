@@ -1,0 +1,553 @@
+/* ──────────────────────────────────────────────────────────────
+   Propuesta 3: piezas nuevas con el estilo de la landing.
+   Solo se carga en /propuesta-3 (tema claro fijo). Usa los tokens de
+   global.css para que combine con el resto de las secciones.
+   ────────────────────────────────────────────────────────────── */
+
+.p3-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.p3-kicker {
+  margin: 0 0 14px;
+  color: var(--label);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.p3-lead {
+  max-width: 560px;
+  margin-top: 18px;
+  color: var(--body);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.p3-fine {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Tarjetas que llevan a otra sección */
+.p3-link-card {
+  color: inherit;
+  text-decoration: none;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.p3-link-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--chip-border);
+}
+
+.p3-link-card:focus-visible {
+  outline: 3px solid var(--label);
+  outline-offset: 4px;
+}
+
+.p3-arrow {
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 700;
+  transition: transform 200ms ease;
+}
+
+.p3-link-card:hover .p3-arrow {
+  transform: translateX(4px);
+}
+
+/* Dos columnas */
+.p3-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 88px);
+}
+
+@media (min-width: 921px) {
+  .p3-split--flip > :first-child {
+    order: 2;
+  }
+}
+
+/* Anualidad */
+.p3-annual {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 88px);
+}
+
+.p3-annual__num,
+.p3-bignum {
+  margin: 0;
+  color: var(--accent);
+  background: var(--accent-gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 0.85;
+}
+
+.p3-annual__num {
+  font-size: clamp(150px, 20vw, 280px);
+  text-align: center;
+}
+
+.p3-bignum {
+  margin-bottom: 10px;
+  font-size: clamp(120px, 14vw, 200px);
+}
+
+.p3-checks {
+  display: flex;
+  margin: 22px 0 28px;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  color: var(--text);
+  font-weight: 600;
+  list-style: none;
+}
+
+.p3-checks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.p3-checks li::before {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--accent);
+  content: "✓";
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Mastercard */
+.p3-tags {
+  display: flex;
+  margin: 24px 0 0;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.p3-tags li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.p3-tags li::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  content: "";
+}
+
+.p3-uses {
+  display: grid;
+  gap: 16px;
+}
+
+.p3-use {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.p3-use p {
+  margin-top: 4px;
+}
+
+/* App (maqueta del teléfono) */
+.p3-app {
+  margin: 0;
+  padding: clamp(28px, 4vw, 48px) clamp(24px, 4vw, 48px) 26px;
+  border: 1px solid var(--panel-border);
+  border-radius: 36px 8px 36px 8px;
+  background:
+    radial-gradient(circle at 85% 10%, rgb(156 181 64 / 40%), transparent 40%),
+    linear-gradient(160deg, #cfe6b0 0%, #eef6e2 60%, #f7fbf1 100%);
+  box-shadow: var(--shadow);
+}
+
+.p3-app__phone {
+  width: min(100%, 300px);
+  margin: 0 auto;
+  padding: 12px;
+  border-radius: 46px;
+  background: #111a13;
+  box-shadow: 0 40px 60px -26px rgb(11 31 15 / 60%);
+}
+
+.p3-app__screen {
+  padding: 22px 18px 20px;
+  border-radius: 36px;
+  color: #0b1f0f;
+  background: #fff;
+}
+
+.p3-app__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.p3-app__top img {
+  display: block;
+  width: 92px;
+  height: auto;
+}
+
+.p3-app__badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #0e5632;
+  background: #e4f2cf;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.p3-app__card {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 16px 0 14px;
+  border-radius: 16px;
+  box-shadow: 0 14px 26px -14px rgb(14 86 50 / 60%);
+}
+
+.p3-app__label {
+  color: #6b766d;
+  font-size: 13px;
+}
+
+.p3-app__amount {
+  margin: 2px 0 14px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.p3-app__actions {
+  display: grid;
+  margin-bottom: 18px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.p3-app__actions span {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 14px;
+  background: #f1f5ec;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.p3-app__actions svg,
+.p3-app__ico svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.p3-app__moves {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.p3-app__moves li {
+  display: grid;
+  padding: 10px 0;
+  align-items: center;
+  grid-template-columns: 38px 1fr auto;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.p3-app__ico {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 12px;
+  color: #0e5632;
+  background: #e4f2cf;
+}
+
+.p3-app figcaption {
+  margin-top: 16px;
+  color: var(--body);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Seguridad: tres tarjetas de color */
+.p3-center-cta {
+  display: flex;
+  margin: -24px 0 48px;
+  justify-content: center;
+}
+
+.p3-sec-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.p3-sec-card {
+  display: flex;
+  min-height: 460px;
+  padding: 34px 30px;
+  flex-direction: column;
+  border-radius: 28px 8px 28px 8px;
+  color: #fff;
+  box-shadow: 0 30px 50px -28px rgb(11 31 15 / 55%);
+}
+
+.p3-sec-card:nth-child(2) {
+  border-radius: 8px 28px 8px 28px;
+}
+
+.p3-sec-card h3 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.p3-sec-card--green {
+  background: linear-gradient(180deg, #5a9a3c 0%, #2b4a25 70%, #1d3219 100%);
+}
+
+.p3-sec-card--dark {
+  background: linear-gradient(180deg, #14351f 0%, #0b1f0f 100%);
+}
+
+.p3-sec-card--ink {
+  background: linear-gradient(180deg, #0b1f0f 0%, #07140b 100%);
+}
+
+.p3-sec-card__visual {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  padding: 28px 0;
+}
+
+.p3-sec-card__visual img {
+  display: block;
+  width: 78%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 20px 30px -16px rgb(0 0 0 / 60%);
+}
+
+.p3-sec-card__icons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.p3-sec-card__icons span {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 14%);
+}
+
+.p3-sec-card__icons span.is-on {
+  background: #a3e635;
+}
+
+.p3-sec-card__icons svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.p3-sec-card__icons .is-on svg {
+  stroke: #0b1f0f;
+}
+
+.p3-sec-card__rows {
+  display: grid;
+  margin-top: auto;
+  padding-top: 40px;
+  gap: 12px;
+}
+
+.p3-sec-card__rows div {
+  display: flex;
+  padding: 18px 22px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 18px;
+  background: rgb(255 255 255 / 9%);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.p3-sec-card__rows span:last-child {
+  letter-spacing: 0.25em;
+}
+
+.p3-sec-card__note {
+  margin-top: 18px;
+  color: #c9d6cf;
+  font-size: 15px;
+}
+
+.p3-sec-card__claim {
+  margin-top: auto;
+  padding: 22px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 20px;
+  background: rgb(255 255 255 / 6%);
+}
+
+.p3-sec-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #c9d6cf;
+  font-size: 15px;
+}
+
+.p3-sec-card__pill {
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: #0b1f0f;
+  background: #a3e635;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.p3-sec-card__claim strong {
+  display: block;
+  margin: 14px 0 16px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.p3-sec-card__bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 12%);
+}
+
+.p3-sec-card__bar i {
+  display: block;
+  width: 55%;
+  height: 100%;
+  border-radius: inherit;
+  background: #a3e635;
+}
+
+/* Cierre */
+.p3-cta {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  padding: clamp(32px, 5vw, 56px);
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px 36px 4px 36px;
+  background: var(--panel-bg);
+  box-shadow: var(--shadow);
+}
+
+.p3-cta > * {
+  position: relative;
+}
+
+.p3-cta h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1.06;
+}
+
+.p3-cta h2 span {
+  color: var(--accent);
+  background: var(--accent-gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.p3-cta p {
+  margin-top: 12px;
+  color: var(--body);
+  font-size: 18px;
+}
+
+.p3-cta__leaf {
+  position: absolute;
+  top: -40px;
+  right: 22%;
+  width: 160px;
+  height: 260px;
+  opacity: 0.35;
+  transform: rotate(24deg);
+  pointer-events: none;
+}
+
+@media (max-width: 920px) {
+  .p3-annual,
+  .p3-split,
+  .p3-sec-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .p3-sec-card {
+    min-height: 0;
+  }
+
+  .p3-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

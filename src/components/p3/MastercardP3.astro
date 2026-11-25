@@ -1,0 +1,56 @@
+---
+import SectionBackdrop from "../SectionBackdrop.astro";
+
+const uses = [
+  {
+    title: "En comercios",
+    text: "Paga con tu tarjeta o con un toque desde tu celular.",
+    paths: ["M3 9l1.5-5h15L21 9", "M4 9v11h16V9", "M9 20v-6h6v6"],
+  },
+  { title: "En línea", text: "Compra en tus tiendas y apps favoritas.", paths: ["M3 4h18v13H3z", "M8 21h8M12 17v4"] },
+  {
+    title: "En el extranjero",
+    text: "Viaja con tu Capta Card a donde aceptan Mastercard.",
+    paths: ["M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z", "M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"],
+  },
+];
+
+const tags = ["Súper", "Gasolina", "Restaurantes", "Compras en línea", "Viajes", "Suscripciones"];
+---
+
+<section class="section" id="mastercard" aria-labelledby="p3-mc-title">
+  <SectionBackdrop variant="gust" />
+  <div class="section__inner p3-split p3-split--flip">
+    <div>
+      <p class="p3-kicker">Respaldo Mastercard</p>
+      <div class="section-heading section-heading--left">
+        <h2 id="p3-mc-title">Llévala a <span>donde vayas.</span></h2>
+      </div>
+      <p class="p3-lead">
+        Tu Capta Card es parte de la red Mastercard: úsala en tiendas físicas y en línea, en México y en el extranjero.
+      </p>
+      <ul class="p3-tags" aria-label="Dónde usarla">
+        {tags.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+    <div class="p3-uses">
+      {
+        uses.map((u) => (
+          <article class="card p3-use">
+            <span class="chip">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                {u.paths.map((d) => (
+                  <path d={d} />
+                ))}
+              </svg>
+            </span>
+            <div>
+              <h3>{u.title}</h3>
+              <p>{u.text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,50 @@
+---
+/**
+ * Propuesta 3: diseño y animaciones de la landing (propuesta 1) con el
+ * contenido de la propuesta 2. Tema claro fijo. No se indexa.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LeafSprite from "../components/LeafSprite.astro";
+import HeroP3 from "../components/p3/HeroP3.astro";
+import BenefitsP3 from "../components/p3/BenefitsP3.astro";
+import AnnualP3 from "../components/p3/AnnualP3.astro";
+import WalletP3 from "../components/p3/WalletP3.astro";
+import MastercardP3 from "../components/p3/MastercardP3.astro";
+import CycleP3 from "../components/p3/CycleP3.astro";
+import AppP3 from "../components/p3/AppP3.astro";
+import StepsP3 from "../components/p3/StepsP3.astro";
+import PayP3 from "../components/p3/PayP3.astro";
+import SecurityP3 from "../components/p3/SecurityP3.astro";
+import FaqP3 from "../components/p3/FaqP3.astro";
+import CtaP3 from "../components/p3/CtaP3.astro";
+import FooterP3 from "../components/p3/FooterP3.astro";
+import "../styles/global.css";
+import "../styles/p3.css";
+---
+
+<BaseLayout
+  title="Propuesta 3 — Capta Card"
+  description="Propuesta 3 de la landing de Capta Card (versión de desarrollo)."
+  noindex
+  theme="light"
+>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <LeafSprite />
+  <HeroP3 />
+  <div class="page">
+    <main id="contenido">
+      <BenefitsP3 />
+      <AnnualP3 />
+      <WalletP3 />
+      <MastercardP3 />
+      <CycleP3 />
+      <AppP3 />
+      <StepsP3 />
+      <PayP3 />
+      <SecurityP3 />
+      <FaqP3 />
+      <CtaP3 />
+    </main>
+    <FooterP3 />
+  </div>
+</BaseLayout>

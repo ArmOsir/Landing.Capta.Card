@@ -1,0 +1,52 @@
+---
+import SectionHeading from "../SectionHeading.astro";
+import SectionBackdrop from "../SectionBackdrop.astro";
+
+const faq = [
+  {
+    q: "¿Cómo obtengo mi Capta Card?",
+    a: "Por ahora es solo por invitación. Si recibiste tu SMS, descarga la app, regístrate y verifica tu identidad.",
+  },
+  {
+    q: "¿Cuánto cuesta?",
+    a: "La tasa de interés es fija de 65% anual y la tarjeta no tiene anualidad. Consulta comisiones y CAT en la app.",
+  },
+  {
+    q: "¿Por qué mi tarjeta no trae mi nombre?",
+    a: "Es una tarjeta innominada: no lleva nombre impreso y queda vinculada a ti en cuanto la activas en la app.",
+  },
+  {
+    q: "¿Qué hago si veo un cargo que no reconozco?",
+    a: "Bloquea tu tarjeta desde la app y presenta tu aclaración. Te entregaremos un folio para darle seguimiento.",
+  },
+  { q: "¿Puedo pagar más de lo que debo?", a: "No. El pago máximo es tu saldo total." },
+];
+---
+
+<section class="section" id="ayuda" aria-labelledby="p3-faq-title">
+  <SectionBackdrop variant="help" />
+  <div class="section__inner help">
+    <div class="help__intro">
+      <p class="p3-kicker">Preguntas frecuentes</p>
+      <SectionHeading id="p3-faq-title" title="¿Tienes" accent="dudas?" align="left" />
+      <p class="lead">
+        Escríbenos a <a href="mailto:soporte@captacard.com">soporte@captacard.com</a> o a nuestro WhatsApp{" "}
+        <a href="https://wa.me/525536484526" rel="noopener">55 3648 4526</a>, de lunes a viernes de 9:00 a 18:00.
+      </p>
+    </div>
+
+    <div class="faq">
+      {
+        faq.map((item, i) => (
+          <details open={i === 0}>
+            <summary>
+              {item.q}
+              <span class="faq__toggle" aria-hidden="true" />
+            </summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

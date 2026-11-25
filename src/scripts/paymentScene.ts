@@ -44,6 +44,7 @@ import {
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { buildCard, svgTexture } from "./card3d";
 import { buildTerminal, FRONT_Z } from "./terminal3d";
+import { buildPhone, type Phone3D } from "./phone3d";
 
 export interface PaymentScene {
   destroy(): void;
@@ -56,6 +57,17 @@ interface Options {
   getProgress(): number;
   /** Se llama en cada frame con el avance suavizado (para sincronizar textos). */
   onFrame?(p: number): void;
+  /** Qué se acerca a la terminal: la tarjeta (por defecto) o un celular con Wallet. */
+  device?: "card" | "phone";
+}
+
+function loadImage(src: string) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
 }
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
@@ -141,8 +153,24 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     return null;
   }
   const card = buildCard(frontMap, backMap, env);
-  scene.add(card.group);
-  const CARD_SCALE = 0.6;
+  // Con device "phone" se acerca un celular con la Capta Card en su Wallet
+  const usePhone = options.device === "phone";
+  let phone: Phone3D | null = null;
+  if (usePhone) {
+    try {
+      phone = buildPhone(env, await loadImage(options.front));
+      scene.add(phone.group);
+    } catch {
+      phone = null;
+    }
+  }
+  if (!phone) scene.add(card.group);
+  // Un celular mide alrededor del 80% del alto de la terminal
+  const CARD_SCALE = phone ? 1.25 : 0.6;
+  // El celular es más alto que la tarjeta: toca la terminal un poco más abajo
+  const touchY = phone ? -0.45 : 0.05;
+  const touchX = phone ? 0.5 : 0;
+  const spinTurns = phone ? 2 : 3;
 
   // ── Luciérnagas ──
   const FIREFLIES = small ? 70 : 140;
@@ -222,8 +250,11 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
   const poseA = { pos: new Vector3(4.8, -1.4, 2.6), quat: q(0.5, -2.4, 0.5) };
   const poseB = { pos: new Vector3(1.5, 0.9, 1.7), quat: q(0.1, -0.9, 0.15) };
   const poseE = { pos: new Vector3(1.05, -1.0, 1.5), quat: q(-0.08, -0.3, -0.1) };
-  const hoverLocal = new Vector3(0, terminal.screenY + 0.05, FRONT_Z + 0.75);
-  const touchLocal = new Vector3(0, terminal.screenY + 0.05, FRONT_Z + 0.3);
+  // El celular viaja más cerca del plano de la terminal: si pasa junto a la
+  // cámara se ve más grande que ella
+  if (phone) poseA.pos.set(4.2, -1.2, 0.8);
+  const hoverLocal = new Vector3(touchX, terminal.screenY + touchY, FRONT_Z + 0.75);
+  const touchLocal = new Vector3(touchX, terminal.screenY + touchY, FRONT_Z + 0.3);
   const tmpV = new Vector3();
   const tmpV2 = new Vector3();
   const tmpQ = new Quaternion();
@@ -245,8 +276,11 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     const portrait = camera.aspect < 1;
     distScale = portrait ? Math.min(2, 0.95 / camera.aspect) : 1;
     poseB.pos.x = portrait ? 0.9 : 1.5;
+    if (phone) poseB.pos.set(portrait ? 0.9 : 1.6, 0.5, 0.8);
     // Al final la tarjeta queda junto a la parte baja de la terminal (o debajo en móvil)
     poseE.pos.set(portrait ? 0.5 : 1.05, portrait ? -0.9 : -1.0, portrait ? 2.1 : 1.5);
+    // El celular es más alto: se queda un poco más arriba para no salirse del cuadro
+    if (phone) poseE.pos.set(portrait ? 0.6 : 1.3, portrait ? -0.4 : -0.25, portrait ? 0.9 : 0.5);
     camera.updateProjectionMatrix();
   };
   const ro = new ResizeObserver(resize);
@@ -316,6 +350,11 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     terminal.setEmblem(p < 0.53 ? pulse : 1);
     terminal.setWaves(seg(p, 0.42, 0.46) * (1 - seg(p, 0.52, 0.56)), time);
     terminal.setReceipt(seg(p, 0.56, 0.72));
+    if (phone) {
+      if (p < 0.45) phone.setState("idle");
+      else if (p < 0.53) phone.setState("reading", seg(p, 0.45, 0.53, (t) => t));
+      else phone.setState("done");
+    }
 
     // Destello verde al aprobar
     const approve = seg(p, 0.53, 0.56) * (1 - seg(p, 0.6, 0.7));
@@ -324,14 +363,14 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
     ffMat.size = 0.16 + approve * 0.08;
 
     // ── Tarjeta ──
-    const g = card.group;
+    const g = phone ? phone.group : card.group;
     const termQ = terminal.group.quaternion;
     if (p < 0.32) {
       const t = seg(p, 0.14, 0.32);
       g.position.lerpVectors(poseA.pos, poseB.pos, t);
       g.quaternion.slerpQuaternions(poseA.quat, poseB.quat, t);
       // Giro de entrada: una vuelta y media que se detiene al llegar
-      spinQ.setFromAxisAngle(yAxis, (1 - t) * Math.PI * 3);
+      spinQ.setFromAxisAngle(yAxis, (1 - t) * Math.PI * spinTurns);
       g.quaternion.multiply(spinQ);
     } else if (p < 0.42) {
       const t = seg(p, 0.32, 0.42);
@@ -413,6 +452,7 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
       io.disconnect();
       document.removeEventListener("visibilitychange", kick);
       card.dispose();
+      phone?.dispose();
       terminal.dispose();
       [frontMap, backMap, env, glow].forEach((t) => t.dispose());
       [ffGeo, leafGeo].forEach((g) => g.dispose());

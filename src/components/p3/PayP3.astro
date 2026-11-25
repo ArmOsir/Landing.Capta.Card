@@ -1,0 +1,65 @@
+---
+import SectionHeading from "../SectionHeading.astro";
+import SectionBackdrop from "../SectionBackdrop.astro";
+
+const steps = [
+  {
+    kind: "Paso 1",
+    name: "Copia tu CLABE",
+    text: "La encuentras en la app de Capta Card.",
+    paths: ["M12 3.5h8a3 3 0 0 1 3 3v19a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3v-19a3 3 0 0 1 3-3Z", "M14 24.5h4"],
+  },
+  {
+    kind: "Paso 2",
+    name: "Entra a la app de tu banco",
+    text: "Desde cualquier banco en México.",
+    paths: ["M4 12 16 5l12 7M7 13v10m6-10v10m6-10v10m6-10v10M4 27h24"],
+  },
+  {
+    kind: "Paso 3",
+    name: "Transfiere por SPEI",
+    text: "Liquida tu saldo o haz tu pago mínimo.",
+    paths: ["M5 11h18m0 0-4-4m4 4-4 4M27 21H9m0 0 4-4m-4 4 4 4"],
+  },
+];
+---
+
+<section class="section" id="pagos" aria-labelledby="p3-pay-title">
+  <SectionBackdrop variant="help" />
+  <div class="section__inner">
+    <SectionHeading
+      id="p3-pay-title"
+      title="Paga tu tarjeta desde"
+      accent="cualquier banco."
+      lead="Haz una transferencia SPEI a tu CLABE Capta Card desde la app de tu banco. Encuentras tu CLABE en la app de Capta Card."
+    />
+
+    <div class="pay__grid">
+      {
+        steps.map((step) => (
+          <article class="card pay">
+            <div class="pay__top">
+              <span class="pay__kind">{step.kind}</span>
+              <span class="chip">
+                <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+                  {step.paths.map((d) => (
+                    <path d={d} />
+                  ))}
+                </svg>
+              </span>
+            </div>
+            <h3 class="pay__name">{step.name}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="notice">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 7.5h.01" />
+      </svg>
+      Puedes pagar hasta tu saldo total.
+    </p>
+  </div>
+</section>

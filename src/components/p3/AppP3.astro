@@ -1,0 +1,53 @@
+---
+import SectionBackdrop from "../SectionBackdrop.astro";
+---
+
+<section class="section" id="tu-tarjeta" aria-labelledby="p3-app-title">
+  <SectionBackdrop variant="advantages" />
+  <div class="section__inner p3-split">
+    <div>
+      <p class="p3-kicker">Todo desde la app</p>
+      <div class="section-heading section-heading--left">
+        <h2 id="p3-app-title">Tu tarjeta, <span>en tus manos.</span></h2>
+      </div>
+      <p class="p3-lead">
+        Consulta tu disponible, revisa tus movimientos y administra tu tarjeta. Si la pierdes o ves un cargo que no
+        reconoces, bloquéala al momento.
+      </p>
+    </div>
+
+    <figure class="p3-app">
+      <div class="p3-app__phone">
+        <div class="p3-app__screen">
+          <div class="p3-app__top">
+            <img src="/images/logo-capta.png" alt="Capta Card" width="473" height="200" loading="lazy" />
+            <span class="p3-app__badge">Activa</span>
+          </div>
+          <img class="p3-app__card" src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" loading="lazy" />
+          <p class="p3-app__label">Disponible</p>
+          <p class="p3-app__amount">$8,450.00</p>
+          <div class="p3-app__actions" aria-hidden="true">
+            <span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>Bloquear</span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" /></svg>Pagar</span>
+          </div>
+          <p class="p3-app__label">Movimientos</p>
+          <ul class="p3-app__moves">
+            <li>
+              <span class="p3-app__ico"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.5 11h11L21 7H6.5" /><circle cx="9" cy="19" r="1.5" /><circle cx="17" cy="19" r="1.5" /></svg></span>
+              <span>Supermercado</span><strong>−$845.00</strong>
+            </li>
+            <li>
+              <span class="p3-app__ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg></span>
+              <span>Compra en línea</span><strong>−$399.00</strong>
+            </li>
+            <li>
+              <span class="p3-app__ico"><svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16" /><path d="M3 21h12M14 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-3-3" /></svg></span>
+              <span>Gasolina</span><strong>−$650.00</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <figcaption>Imagen ilustrativa de la app Capta Card</figcaption>
+    </figure>
+  </div>
+</section>

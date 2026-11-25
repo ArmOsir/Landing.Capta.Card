@@ -1,0 +1,1225 @@
+---
+/**
+ * Hero de la propuesta 3: el de la landing (tarjeta 3D, hojas, encabezado)
+ * con los textos de la propuesta 2. Solo tema claro: sin botón de tema.
+ */
+---
+
+<div class="landing-shell" id="inicio" data-theme="light">
+  <div class="landing-shell__glow landing-shell__glow--top" aria-hidden="true"></div>
+  <div class="landing-shell__glow landing-shell__glow--bottom" aria-hidden="true"></div>
+  <div class="landing-ambience" aria-hidden="true">
+    <span class="landing-ambience__leaf landing-ambience__leaf--left landing-ambience__leaf--drift">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf-solid" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--right landing-ambience__leaf--sway-slow">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--right-small landing-ambience__leaf--drift">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf-solid" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--bottom-left landing-ambience__leaf--drift">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf-solid" width="120" height="200" />
+      </svg>
+    </span>
+    <span class="landing-ambience__leaf landing-ambience__leaf--bottom-right landing-ambience__leaf--sway">
+      <svg viewBox="0 0 120 200" focusable="false">
+        <use href="#capta-leaf" width="120" height="200" />
+      </svg>
+    </span>
+  </div>
+
+  <header class="landing-header" data-header data-scrolled="false">
+    <a class="landing-logo" href="#inicio" aria-label="Capta Card, inicio">
+      <img class="landing-logo__img landing-logo__img--on-dark" src="/images/logo-capta-claro.png" alt="" width="473" height="200" fetchpriority="high" />
+      <img class="landing-logo__img landing-logo__img--on-light" src="/images/logo-capta.png" alt="" width="473" height="200" />
+    </a>
+    <nav class="landing-header__nav" id="landing-navigation" aria-label="Navegación principal">
+      <a href="#beneficios">Beneficios</a>
+      <a href="#wallet">Wallet</a>
+      <a href="#mastercard">Mastercard</a>
+      <a href="#seguridad">Seguridad</a>
+      <a href="#ayuda">Ayuda</a>
+    </nav>
+    <div class="landing-header__actions">
+      <a class="landing-header__cta" href="#descarga"><span class="landing-header__cta-long">Ya tengo mi invitación</span><span class="landing-header__cta-short">Invitación</span></a>
+      <button
+        class="landing-menu-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-controls="landing-navigation"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="landing-main">
+    <section class="landing-intro" aria-labelledby="landing-title">
+      <h1 id="landing-title">
+        Tus Planes. Tu Control.{" "}<span>Tu Capta Card.</span>
+      </h1>
+      <p class="landing-intro__description">
+        Sin anualidad, con el respaldo de Mastercard y lista para pagar con un toque desde tu celular. Tú decides
+        cómo usarla.
+      </p>
+      <div class="landing-intro__actions">
+        <a class="btn btn--primary" href="#descarga">Ya tengo mi invitación</a>
+        <a class="btn btn--ghost" href="#como-funciona">Cómo funciona</a>
+      </div>
+      <ul class="landing-intro__trust" aria-label="Lo que incluye">
+        <li>Sin anualidad</li>
+        <li>Red Mastercard</li>
+        <li>Paga con un toque</li>
+        <li>Segura</li>
+      </ul>
+    </section>
+
+    <section class="landing-showcase" aria-label="Vistas de la tarjeta Capta Card">
+      <div class="landing-showcase__stage" data-card-stage>
+        <div class="landing-showcase__ring landing-showcase__ring--outer" aria-hidden="true"></div>
+        <div class="landing-showcase__ring landing-showcase__ring--inner" aria-hidden="true"></div>
+        <div class="sparks" aria-hidden="true">
+          <span class="spark" style="--x:30%; --y:8%; --s:5px; --delay:-0.4s"></span>
+          <span class="spark" style="--x:66%; --y:2%; --s:4px; --delay:-2.1s"></span>
+          <span class="spark" style="--x:74%; --y:18%; --s:7px; --delay:-1.2s"></span>
+          <span class="spark" style="--x:27%; --y:86%; --s:6px; --delay:-3s"></span>
+          <span class="spark" style="--x:58%; --y:97%; --s:4px; --delay:-0.9s"></span>
+          <span class="spark" style="--x:71%; --y:88%; --s:5px; --delay:-2.6s"></span>
+          <span class="spark spark--far" style="--x:4%; --y:6%; --s:3px; --delay:-1.7s"></span>
+          <span class="spark spark--far" style="--x:97%; --y:96%; --s:4px; --delay:-3.4s"></span>
+        </div>
+
+        <div
+          class="landing-card-tilt"
+          data-card-tilt
+          role="button"
+          tabindex="0"
+          aria-pressed="false"
+          aria-controls="capta-card-3d"
+          aria-label="Tarjeta Capta Card, vista frontal"
+        >
+          <div class="landing-card-flipper" id="capta-card-3d" data-card-flipper>
+            <div class="landing-card-face landing-card-face--front">
+              <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" fetchpriority="high" draggable="false" />
+            </div>
+            <div class="landing-card-face landing-card-face--back">
+              <img src="/images/TC%20Capta%20Card%20trasera.svg" alt="" width="482" height="300" loading="lazy" decoding="async" draggable="false" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="landing-showcase__hint" data-card-hint>Toca la tarjeta para ver el reverso.</p>
+    </section>
+
+    <div class="landing-strip">
+      <p class="landing-terms">
+        <span>Tasa de interés anual fija de 65%.</span>
+        <span>Sin anualidad.</span>
+        <span>Sujeto a aprobación. Consulta requisitos, comisiones y CAT en la app.</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const cardFlipper = document.querySelector<HTMLElement>("[data-card-flipper]");
+  const cardTilt = document.querySelector<HTMLElement>("[data-card-tilt]");
+  const cardStage = document.querySelector<HTMLElement>("[data-card-stage]");
+  const shell = document.querySelector<HTMLElement>(".landing-shell");
+
+  if (cardFlipper && cardTilt && cardStage) {
+    type Card3D = import("../../scripts/card3d").Card3D;
+    let card3d: Card3D | null = null;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hint = document.querySelector<HTMLElement>("[data-card-hint]");
+
+    const announce = (isBack: boolean) => {
+      cardTilt.setAttribute("aria-pressed", String(isBack));
+      cardTilt.setAttribute("aria-label", `Tarjeta Capta Card, vista ${isBack ? "reverso" : "frontal"}`);
+    };
+
+    const toggleCardView = () => {
+      const isBack = card3d ? card3d.flip() : cardFlipper.classList.toggle("is-flipped");
+      announce(isBack);
+    };
+
+    cardTilt.addEventListener("click", toggleCardView);
+    cardTilt.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggleCardView();
+    });
+
+    if (!reduceMotion) {
+      cardStage.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse") return;
+
+        const bounds = cardStage.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+        if (card3d) card3d.tilt(x, y);
+        else cardTilt.style.transform = `rotateX(${(-y * 10).toFixed(2)}deg) rotateY(${(x * 12).toFixed(2)}deg)`;
+      });
+
+      cardStage.addEventListener("pointerleave", () => {
+        if (card3d) card3d.tilt(0, 0);
+        else cardTilt.style.transform = "";
+      });
+
+      // La tarjeta 3D se carga después del resto de la página; mientras tanto
+      // (o si el navegador no tiene WebGL) se ve la versión plana.
+      const load3D = async () => {
+        try {
+          const { createCard3D } = await import("../../scripts/card3d");
+          const wasBack = cardFlipper.classList.contains("is-flipped");
+          card3d = await createCard3D(cardTilt, {
+            front: "/images/TC%20Capta%20Card%20frente.svg",
+            back: "/images/TC%20Capta%20Card%20trasera.svg",
+            onSideChange: announce,
+          });
+          if (!card3d) return;
+          if (wasBack) card3d.flip();
+          cardTilt.style.transform = "";
+          cardTilt.classList.add("is-3d");
+          if (hint) hint.textContent = "Arrastra o toca la tarjeta para girarla.";
+        } catch {
+          card3d = null;
+        }
+      };
+
+      // La versión 3D (Three.js) no entra en la carga inicial: se crea con el
+      // primer gesto de la persona (mover el mouse, tocar, hacer scroll o una
+      // tecla) y solo si la tarjeta está cerca de la pantalla. Mientras tanto
+      // se ve la versión plana, que es idéntica a simple vista.
+      let near = false;
+      let interacted = false;
+      let started = false;
+      const tryLoad = () => {
+        if (started || !near || !interacted) return;
+        started = true;
+        load3D();
+      };
+      const GESTURES = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"] as const;
+      const onGesture = () => {
+        interacted = true;
+        GESTURES.forEach((g) => window.removeEventListener(g, onGesture));
+        tryLoad();
+      };
+      GESTURES.forEach((g) => window.addEventListener(g, onGesture, { passive: true }));
+      new IntersectionObserver(
+        (entries) => {
+          near = entries.some((e) => e.isIntersecting);
+          tryLoad();
+        },
+        { rootMargin: "50% 0px" },
+      ).observe(cardTilt);
+    }
+  }
+
+  const menuToggle = document.querySelector<HTMLButtonElement>(".landing-menu-toggle");
+  const navigation = document.querySelector<HTMLElement>("#landing-navigation");
+
+  if (menuToggle && navigation) {
+    const setMenu = (open: boolean) => {
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+      navigation.classList.toggle("is-open", open);
+    };
+
+    menuToggle.addEventListener("click", () => {
+      setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+    });
+    // Al elegir una sección o pulsar Escape, el menú se cierra
+    navigation.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) setMenu(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && navigation.classList.contains("is-open")) {
+        setMenu(false);
+        menuToggle.focus();
+      }
+    });
+  }
+
+  // El encabezado es fijo; al bajar gana un fondo sólido para leerse sobre cualquier sección
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  if (header) {
+    const syncHeader = () => {
+      // Se mide desde el inicio del Hero
+      const heroTop = shell ? shell.getBoundingClientRect().top : -window.scrollY;
+      header.dataset.scrolled = String(heroTop < -8);
+    };
+    syncHeader();
+    window.addEventListener("scroll", syncHeader, { passive: true });
+  }
+</script>
+
+<style>
+  .landing-shell {
+    /* Al ir a #inicio el Hero queda arriba del todo (anula el scroll-padding del encabezado) */
+    scroll-margin-top: -88px;
+    position: relative;
+    /* Por encima de las secciones para que el encabezado fijo nunca quede debajo */
+    z-index: 10;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100svh;
+    margin: 0;
+    padding: 72px clamp(20px, 4vw, 56px) 0;
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    background-color: #051c13;
+    background-image: radial-gradient(ellipse 70% 55% at 50% 62%, rgb(22 84 52 / 55%), transparent 75%);
+  }
+
+  /* El borde inferior se funde con el color base: sin escalón con la sección
+     siguiente (que arranca justo con ese color) */
+  .landing-shell::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--seam, 140px);
+    background: linear-gradient(180deg, transparent, var(--bg));
+    pointer-events: none;
+  }
+
+  .landing-shell[data-theme="light"] {
+    color: #123523;
+    background-color: #eaf5e9;
+    background-image: radial-gradient(ellipse 70% 55% at 50% 62%, rgb(255 255 255 / 70%), transparent 75%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-shell__glow--top {
+    background: rgb(117 211 135 / 45%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-shell__glow--bottom {
+    background: rgb(163 230 53 / 20%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-header :global(.brand),
+  .landing-shell[data-theme="light"] .landing-header__nav a,
+  .landing-shell[data-theme="light"] .landing-intro h1 {
+    color: #123523;
+  }
+
+  .landing-shell[data-theme="light"] .landing-header__nav a:hover {
+    color: #218b43;
+  }
+
+  .landing-shell[data-theme="light"] .landing-header :global(.brand__card) {
+    color: #218b43;
+  }
+
+  .landing-shell[data-theme="light"] .landing-header :global(.brand__mark) {
+    border-color: rgb(33 139 67 / 24%);
+    color: #218b43;
+    background: rgb(255 255 255 / 54%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-intro h1 span {
+    background-image: linear-gradient(90deg, #218b43, #72af32 55%, #218b43);
+  }
+
+  .landing-shell[data-theme="light"] .landing-intro__description,
+  .landing-shell[data-theme="light"] .landing-showcase__hint {
+    color: #4c6855;
+  }
+
+  .landing-shell[data-theme="light"] .landing-showcase__ring {
+    border-color: rgb(33 139 67 / 24%);
+  }
+
+  .landing-shell[data-theme="light"] .landing-showcase__ring--inner {
+    border-color: rgb(33 139 67 / 20%);
+  }
+
+  .landing-shell__glow {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(85px);
+  }
+
+  .landing-shell__glow--top {
+    top: -225px;
+    left: 50%;
+    width: 650px;
+    height: 340px;
+    background: rgb(21 71 52 / 54%);
+    transform: translateX(-50%);
+  }
+
+  .landing-shell__glow--bottom {
+    bottom: 10%;
+    left: 18%;
+    width: 420px;
+    height: 260px;
+    background: rgb(34 197 94 / 11%);
+  }
+
+  .landing-ambience {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .landing-ambience__leaf {
+    position: absolute;
+    display: block;
+    width: var(--leaf-size);
+    aspect-ratio: 120 / 200;
+    translate: -50% -50%;
+    rotate: var(--leaf-rotation);
+    transform-origin: 50% 100%;
+  }
+
+  .landing-ambience__leaf svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .landing-ambience__leaf--left {
+    top: 33%;
+    left: 14%;
+    --leaf-size: 34px;
+    --leaf-rotation: -36deg;
+  }
+
+  .landing-ambience__leaf--right {
+    top: 27%;
+    left: 101%;
+    --leaf-size: 260px;
+    --leaf-rotation: 32deg;
+  }
+
+  .landing-ambience__leaf--right-small {
+    top: 44%;
+    left: 83%;
+    --leaf-size: 27px;
+    --leaf-rotation: 43deg;
+  }
+
+  .landing-ambience__leaf--bottom-left {
+    top: 88%;
+    left: 12%;
+    --leaf-size: 38px;
+    --leaf-rotation: 29deg;
+  }
+
+  .landing-ambience__leaf--bottom-right {
+    top: 91%;
+    left: 91%;
+    --leaf-size: 48px;
+    --leaf-rotation: -52deg;
+  }
+
+  .landing-ambience__leaf--sway {
+    animation: hero-leaf-sway 12s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .landing-ambience__leaf--sway-slow {
+    animation: hero-leaf-sway 18s ease-in-out -6s infinite alternate;
+    will-change: transform;
+  }
+
+  .landing-ambience__leaf--drift {
+    animation: hero-leaf-drift 16s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .landing-header {
+    --header-pad: clamp(20px, 4vw, 56px);
+    position: fixed;
+    z-index: 40;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: grid;
+    min-height: 72px;
+    padding: 12px max(var(--header-pad), calc((100% - 850px) / 2));
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 28px;
+    border-bottom: 1px solid transparent;
+    transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+
+  .landing-header[data-scrolled="true"] {
+    border-bottom-color: rgb(74 222 128 / 16%);
+    background-color: rgb(5 28 19 / 92%);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 22%);
+    backdrop-filter: blur(14px);
+  }
+
+  .landing-shell[data-theme="light"] .landing-header[data-scrolled="true"] {
+    border-bottom-color: #c6dfc9;
+    background-color: rgb(234 245 233 / 94%);
+    box-shadow: 0 10px 30px rgb(22 74 40 / 10%);
+  }
+
+  .landing-header :global(.brand) {
+    align-items: center;
+    gap: 11px;
+    color: #fff;
+  }
+
+  .landing-header :global(.brand__mark) {
+    width: 36px;
+    height: 36px;
+    padding: 9px;
+    border: 1px solid rgb(74 222 128 / 34%);
+    border-radius: 12px;
+    color: #4ade80;
+    background: rgb(21 71 52 / 78%);
+  }
+
+  .landing-header :global(.brand__mark path:first-child) {
+    fill: currentColor;
+  }
+
+  .landing-header :global(.brand__mark path:last-child) {
+    display: none;
+  }
+
+  .landing-header :global(.brand__name) {
+    font-size: 20px;
+  }
+
+  .landing-header :global(.brand__card) {
+    color: #4ade80;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Logo oficial: versión de texto claro sobre fondo oscuro y original en modo claro */
+  .landing-logo {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    border-radius: 8px;
+  }
+
+  .landing-logo__img {
+    display: block;
+    width: auto;
+    height: 42px;
+  }
+
+  .landing-logo__img--on-light,
+  .landing-shell[data-theme="light"] .landing-logo__img--on-dark {
+    display: none;
+  }
+
+  .landing-shell[data-theme="light"] .landing-logo__img--on-light {
+    display: block;
+  }
+
+  .landing-header__nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 3vw, 38px);
+  }
+
+  .landing-header__nav a {
+    color: #cbd5d1;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .landing-header__nav a:hover {
+    color: #a3e635;
+  }
+
+  .landing-header__actions {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 8px;
+  }
+
+  .landing-header__cta {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    padding: 0 22px;
+    border-radius: 999px;
+    color: #051c13;
+    background: #4ade80;
+    box-shadow: 0 8px 24px rgb(74 222 128 / 14%);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 160ms ease, transform 160ms ease;
+  }
+
+  .landing-header__cta:hover {
+    transform: translateY(-2px);
+    background: #a3e635;
+  }
+
+  .landing-menu-toggle {
+    display: none;
+  }
+
+  .landing-header__cta-short {
+    display: none;
+  }
+
+  /* El texto del Hero va a la izquierda (en escritorio, la tarjeta a la derecha) */
+  .landing-intro {
+    position: relative;
+    z-index: 1;
+    width: min(860px, 100%);
+    margin-inline: auto;
+    padding: 13px 0 0;
+    text-align: left;
+  }
+
+  .landing-intro__mobile-break {
+    display: none;
+  }
+
+  .landing-intro h1 {
+    margin: 0;
+    color: #f7faf8;
+    font-size: clamp(48px, 7vw, 76px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+  }
+
+  .landing-intro h1 span {
+    display: block;
+    color: #a3e635;
+    background: linear-gradient(90deg, #4ade80, #a3e635 55%, #22c55e);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .landing-intro__description {
+    max-width: 600px;
+    margin: 18px 0 0;
+    color: #d3ddd8;
+    font-size: 19px;
+    line-height: 1.55;
+  }
+
+  .landing-intro__actions {
+    display: flex;
+    margin-top: 28px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  /* Tres datos rápidos bajo los botones, con palomita verde */
+  .landing-intro__trust {
+    display: flex;
+    margin: 26px 0 0;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    color: #c2cec8;
+    font-size: 15px;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  .landing-intro__trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .landing-intro__trust li::before {
+    display: grid;
+    width: 20px;
+    height: 20px;
+    flex: none;
+    place-items: center;
+    border-radius: 50%;
+    color: #051c13;
+    background: #4ade80;
+    content: "✓";
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .landing-shell[data-theme="light"] .landing-intro__trust {
+    color: #3d5b47;
+  }
+
+  .landing-shell[data-theme="light"] .landing-intro__trust li::before {
+    color: #fff;
+    background: #1d7f3e;
+  }
+
+
+
+  .landing-showcase {
+    position: relative;
+    z-index: 1;
+    width: min(980px, 100%);
+    margin: 0 auto;
+    padding: 36px 0 28px;
+  }
+
+  .landing-showcase__stage {
+    position: relative;
+    display: grid;
+    min-height: 270px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    justify-items: center;
+    gap: clamp(16px, 2.5vw, 28px);
+    perspective: 1200px;
+  }
+
+  .landing-showcase__ring {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: min(490px, 52vw);
+    aspect-ratio: 1;
+    border: 1px solid rgb(74 222 128 / 16%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .landing-showcase__ring--inner {
+    width: min(390px, 42vw);
+    border-style: dashed;
+    border-color: rgb(34 197 94 / 17%);
+  }
+
+  .landing-card-tilt {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 395px);
+    aspect-ratio: 482 / 300;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 180ms ease-out;
+    cursor: pointer;
+    will-change: transform;
+  }
+
+  /* Versión 3D: el lienzo WebGL sustituye a las caras planas */
+  .landing-card-tilt.is-3d {
+    transform: none !important;
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-y;
+  }
+
+  .landing-card-tilt.is-3d:active {
+    cursor: grabbing;
+  }
+
+  .landing-card-tilt.is-3d .landing-card-flipper {
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .landing-card-tilt :global(.card3d-canvas) {
+    position: absolute;
+    z-index: 1;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    pointer-events: none;
+    animation: card3d-in 500ms ease both;
+  }
+
+  @keyframes card3d-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .landing-card-tilt::before {
+    position: absolute;
+    z-index: -1;
+    inset: -18%;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgb(74 222 128 / 34%), transparent 57%),
+      radial-gradient(ellipse at 50% 55%, rgb(34 197 94 / 28%), transparent 72%);
+    content: "";
+    filter: blur(24px);
+    opacity: 0.75;
+    transform: translateZ(-1px);
+    animation: card-halo 5s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .landing-card-tilt:focus-visible {
+    outline: 3px solid #a3e635;
+    outline-offset: 7px;
+  }
+
+  .landing-card-flipper {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .landing-card-flipper.is-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .landing-card-face {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border: 1px solid rgb(74 222 128 / 33%);
+    border-radius: 16px;
+    background: #103b28;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .landing-card-face--back {
+    transform: rotateY(180deg);
+  }
+
+  .landing-card-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .landing-showcase__hint {
+    margin: 46px 0 0;
+    color: #a7b6ad;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .landing-terms {
+    display: flex;
+    margin: 18px 0 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 18px;
+    color: #c2cec8;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .landing-terms span:first-child {
+    color: #4ade80;
+    font-weight: 700;
+  }
+
+  .landing-shell[data-theme="light"] .landing-terms {
+    color: #3d5b47;
+  }
+
+  .landing-shell[data-theme="light"] .landing-terms span:first-child {
+    color: #1d7f3e;
+  }
+
+  @keyframes landing-float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+
+    50% {
+      translate: 0 -7px;
+    }
+  }
+
+  @keyframes hero-leaf-sway {
+    from {
+      transform: rotate(-4.5deg);
+    }
+
+    to {
+      transform: rotate(4.5deg);
+    }
+  }
+
+  @keyframes hero-leaf-drift {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(-8deg);
+    }
+
+    50% {
+      transform: translate3d(12px, -14px, 0) rotate(6deg);
+    }
+
+    100% {
+      transform: translate3d(24px, -4px, 0) rotate(14deg);
+    }
+  }
+
+    @keyframes card-halo {
+    from {
+      opacity: 0.48;
+      scale: 0.9;
+    }
+
+    to {
+      opacity: 0.9;
+      scale: 1.06;
+    }
+  }
+
+  /* Escritorio: dos columnas. Texto a la izquierda, tarjeta a la derecha y,
+     debajo, la franja de características a todo lo ancho. */
+  @media (min-width: 981px) {
+    .landing-main {
+      display: grid;
+      width: min(1200px, 100%);
+      min-height: calc(100svh - 72px);
+      margin-inline: auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+      align-content: center;
+      align-items: center;
+      column-gap: clamp(32px, 4vw, 72px);
+    }
+
+    .landing-intro {
+      width: 100%;
+      max-width: 600px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .landing-intro h1 {
+      font-size: clamp(54px, 5.2vw, 80px);
+    }
+
+    /* En escritorio el degradado sigue en la misma línea: "hace crecer tu futuro." */
+    .landing-intro h1 span {
+      display: inline;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    .landing-intro__description {
+      font-size: 20px;
+    }
+
+    .landing-showcase {
+      width: 100%;
+      padding: 12px 0 0;
+    }
+
+    .landing-showcase__stage {
+      min-height: clamp(400px, 40vw, 500px);
+      grid-template-columns: minmax(0, 1fr);
+      place-items: center;
+    }
+
+    .landing-card-tilt {
+      grid-area: 1 / 1;
+      width: min(92%, 480px);
+    }
+
+    /* Las tarjetitas flotan en esquinas opuestas y apenas montan la tarjeta */
+    /* Las hojitas que caían sobre el texto se van a los márgenes */
+    .landing-ambience__leaf--left {
+      top: 14%;
+      left: 47%;
+    }
+
+    .landing-ambience__leaf--bottom-left {
+      left: 1.5%;
+    }
+
+    .landing-showcase__ring {
+      width: min(520px, 40vw);
+    }
+
+    .landing-showcase__ring--inner {
+      width: min(410px, 31vw);
+    }
+
+    .landing-showcase__hint {
+      margin-top: 6px;
+    }
+
+    .landing-strip {
+      grid-column: 1 / -1;
+      padding: 28px 0 36px;
+    }
+  }
+  /* Tablet: con el texto a la izquierda, la hojita del título se va a la derecha */
+  @media (min-width: 621px) and (max-width: 980px) {
+    .landing-ambience__leaf--left {
+      top: 30%;
+      left: 88%;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .landing-shell {
+      padding-inline: 24px;
+    }
+
+    .landing-header {
+      --header-pad: 24px;
+      grid-template-columns: 1fr auto;
+    }
+
+    .landing-intro__description {
+      margin-top: 12px;
+    }
+
+    .landing-intro__actions {
+      margin-top: 16px;
+    }
+
+    .landing-showcase {
+      padding-top: 15px;
+    }
+
+    .landing-header__nav {
+      position: absolute;
+      top: calc(100% - 3px);
+      right: 12px;
+      left: 12px;
+      display: none;
+      padding: 18px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      border: 1px solid rgb(74 222 128 / 20%);
+      border-radius: 16px;
+      background: #0b3122;
+      box-shadow: 0 18px 35px rgb(0 0 0 / 30%);
+    }
+
+    .landing-header__nav.is-open {
+      display: flex;
+    }
+
+    .landing-header__nav a {
+      padding: 14px 10px;
+      font-size: 17px;
+    }
+
+    .landing-menu-toggle {
+      display: flex;
+      width: 44px;
+      height: 44px;
+      padding: 13px 11px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid rgb(74 222 128 / 20%);
+      border-radius: 12px;
+      background: #0b3122;
+      cursor: pointer;
+    }
+
+    .landing-menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: #f7faf8;
+    }
+
+    .landing-menu-toggle span:last-child {
+      width: 70%;
+      align-self: end;
+      background: #4ade80;
+    }
+
+    .landing-showcase__stage {
+      min-height: 250px;
+    }
+
+    .landing-showcase__hint {
+      margin-top: 16px;
+    }
+
+  }
+
+  @media (max-width: 620px) {
+    .landing-logo__img {
+      height: 36px;
+    }
+
+    .landing-shell {
+      padding: 64px 18px 24px;
+    }
+
+    .landing-ambience__leaf--right {
+      top: 39%;
+      --leaf-size: 190px;
+    }
+
+    .landing-ambience__leaf--left {
+      top: 31%;
+      left: 8%;
+      --leaf-size: 25px;
+    }
+
+    .landing-ambience__leaf--right-small {
+      top: 46%;
+      left: 91%;
+      --leaf-size: 22px;
+    }
+
+    .landing-ambience__leaf--bottom-left {
+      top: 88%;
+      left: 7%;
+      --leaf-size: 30px;
+    }
+
+    .landing-ambience__leaf--bottom-right {
+      left: 94%;
+      --leaf-size: 34px;
+    }
+
+    .landing-header {
+      --header-pad: 18px;
+      min-height: 64px;
+      padding-block: 10px;
+      gap: 8px;
+    }
+
+    .landing-header :global(.brand__name) {
+      font-size: 19px;
+    }
+
+    .landing-header :global(.brand__card) {
+      font-size: 11px;
+    }
+
+    .landing-header__actions {
+      gap: 8px;
+    }
+
+    .landing-header__cta {
+      padding-inline: 16px;
+    }
+
+    .landing-header__cta-long {
+      display: none;
+    }
+
+    .landing-header__cta-short {
+      display: inline;
+    }
+
+    .landing-intro {
+      padding-top: 24px;
+    }
+
+    .landing-intro h1 {
+      font-size: clamp(36px, 11vw, 48px);
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+
+    .landing-intro__description {
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .landing-intro__actions {
+      margin-top: 24px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .landing-showcase {
+      padding-top: 28px;
+      padding-bottom: 8px;
+    }
+
+    .landing-showcase__stage {
+      min-height: 0;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: 14px;
+    }
+
+    .landing-showcase__ring {
+      top: 22%;
+      width: min(88vw, 370px);
+    }
+
+    .landing-showcase__ring--inner {
+      width: min(70vw, 295px);
+    }
+
+    .landing-card-tilt {
+      width: 100%;
+      grid-row: 1;
+      justify-self: center;
+      margin-bottom: 10px;
+    }
+
+    .landing-showcase__hint {
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+  }
+
+  @media (max-width: 380px) {
+    .landing-intro__mobile-break {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .landing-header,
+    .landing-header__nav a,
+    .landing-header__cta,
+    .landing-card-tilt,
+    .landing-card-flipper {
+      transition: none;
+    }
+
+    .landing-ambience__leaf,
+    .landing-card-tilt::before {
+      animation: none;
+    }
+  }
+
+  /* Propuesta 3: el botón del encabezado no se parte en dos líneas */
+  .landing-header__cta {
+    white-space: nowrap;
+  }
+</style>
