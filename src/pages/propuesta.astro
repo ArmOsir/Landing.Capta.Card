@@ -1,0 +1,2150 @@
+---
+/**
+ * Propuesta de landing (versión de desarrollo, no publicada).
+ * Sigue el diseño y el texto de "Capta Card — Propuesta de landing.html" y
+ * agrega interacciones. Vive en /propuesta, con noindex, mientras se decide si
+ * reemplaza a la página principal. Pendientes que se corrigen sobre la marcha:
+ * tasa (65% en la propuesta), exención de anualidad registrada en la carátula
+ * y recálculo del CAT.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LeafSprite from "../components/LeafSprite.astro";
+import "../styles/global.css";
+
+const benefits = [
+  { href: "#anualidad", title: "Sin anualidad", text: "No pagas por tener tu tarjeta. Y la apertura también es de $0.", paths: ["M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8", "M12 18V6"], ring: true },
+  { href: "#mastercard", title: "Parte de Mastercard", text: "Úsala en comercios y en línea, en México y en el extranjero.", paths: ["M2 5h20v14H2z", "M2 10h20", "M6 15h4"] },
+  { href: "#wallet", title: "Paga con un toque", text: "Agrégala a la wallet de tu celular y paga sin sacar tu tarjeta.", paths: ["M6 8.3a7.4 7.4 0 0 1 0 7.4", "M9.5 6.2a11.8 11.8 0 0 1 0 11.6", "M12.9 4.1a15.9 15.9 0 0 1 0 15.8", "M16.4 2a20.2 20.2 0 0 1 0 20"] },
+  { href: "#seguridad", title: "Segura", text: "Bloquéala desde la app en segundos y controla cada movimiento.", paths: ["M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.7 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z", "M9 12l2 2 4-4"] },
+];
+
+const mastercardUses = [
+  { title: "En comercios", text: "Paga con tu tarjeta o con un toque desde tu celular.", paths: ["M3 9l1.5-5h15L21 9", "M4 9v11h16V9", "M9 20v-6h6v6"] },
+  { title: "En línea", text: "Compra en tus tiendas y apps favoritas.", paths: ["M3 4h18v13H3z", "M8 21h8M12 17v4"] },
+  { title: "En el extranjero", text: "Viaja con tu Capta Card a donde aceptan Mastercard.", paths: ["M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z", "M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"] },
+];
+
+const steps = [
+  { n: "01", title: "Recibe tu invitación", text: "Te llega por SMS a tu celular." },
+  { n: "02", title: "Regístrate en la app", text: "Crea tu cuenta y verifica tu identidad." },
+  { n: "03", title: "Conoce tu resultado", text: "Te avisamos en la app si fuiste aprobado." },
+  { n: "04", title: "Recibe tu tarjeta", text: "Se entrega con validación de identidad." },
+  { n: "05", title: "Actívala con tu NIP", text: "Y empieza a usarla." },
+];
+
+const faqs = [
+  { q: "¿Cómo obtengo mi Capta Card?", a: "Por ahora es solo por invitación. Si recibiste tu SMS, descarga la app, regístrate y verifica tu identidad." },
+  { q: "¿Cuánto cuesta?", a: "La tasa de interés es fija de 65% anual y la tarjeta no tiene anualidad. Consulta comisiones y CAT en la app." },
+  { q: "¿Por qué mi tarjeta no trae mi nombre?", a: "Es una tarjeta innominada: no lleva nombre impreso y queda vinculada a ti en cuanto la activas en la app." },
+  { q: "¿Qué hago si veo un cargo que no reconozco?", a: "Bloquea tu tarjeta desde la app y presenta tu aclaración. Te entregaremos un folio para darle seguimiento." },
+  { q: "¿Puedo pagar más de lo que debo?", a: "No. El pago máximo es tu saldo total." },
+];
+---
+
+<BaseLayout
+  title="Propuesta de landing — Capta Card"
+  description="Propuesta de rediseño de la landing de Capta Card (versión de desarrollo)."
+  noindex
+>
+  <div class="prop">
+    <LeafSprite />
+    <header class="prop-nav">
+      <div class="prop-wrap prop-nav__in">
+        <a href="#inicio" aria-label="Capta Card, inicio"><img src="/images/logo-capta.png" alt="Capta Card" width="473" height="200" /></a>
+        <nav aria-label="Principal">
+          <a href="#beneficios">Beneficios</a>
+          <a href="#wallet">Wallet</a>
+          <a href="#mastercard">Mastercard</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#seguridad">Seguridad</a>
+          <a href="#ayuda">Ayuda</a>
+        </nav>
+        <a class="btn btn--dark" href="#descarga">Ya tengo mi invitación</a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="prop-wrap hero__in">
+        <div class="hero__copy reveal">
+          <h1>Tus Planes. Tu Control. <span>Tu Capta Card.</span></h1>
+          <p>Sin anualidad, con el respaldo de Mastercard y lista para pagar con un toque desde tu celular. Tú decides cómo usarla.</p>
+          <div class="hero__actions">
+            <a class="btn btn--dark" href="#descarga">Ya tengo mi invitación</a>
+            <a class="btn btn--outline" href="#como-funciona">Cómo funciona</a>
+          </div>
+          <ul class="chips" aria-label="Lo que incluye">
+            <li><span class="chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg></span>Sin anualidad</li>
+            <li><span class="chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /><path d="M6 15h4" /></svg></span>Red Mastercard</li>
+            <li><span class="chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4" /><path d="M9.5 6.2a11.8 11.8 0 0 1 0 11.6" /><path d="M12.9 4.1a15.9 15.9 0 0 1 0 15.8" /><path d="M16.4 2a20.2 20.2 0 0 1 0 20" /></svg></span>Paga con un toque</li>
+            <li><span class="chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.7 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z" /><path d="M9 12l2 2 4-4" /></svg></span>Segura</li>
+          </ul>
+          <p class="legal-line">Tasa de interés anual fija de 65%. Sin anualidad. Sujeto a aprobación. Consulta requisitos, comisiones y CAT en la app.</p>
+        </div>
+        <div class="hero__visual reveal" data-tilt-stage>
+          <div class="stack">
+            <div class="stack__shelf" aria-hidden="true"></div>
+            <img class="stack__back" src="/images/TC%20Capta%20Card%20trasera.svg" alt="" width="482" height="300" />
+            <div class="stack__front">
+              <div class="tilt" data-tilt>
+                <img src="/images/TC%20Capta%20Card%20frente.svg" alt="Tarjeta Capta Card, frente" width="482" height="300" />
+              </div>
+            </div>
+          </div>
+          <p class="hint">Mueve el cursor sobre la tarjeta.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section id="beneficios" class="sec">
+      <div class="prop-wrap">
+        <div class="sec__head reveal">
+          <h2>Una tarjeta pensada para crecer contigo.</h2>
+          <p>Sin anualidad, con el respaldo de Mastercard, lista para pagar con un toque desde tu celular y protegida en todo momento.</p>
+        </div>
+        <div class="grid4">
+          {benefits.map((b) => (
+            <a class="benefit reveal" href={b.href}>
+              <span class:list={["benefit__icon", { "benefit__icon--ring": b.ring }]} aria-hidden="true">
+                <svg viewBox="0 0 24 24">{b.paths.map((d) => <path d={d} />)}</svg>
+              </span>
+              <h3>{b.title}</h3>
+              <p>{b.text}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ANUALIDAD -->
+    <section id="anualidad" class="sec sec--stone">
+      <div class="prop-wrap split">
+        <div class="reveal">
+          <p class="big-zero" aria-hidden="true">$0</p>
+        </div>
+        <div class="reveal">
+          <h2>Sin anualidad.</h2>
+          <p>Tu Capta Card no tiene costo anual y su apertura es de $0. Úsala con tranquilidad desde el primer día.</p>
+          <div class="pills">
+            <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" /></svg>$0 de anualidad</span>
+            <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" /></svg>$0 de apertura</span>
+          </div>
+          <a class="btn btn--dark" href="#descarga">Solicitar mi Capta Card</a>
+          <p class="fine">Sujeto a aprobación. Consulta comisiones y CAT en la app.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WALLET -->
+    <section id="wallet" class="sec sec--ink">
+      <div class="prop-wrap split">
+        <div class="reveal">
+          <span class="eyebrow">Wallet</span>
+          <h2>Paga con un solo toque.</h2>
+          <p>Agrega tu Capta Card a la wallet de tu celular y paga acercándolo a la terminal. Sin sacar tu tarjeta, sin insertarla y sin firmar.</p>
+          <ol class="wallet-steps">
+            <li><span>1</span>Agrega tu tarjeta a la wallet de tu celular</li>
+            <li><span>2</span>Acerca tu celular a la terminal</li>
+            <li><span>3</span>Listo, tu compra aparece en la app</li>
+          </ol>
+          <button class="btn btn--lime" type="button" data-pay-sim>Simular un pago</button>
+          <p class="fine">Funciona en comercios con Mastercard sin contacto.</p>
+        </div>
+        <div class="reveal phone-wrap">
+          <div class="phone tilt" data-tilt data-pay-phone>
+            <div class="phone__screen">
+              <div class="phone__notch"></div>
+              <div class="phone__card">
+                <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" />
+              </div>
+              <div class="phone__state" data-state>
+                <svg class="phone__wave" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 7.5a6 6 0 0 1 0 9" /><path d="M12 5a10 10 0 0 1 0 14" /><path d="M15.5 2.5a14 14 0 0 1 0 19" /></svg>
+                <span>Acerca a la terminal</span>
+              </div>
+              <div class="phone__done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" /></svg><span>Pago listo</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASTERCARD -->
+    <section id="mastercard" class="sec">
+      <div class="prop-wrap split">
+        <div class="reveal">
+          <span class="eyebrow eyebrow--dark">Respaldo Mastercard</span>
+          <h2>Llévala a donde vayas.</h2>
+          <p>Tu Capta Card es parte de la red Mastercard: úsala en tiendas físicas y en línea, en México y en el extranjero.</p>
+          <div class="pills pills--wrap">
+            <span>Súper</span><span>Gasolina</span><span>Restaurantes</span><span>Compras en línea</span><span>Viajes</span><span>Suscripciones</span>
+          </div>
+        </div>
+        <div class="stack">
+          {mastercardUses.map((u) => (
+            <article class="use reveal">
+              <span class="use__icon" aria-hidden="true"><svg viewBox="0 0 24 24">{u.paths.map((d) => <path d={d} />)}</svg></span>
+              <div><h3>{u.title}</h3><p>{u.text}</p></div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA: 27 DÍAS -->
+    <section id="como-funciona" class="sec sec--forest">
+      <div class="prop-wrap split">
+        <div class="reveal">
+          <p class="big-num" aria-hidden="true">27</p>
+          <h2>días para pagar después de tu corte.</h2>
+          <p>Tu fecha de corte es el día 6 de cada mes y tienes 27 días para pagar. Puedes liquidar el saldo del periodo o realizar el pago mínimo, como mejor te acomode.</p>
+        </div>
+        <div class="timeline reveal" data-timeline>
+          <p class="timeline__label">Ejemplo</p>
+          <button class="tl" type="button" aria-pressed="true">
+            <span class="tl__dot">1</span><span><strong>18 de diciembre</strong><small>Activas tu tarjeta</small></span>
+          </button>
+          <button class="tl" type="button" aria-pressed="false">
+            <span class="tl__dot">2</span><span><strong>6 de enero</strong><small>Primer corte (al menos 15 días después de activarla)</small></span>
+          </button>
+          <button class="tl" type="button" aria-pressed="false">
+            <span class="tl__dot">3</span><span><strong>1 de febrero</strong><small>Fecha límite de pago</small></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TU TARJETA: APP -->
+    <section id="tu-tarjeta" class="sec sec--stone">
+      <div class="prop-wrap split">
+        <div class="reveal">
+          <h2>Tu tarjeta, en tus manos.</h2>
+          <p>Consulta tu disponible, revisa tus movimientos y administra tu tarjeta. Si la pierdes o ves un cargo que no reconoces, bloquéala al momento.</p>
+        </div>
+        <figure class="app-stage reveal">
+          <div class="app-phone">
+            <div class="app-phone__screen">
+              <div class="app-phone__top">
+                <img src="/images/logo-capta.png" alt="Capta Card" width="473" height="200" />
+                <span class="app-phone__badge">Activa</span>
+              </div>
+              <img class="app-phone__card" src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" />
+              <p class="app-phone__label">Disponible</p>
+              <p class="app-phone__amount">$8,450.00</p>
+              <div class="app-phone__actions">
+                <span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>Bloquear</span>
+                <span><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" /></svg>Pagar</span>
+              </div>
+              <p class="app-phone__label">Movimientos</p>
+              <ul class="app-phone__moves">
+                <li><span class="app-phone__ico"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.5 11h11L21 7H6.5" /><circle cx="9" cy="19" r="1.5" /><circle cx="17" cy="19" r="1.5" /></svg></span><span>Supermercado</span><strong>−$845.00</strong></li>
+                <li><span class="app-phone__ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg></span><span>Compra en línea</span><strong>−$399.00</strong></li>
+                <li><span class="app-phone__ico"><svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16" /><path d="M3 21h12M14 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-3-3" /></svg></span><span>Gasolina</span><strong>−$650.00</strong></li>
+              </ul>
+            </div>
+          </div>
+          <figcaption>Imagen ilustrativa de la app Capta Card</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- DESCARGA: 5 PASOS -->
+    <section id="descarga" class="sec">
+      <div class="prop-wrap">
+        <div class="sec__head reveal">
+          <span class="eyebrow eyebrow--dark">Cómo obtenerla</span>
+          <h2>De tu invitación a tu primera compra, en 5 pasos.</h2>
+        </div>
+        <ol class="steps">
+          {steps.map((s) => (
+            <li class="step reveal">
+              <span class="step__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))}
+        </ol>
+        <div class="needs reveal">
+          <span>Solo necesitas:</span>
+          <span>Celular con internet</span>
+          <span>SMS de invitación</span>
+          <span>Identificación oficial vigente</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGOS -->
+    <section id="pagos" class="sec sec--stone">
+      <div class="prop-wrap split">
+        <div class="reveal">
+          <span class="eyebrow eyebrow--dark">Cómo pagar</span>
+          <h2>Paga tu tarjeta desde cualquier banco.</h2>
+          <p>Haz una transferencia SPEI a tu CLABE Capta Card desde la app de tu banco. Encuentras tu CLABE en la app de Capta Card.</p>
+          <p>Puedes pagar hasta tu saldo total.</p>
+        </div>
+        <ol class="pay-steps">
+          <li class="reveal"><span class="pay-steps__n">Paso 1</span><strong>Copia tu CLABE</strong><small>La encuentras en la app de Capta Card.</small></li>
+          <li class="reveal"><span class="pay-steps__n">Paso 2</span><strong>Entra a la app de tu banco</strong><small>Desde cualquier banco en México.</small></li>
+          <li class="reveal"><span class="pay-steps__n">Paso 3</span><strong>Transfiere por SPEI</strong><small>Liquida tu saldo o haz tu pago mínimo.</small></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SEGURIDAD -->
+    <section id="seguridad" class="sec sec--sec">
+      <div class="prop-wrap">
+        <div class="sec-center reveal">
+          <h2>Tu dinero, protegido.</h2>
+          <p>Tu Capta Card es segura: tienes el control desde la app y un equipo que te acompaña si algo no se ve bien.</p>
+          <a class="btn btn--dark" href="#ayuda">Más información</a>
+        </div>
+        <div class="sec-cards">
+          <article class="sec-card sec-card--green reveal">
+            <h3>¿Perdiste tu tarjeta? Bloquéala en segundos desde la app.</h3>
+            <div class="sec-card__visual">
+              <img src="/images/TC%20Capta%20Card%20frente.svg" alt="" width="482" height="300" />
+            </div>
+            <div class="sec-card__icons" aria-hidden="true">
+              <span><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></svg></span>
+              <span class="is-on"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg></span>
+              <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></svg></span>
+            </div>
+          </article>
+          <article class="sec-card sec-card--dark reveal">
+            <h3>Tu NIP, CVV y códigos son solo tuyos.</h3>
+            <div class="sec-card__rows">
+              <div><span>NIP</span><span aria-hidden="true">••••</span></div>
+              <div><span>CVV</span><span aria-hidden="true">•••</span></div>
+            </div>
+            <p class="sec-card__note">Capta Card nunca te los pedirá por correo, mensaje ni llamada.</p>
+          </article>
+          <article class="sec-card sec-card--ink reveal">
+            <h3>¿Un cargo que no reconoces? Te damos un folio de seguimiento.</h3>
+            <div class="sec-card__claim">
+              <div class="sec-card__row"><span>Aclaración</span><span class="sec-card__pill">En revisión</span></div>
+              <strong>Folio [NÚMERO]</strong>
+              <div class="sec-card__bar" aria-hidden="true"><i></i></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ayuda" class="sec sec--stone">
+      <div class="prop-wrap split">
+        <div class="reveal">
+          <span class="eyebrow eyebrow--dark">Preguntas frecuentes</span>
+          <h2>¿Tienes dudas?</h2>
+          <p>Escríbenos a <a href="mailto:soporte@captacard.com">soporte@captacard.com</a> o a nuestro WhatsApp <a href="https://wa.me/525536484526">55 3648 4526</a>, de lunes a viernes de 9:00 a 18:00.</p>
+        </div>
+        <div class="acc reveal">
+          {faqs.map((f, i) => (
+            <details open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="sec sec--forest">
+      <div class="prop-wrap cta reveal">
+        <div>
+          <h2>¿Ya recibiste tu invitación?</h2>
+          <p>Descarga la app, regístrate y empieza a hacer crecer tu futuro.</p>
+        </div>
+        <a class="btn btn--lime" href="#descarga">Solicitar mi Capta Card</a>
+      </div>
+    </section>
+
+    <footer class="prop-foot">
+      <div class="prop-wrap prop-foot__grid">
+        <div>
+          <img src="/images/logo-capta.png" alt="Capta Card" width="473" height="200" />
+          <p>El crédito que hace crecer tu futuro.</p>
+        </div>
+        <div>
+          <span>Atención</span>
+          <a href="tel:5536484526">55 3648 4526</a>
+          <a href="mailto:soporte@captacard.com">soporte@captacard.com</a>
+          <span>Lunes a viernes, 9:00 a 18:00</span>
+        </div>
+        <div>
+          <span>Ayuda</span>
+          <a href="/legal/aclaraciones">Aclaraciones</a>
+          <a href="/legal/aclaraciones#robo-o-extravio">Robo o extravío</a>
+          <span>PROFECO: 55 5568 8722 · 800 468 8722</span>
+        </div>
+        <div>
+          <span>Transparencia</span>
+          <a href="/legal/aviso-de-privacidad">Aviso de privacidad</a>
+          <a href="/legal/terminos-y-condiciones">Términos de la app</a>
+          <a href="/legal/contrato">Contrato de adhesión</a>
+          <a href="/legal/comisiones-y-cat">Comisiones y CAT</a>
+        </div>
+      </div>
+      <div class="prop-wrap prop-foot__legal">
+        <p>Tasa de interés fija de 65% anual, sujeta a aprobación. Las condiciones vigentes del producto prevalecen. Crédito otorgado por Capital Productivo del Noroeste, S.A.P.I. de C.V. Tarjeta emitida por Pomelo Tech S.A. de C.V., bajo licencia de Mastercard Internacional.</p>
+        <p>© 2026 Capta Card.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Reveal al entrar en pantalla (sin animación si el usuario lo pide)
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealEls = document.querySelectorAll<HTMLElement>(".prop .reveal");
+    if (reduce || !("IntersectionObserver" in window)) {
+      revealEls.forEach((el) => el.classList.add("is-in"));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-in");
+              io.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.12 },
+      );
+      revealEls.forEach((el) => io.observe(el));
+    }
+
+    // Inclinación 3D siguiendo el cursor (tarjeta y teléfono)
+    if (!reduce) {
+      document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((el) => {
+        const stage = el.closest<HTMLElement>("[data-tilt-stage], .phone-wrap") ?? el;
+        stage.addEventListener("pointermove", (ev) => {
+          const r = el.getBoundingClientRect();
+          const x = (ev.clientX - r.left) / r.width - 0.5;
+          const y = (ev.clientY - r.top) / r.height - 0.5;
+          el.style.setProperty("--rx", `${(-y * 16).toFixed(2)}deg`);
+          el.style.setProperty("--ry", `${(x * 22).toFixed(2)}deg`);
+        });
+        stage.addEventListener("pointerleave", () => {
+          el.style.setProperty("--rx", "0deg");
+          el.style.setProperty("--ry", "0deg");
+        });
+      });
+    }
+
+    // Simulación de pago en el teléfono de Wallet
+    const payBtn = document.querySelector<HTMLButtonElement>("[data-pay-sim]");
+    const phone = document.querySelector<HTMLElement>("[data-pay-phone]");
+    if (payBtn && phone) {
+      payBtn.addEventListener("click", () => {
+        phone.classList.remove("is-paid");
+        phone.classList.add("is-paying");
+        window.setTimeout(() => {
+          phone.classList.remove("is-paying");
+          phone.classList.add("is-paid");
+        }, reduce ? 0 : 1600);
+        window.setTimeout(() => phone.classList.remove("is-paid"), reduce ? 1200 : 4200);
+      });
+    }
+
+    // Línea de tiempo de 27 días: elegir un paso lo resalta
+    document.querySelectorAll<HTMLButtonElement>(".tl").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll<HTMLButtonElement>(".tl").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      });
+    });
+  </script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap");
+
+    .prop {
+      --ink: #0b1f0f;
+      --forest: #0e5632;
+      --lime: #9cb540;
+      --paper: #ffffff;
+      --stone: #f4f4f1;
+      --line: #e5e4e2;
+      --body: #3d4a3f;
+      --muted: #6b766d;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Figtree", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .prop-wrap {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .prop h1,
+    .prop h2,
+    .prop h3 {
+      margin: 0;
+      color: inherit;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .prop h1 {
+      font-size: 72px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .prop h1 span {
+      color: var(--forest);
+    }
+
+    .prop h2 {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .prop h3 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .prop p {
+      margin: 0;
+    }
+
+    .prop a {
+      color: var(--forest);
+    }
+
+    /* Cabecera */
+    .prop-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgb(255 255 255 / 92%);
+      backdrop-filter: blur(10px);
+    }
+
+    .prop-nav__in {
+      display: flex;
+      height: 78px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .prop-nav img {
+      display: block;
+      height: 40px;
+      width: auto;
+    }
+
+    .prop-nav nav {
+      display: flex;
+      gap: 30px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .prop-nav nav a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .prop-nav nav a:hover {
+      color: var(--forest);
+    }
+
+    /* Botones */
+    .btn {
+      display: inline-flex;
+      min-height: 52px;
+      padding: 0 28px;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid transparent;
+      border-radius: 999px;
+      font: 700 16px "Figtree", system-ui, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn--dark {
+      color: #fff;
+      background: var(--forest);
+    }
+
+    .btn--dark:hover {
+      background: var(--ink);
+    }
+
+    .btn--outline {
+      color: var(--ink);
+      border-color: var(--ink);
+      background: transparent;
+    }
+
+    .btn--outline:hover {
+      color: #fff;
+      background: var(--ink);
+    }
+
+    .btn--lime {
+      color: var(--ink);
+      background: var(--lime);
+    }
+
+    .btn--lime:hover {
+      background: #b3cc55;
+    }
+
+    /* Los enlaces del .prop pintan texto verde; los botones deben conservar su color */
+    .prop a.btn--dark {
+      color: #fff;
+    }
+
+    .prop a.btn--lime,
+    .prop a.btn--outline {
+      color: var(--ink);
+    }
+
+    .prop a.btn--outline:hover {
+      color: #fff;
+    }
+
+    .btn:focus-visible,
+    .prop summary:focus-visible,
+    .tl:focus-visible {
+      outline: 2px solid var(--forest);
+      outline-offset: 4px;
+    }
+
+    /* Secciones */
+    .sec {
+      padding: 104px 0;
+      background: var(--paper);
+    }
+
+    .sec--stone {
+      background: var(--stone);
+    }
+
+    .sec--ink {
+      color: #fff;
+      background: var(--ink);
+    }
+
+    .sec--ink h2 {
+      color: #fff;
+    }
+
+    .sec--ink p {
+      color: #c9d6cf;
+    }
+
+    .sec--forest {
+      color: #fff;
+      background: linear-gradient(180deg, #0e5632 0%, #293021 100%);
+    }
+
+    .sec--forest h2,
+    .sec--forest p {
+      color: #fff;
+    }
+
+    .sec__head {
+      max-width: 720px;
+      margin-bottom: 56px;
+    }
+
+    .sec__head p {
+      margin-top: 18px;
+      color: var(--body);
+      font-size: 19px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 64px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--lime);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow--dark {
+      color: var(--forest);
+    }
+
+    .fine {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .sec--ink .fine {
+      color: #9fb0a5;
+    }
+
+    .legal-line {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .link {
+      display: inline-block;
+      margin-top: 18px;
+      font-weight: 700;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 88px 0 104px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff 0%, #f4f4f1 55%, #e5e4e2 100%);
+    }
+
+    .hero__in {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .hero p {
+      max-width: 540px;
+      margin-top: 24px;
+      color: var(--body);
+      font-size: 19px;
+    }
+
+    .hero__actions {
+      display: flex;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .chips {
+      display: flex;
+      margin: 32px 0 0;
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .chips li {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px 8px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: #fff;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .chip-ico {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--forest);
+    }
+
+    .chip-ico svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .hero__visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      perspective: 1100px;
+    }
+
+    .hero__visual .hint {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Tarjeta y teléfono con inclinación 3D */
+    .tilt {
+      --rx: 0deg;
+      --ry: 0deg;
+      transform: rotateX(var(--rx)) rotateY(var(--ry));
+      transform-style: preserve-3d;
+      transition: transform 260ms ease-out;
+    }
+
+    .tilt img {
+      display: block;
+      width: min(100%, 540px);
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 40px 70px -30px rgb(11 31 15 / 45%);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        translate: 0 0;
+      }
+
+      50% {
+        translate: 0 -10px;
+      }
+    }
+
+    /* Beneficios */
+    .grid4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .benefit {
+      display: flex;
+      min-height: 280px;
+      padding: 28px;
+      flex-direction: column;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      color: var(--ink);
+      background: #fff;
+      text-decoration: none;
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+
+    .benefit:hover {
+      transform: translateY(-6px);
+      border-color: var(--forest);
+      box-shadow: 0 24px 40px -24px rgb(11 31 15 / 35%);
+    }
+
+    .benefit p {
+      color: var(--body);
+      font-size: 15px;
+    }
+
+    .benefit__icon {
+      display: grid;
+      width: 56px;
+      height: 56px;
+      place-items: center;
+      border-radius: 16px;
+      background: #eef3e1;
+    }
+
+    .benefit__icon svg,
+    .use__icon svg,
+    .pills svg,
+    .phone__wave,
+    .phone__done svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .benefit__icon svg {
+      width: 30px;
+      height: 30px;
+      color: var(--forest);
+    }
+
+    .benefit__icon--ring {
+      border-radius: 50%;
+    }
+
+    /* Anualidad */
+    .big-zero,
+    .big-num {
+      color: var(--forest);
+      font-size: clamp(160px, 18vw, 240px);
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+    }
+
+    .big-num {
+      color: var(--lime);
+    }
+
+    .pills {
+      display: flex;
+      margin: 28px 0 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pills span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .pills svg {
+      width: 16px;
+      height: 16px;
+      color: var(--forest);
+      stroke-width: 2.4;
+    }
+
+    .pills--wrap {
+      margin-top: 28px;
+    }
+
+    /* Wallet */
+    .wallet-steps {
+      display: grid;
+      margin: 28px 0 32px;
+      padding: 0;
+      gap: 14px;
+      list-style: none;
+    }
+
+    .wallet-steps li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 17px;
+    }
+
+    .wallet-steps span {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      flex: none;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--lime);
+      font-weight: 700;
+    }
+
+    .phone-wrap {
+      display: grid;
+      place-items: center;
+      perspective: 1200px;
+    }
+
+    .phone {
+      position: relative;
+      width: 290px;
+      height: 580px;
+      padding: 14px;
+      border-radius: 52px;
+      background: linear-gradient(145deg, #3b4540, #101512);
+      box-shadow: inset 0 0 0 2px #56615b, 0 50px 80px -30px rgb(0 0 0 / 70%);
+    }
+
+    .phone__screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 40px;
+      background: linear-gradient(180deg, #f4f4f1, #e5e4e2);
+      color: var(--ink);
+    }
+
+    .phone__notch {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      z-index: 3;
+      width: 96px;
+      height: 26px;
+      border-radius: 999px;
+      background: #0b0f0c;
+      transform: translateX(-50%);
+    }
+
+    .phone__card {
+      position: absolute;
+      top: 96px;
+      left: 50%;
+      width: 230px;
+      transform: translateX(-50%);
+      transition: transform 900ms cubic-bezier(0.22, 0.8, 0.3, 1);
+    }
+
+    .phone__card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 16px 30px -12px rgb(11 31 15 / 45%);
+    }
+
+    .phone__state,
+    .phone__done {
+      position: absolute;
+      right: 0;
+      bottom: 90px;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      transition: opacity 300ms ease, visibility 300ms ease;
+    }
+
+    .phone__state span {
+      color: var(--forest);
+      font-size: 16px;
+    }
+
+    .phone__wave {
+      width: 58px;
+      height: 58px;
+      color: var(--forest);
+    }
+
+    .phone__done {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .phone__done svg {
+      display: grid;
+      width: 60px;
+      height: 60px;
+      padding: 12px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--forest);
+      stroke-width: 2.4;
+    }
+
+    .phone__done span {
+      color: var(--forest);
+      font-size: 17px;
+    }
+
+    .phone.is-paying .phone__card {
+      transform: translate(-50%, 90px) scale(0.92);
+    }
+
+    .phone.is-paying .phone__wave {
+      animation: wave 0.9s ease-in-out infinite;
+    }
+
+    .phone.is-paid .phone__state {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .phone.is-paid .phone__done {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .phone.is-paid .phone__card {
+      transform: translate(-50%, 130px) scale(0.92);
+    }
+
+    @keyframes wave {
+      0%,
+      100% {
+        opacity: 0.45;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* Mastercard */
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .use {
+      display: flex;
+      padding: 24px;
+      align-items: center;
+      gap: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+    }
+
+    .use p {
+      margin-top: 4px;
+      color: var(--body);
+      font-size: 15px;
+    }
+
+    .use__icon {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      flex: none;
+      place-items: center;
+      border-radius: 14px;
+      background: #eef3e1;
+    }
+
+    .use__icon svg {
+      width: 26px;
+      height: 26px;
+      color: var(--forest);
+    }
+
+    /* 27 días */
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline__label {
+      color: var(--lime);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tl {
+      all: unset;
+      box-sizing: border-box;
+      display: flex;
+      padding: 18px 20px;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid rgb(255 255 255 / 25%);
+      border-radius: 18px;
+      color: #fff;
+      background: rgb(255 255 255 / 6%);
+      cursor: pointer;
+      transition: background-color 200ms ease, border-color 200ms ease;
+    }
+
+    .tl:hover {
+      border-color: var(--lime);
+    }
+
+    .tl[aria-pressed="true"] {
+      border-color: var(--lime);
+      background: rgb(156 181 64 / 18%);
+    }
+
+    .tl__dot {
+      display: grid;
+      width: 40px;
+      height: 40px;
+      flex: none;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--lime);
+      font-weight: 700;
+    }
+
+    .tl strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .tl small {
+      display: block;
+      color: #c9d6cf;
+      font-size: 15px;
+    }
+
+    /* App (maqueta del teléfono) */
+    .app-stage {
+      margin: 0;
+      padding: clamp(28px, 4vw, 48px) clamp(24px, 4vw, 48px) 26px;
+      border-radius: 36px 8px 36px 8px;
+      background: linear-gradient(160deg, #dcebc8 0%, #eef6e2 55%, #f7fbf1 100%);
+      box-shadow: 0 30px 60px -30px rgb(14 86 50 / 35%);
+    }
+
+    .app-phone {
+      width: min(100%, 300px);
+      margin: 0 auto;
+      padding: 12px;
+      border-radius: 46px;
+      background: #111a13;
+      box-shadow: 0 40px 60px -26px rgb(11 31 15 / 60%);
+    }
+
+    .app-phone__screen {
+      padding: 22px 18px 20px;
+      border-radius: 36px;
+      background: #fff;
+    }
+
+    .app-phone__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .app-phone__top img {
+      display: block;
+      width: 92px;
+      height: auto;
+    }
+
+    .app-phone__badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: var(--forest);
+      background: #e4f2cf;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .app-phone__card {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 16px 0 14px;
+      border-radius: 16px;
+      box-shadow: 0 14px 26px -14px rgb(14 86 50 / 60%);
+    }
+
+    .app-phone__label {
+      color: #6b766d;
+      font-size: 13px;
+    }
+
+    .app-phone__amount {
+      margin: 2px 0 14px;
+      color: var(--ink);
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .app-phone__actions {
+      display: grid;
+      margin-bottom: 18px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .app-phone__actions span {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 14px;
+      color: var(--ink);
+      background: #f1f5ec;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .app-phone__actions svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .app-phone__moves {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .app-phone__moves li {
+      display: grid;
+      padding: 10px 0;
+      align-items: center;
+      grid-template-columns: 38px 1fr auto;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .app-phone__moves strong {
+      font-weight: 700;
+    }
+
+    .app-phone__ico {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 12px;
+      background: #e4f2cf;
+    }
+
+    .app-phone__ico svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--forest);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .app-stage figcaption {
+      margin-top: 16px;
+      color: var(--body);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* Pasos */
+    .steps {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+      list-style: none;
+    }
+
+    .step {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+    }
+
+    .step__n {
+      display: block;
+      margin-bottom: 18px;
+      color: var(--forest);
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .step h3 {
+      font-size: 18px;
+    }
+
+    .step p {
+      margin-top: 8px;
+      color: var(--body);
+      font-size: 15px;
+    }
+
+    .needs {
+      display: flex;
+      margin-top: 40px;
+      padding: 18px 24px;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px 28px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .needs span:first-child {
+      color: var(--muted);
+    }
+
+    .needs span:not(:first-child)::before {
+      display: inline-block;
+      margin-right: 8px;
+      color: var(--forest);
+      content: "✓";
+    }
+
+    /* Pagos */
+    .pay-steps {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      gap: 14px;
+      list-style: none;
+    }
+
+    .pay-steps li {
+      display: grid;
+      padding: 22px 24px;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+    }
+
+    .pay-steps__n {
+      color: var(--forest);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pay-steps strong {
+      font-size: 19px;
+    }
+
+    .pay-steps small {
+      color: var(--body);
+      font-size: 15px;
+    }
+
+    /* Seguridad: encabezado centrado y tres tarjetas de color */
+    .sec--sec {
+      background:
+        radial-gradient(circle at 50% 0%, rgb(156 181 64 / 16%), transparent 45%),
+        #fff;
+    }
+
+    .sec-center {
+      display: grid;
+      max-width: 640px;
+      margin: 0 auto;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .sec-center h2 {
+      font-size: clamp(40px, 5vw, 60px);
+    }
+
+    .sec-center p {
+      margin-top: 18px;
+      color: var(--body);
+      font-size: 18px;
+    }
+
+    .sec-center .btn {
+      margin-top: 28px;
+    }
+
+    .sec-cards {
+      display: grid;
+      margin-top: 64px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .sec-card {
+      display: flex;
+      min-height: 480px;
+      padding: 36px 32px;
+      flex-direction: column;
+      border-radius: 28px;
+      color: #fff;
+      box-shadow: 0 30px 50px -28px rgb(11 31 15 / 55%);
+    }
+
+    .sec-card h3 {
+      color: #fff;
+      font-size: 24px;
+      line-height: 1.3;
+    }
+
+    .sec-card--green {
+      background: linear-gradient(180deg, #5a9a3c 0%, #2b4a25 70%, #1d3219 100%);
+    }
+
+    .sec-card--dark {
+      background: linear-gradient(180deg, #14351f 0%, #0b1f0f 100%);
+    }
+
+    .sec-card--ink {
+      background: linear-gradient(180deg, #0b1f0f 0%, #07140b 100%);
+    }
+
+    .sec-card__visual {
+      display: grid;
+      flex: 1;
+      place-items: center;
+      padding: 28px 0;
+    }
+
+    .sec-card__visual img {
+      display: block;
+      width: 78%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 20px 30px -16px rgb(0 0 0 / 60%);
+    }
+
+    .sec-card__icons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .sec-card__icons span {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgb(255 255 255 / 14%);
+    }
+
+    .sec-card__icons span.is-on {
+      background: var(--lime);
+    }
+
+    .sec-card__icons svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sec-card__icons .is-on svg {
+      stroke: var(--ink);
+    }
+
+    .sec-card__rows {
+      display: grid;
+      margin-top: auto;
+      padding-top: 40px;
+      gap: 12px;
+    }
+
+    .sec-card__rows div {
+      display: flex;
+      padding: 18px 22px;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 18px;
+      background: rgb(255 255 255 / 9%);
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .sec-card__rows span:last-child {
+      letter-spacing: 0.25em;
+    }
+
+    .sec-card__note {
+      margin-top: 18px;
+      color: #c9d6cf;
+      font-size: 15px;
+    }
+
+    .sec-card__claim {
+      margin-top: auto;
+      padding: 22px;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 20px;
+      background: rgb(255 255 255 / 6%);
+    }
+
+    .sec-card__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #c9d6cf;
+      font-size: 15px;
+    }
+
+    .sec-card__pill {
+      padding: 5px 12px;
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--lime);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .sec-card__claim strong {
+      display: block;
+      margin: 14px 0 16px;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .sec-card__bar {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgb(255 255 255 / 12%);
+    }
+
+    .sec-card__bar i {
+      display: block;
+      width: 55%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--lime);
+    }
+
+    @media (max-width: 900px) {
+      .sec-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .sec-card {
+        min-height: 0;
+      }
+    }
+
+    /* Acordeones (seguridad y FAQ) */
+    .acc {
+      display: grid;
+      gap: 12px;
+    }
+
+    .acc details {
+      padding: 0 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .acc summary {
+      display: flex;
+      min-height: 60px;
+      padding: 18px 0;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--ink);
+      font-size: 19px;
+      font-weight: 700;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .acc summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .acc summary::after {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      flex: none;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--forest);
+      background: #eef3e1;
+      content: "+";
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .acc details[open] summary::after {
+      content: "–";
+    }
+
+    .acc details p {
+      padding: 0 0 22px;
+      color: var(--body);
+      font-size: 16px;
+    }
+
+    /* CTA final */
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .cta p {
+      margin-top: 14px;
+      font-size: 18px;
+    }
+
+    /* Pie de página */
+    .prop-foot {
+      padding: 64px 0 40px;
+      color: #c9d6cf;
+      background: var(--ink);
+    }
+
+    .prop-foot__grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+
+    .prop-foot__grid img {
+      display: block;
+      height: 40px;
+      width: auto;
+      margin-bottom: 18px;
+      filter: brightness(0) invert(1);
+    }
+
+    .prop-foot__grid > div {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      font-size: 15px;
+    }
+
+    .prop-foot__grid > div > span:first-child {
+      margin-bottom: 6px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .prop-foot a {
+      color: #c9d6cf;
+      text-decoration: none;
+    }
+
+    .prop-foot a:hover {
+      color: var(--lime);
+    }
+
+    .prop-foot__legal {
+      display: grid;
+      margin-top: 40px;
+      padding-top: 24px;
+      gap: 10px;
+      border-top: 1px solid rgb(255 255 255 / 12%);
+      font-size: 13px;
+    }
+
+    /* Pila de tarjetas: frente y reverso caen sobre una base verde y flotan */
+    .stack {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      max-width: 560px;
+      margin: 0 auto;
+      perspective: 1200px;
+    }
+
+    .stack__shelf {
+      position: absolute;
+      right: 4%;
+      bottom: 0;
+      left: 4%;
+      height: 46%;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #123f29 0%, #0b1f0f 100%);
+      box-shadow: 0 30px 50px -30px rgb(11 31 15 / 60%);
+    }
+
+    .stack__back,
+    .stack__front {
+      position: absolute;
+      width: 74%;
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 30px 50px -20px rgb(11 31 15 / 55%);
+    }
+
+    .stack__back {
+      top: 8%;
+      right: 2%;
+      transform: rotate(10deg);
+      animation: stack-drop-back 1.3s cubic-bezier(0.22, 0.8, 0.3, 1) both, stack-float-back 6s ease-in-out 1.3s infinite;
+    }
+
+    .stack__front {
+      bottom: 10%;
+      left: 4%;
+      transform: rotate(-8deg);
+      animation: stack-drop 1.3s cubic-bezier(0.22, 0.8, 0.3, 1) 0.15s both, stack-float 5s ease-in-out 1.45s infinite;
+    }
+
+    .stack__front .tilt {
+      width: 100%;
+    }
+
+    .stack__front .tilt img {
+      animation: none;
+    }
+
+    @keyframes stack-drop {
+      0% {
+        transform: translate(-30px, -460px) rotate(-30deg);
+        opacity: 0;
+      }
+
+      12% {
+        opacity: 1;
+      }
+
+      58% {
+        transform: translate(0, -6px) rotate(-6deg);
+      }
+
+      72% {
+        transform: translate(0, -40px) rotate(-10deg);
+      }
+
+      100% {
+        transform: rotate(-8deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes stack-float {
+      0%,
+      100% {
+        transform: rotate(-8deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(-5deg) translateY(-12px);
+      }
+    }
+
+    @keyframes stack-drop-back {
+      0% {
+        transform: translate(60px, -460px) rotate(34deg);
+        opacity: 0;
+      }
+
+      12% {
+        opacity: 1;
+      }
+
+      60% {
+        transform: translate(0, 40px) rotate(8deg);
+      }
+
+      100% {
+        transform: rotate(10deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes stack-float-back {
+      0%,
+      100% {
+        transform: rotate(10deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(12deg) translateY(-8px);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .stack {
+        height: 300px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stack__back,
+      .stack__front {
+        animation: none;
+      }
+    }
+
+    /* ── Color y vida: degradados, hojas y acentos Capta ── */
+    .leaf {
+      position: absolute;
+      z-index: 0;
+      width: 120px;
+      height: 200px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .leaf--hero-a {
+      top: -40px;
+      right: 2%;
+      width: 240px;
+      height: 400px;
+      opacity: 0.35;
+      transform: rotate(28deg);
+    }
+
+    .leaf--hero-b {
+      bottom: 40px;
+      left: 4%;
+      width: 60px;
+      height: 100px;
+      opacity: 0.6;
+      transform: rotate(-30deg);
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #ffffff 0%, #f4f4f1 55%, #e5e4e2 100%);
+    }
+
+    /* Solo el contenido va por encima de las hojas; las hojas se quedan absolutas */
+    .hero > .prop-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 span {
+      color: #0e5632;
+    }
+
+    .btn--dark {
+      background: linear-gradient(135deg, #0e5632 0%, #1f8a4c 100%);
+      box-shadow: 0 12px 26px -10px rgb(14 86 50 / 65%);
+    }
+
+    .btn--dark:hover {
+      background: linear-gradient(135deg, #0b1f0f 0%, #0e5632 100%);
+    }
+
+    .btn--lime {
+      background: linear-gradient(135deg, #b8d24e 0%, #9cb540 100%);
+      box-shadow: 0 12px 26px -10px rgb(156 181 64 / 75%);
+    }
+
+    .btn--lime:hover {
+      background: linear-gradient(135deg, #cfe36a 0%, #b3cc55 100%);
+    }
+
+    .sec {
+      background:
+        radial-gradient(circle at 92% 8%, rgb(156 181 64 / 16%), transparent 36%),
+        #fff;
+    }
+
+    .sec--stone {
+      background:
+        radial-gradient(circle at 8% 100%, rgb(156 181 64 / 22%), transparent 40%),
+        linear-gradient(180deg, #e9f4da 0%, #f6faf0 100%);
+    }
+
+    .sec--ink {
+      background:
+        radial-gradient(circle at 80% 20%, rgb(156 181 64 / 30%), transparent 42%),
+        radial-gradient(circle at 10% 90%, rgb(14 86 50 / 45%), transparent 45%),
+        linear-gradient(160deg, #0e3a22 0%, #0b1f0f 100%);
+    }
+
+    .sec--forest {
+      background:
+        radial-gradient(circle at 15% 10%, rgb(156 181 64 / 40%), transparent 40%),
+        linear-gradient(160deg, #0e5632 0%, #0b3d24 60%, #1d2a1c 100%);
+    }
+
+    .big-zero {
+      background: linear-gradient(135deg, #0e5632 0%, #3f8f3a 50%, #9cb540 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .benefit {
+      background: linear-gradient(180deg, #ffffff 0%, #f3f9e8 100%);
+      border-top: 4px solid var(--lime);
+    }
+
+    .benefit__icon {
+      background: linear-gradient(135deg, #9cb540 0%, #0e5632 100%);
+      box-shadow: 0 10px 20px -10px rgb(14 86 50 / 70%);
+    }
+
+    .benefit__icon svg {
+      color: #fff;
+    }
+
+    .benefit:nth-child(2) .benefit__icon {
+      background: linear-gradient(135deg, #3f8f3a 0%, #0b3d24 100%);
+    }
+
+    .benefit:nth-child(3) .benefit__icon {
+      background: linear-gradient(135deg, #d4e88a 0%, #9cb540 100%);
+    }
+
+    .benefit:nth-child(3) .benefit__icon svg {
+      color: #0b1f0f;
+    }
+
+    .benefit:nth-child(4) .benefit__icon {
+      background: linear-gradient(135deg, #0e5632 0%, #3f8f3a 100%);
+    }
+
+    .use__icon {
+      background: linear-gradient(135deg, #d9ecbb 0%, #b8d98a 100%);
+    }
+
+    .use:nth-child(2) .use__icon {
+      background: linear-gradient(135deg, #c9e9d6 0%, #7cc49a 100%);
+    }
+
+    .use:nth-child(3) .use__icon {
+      background: linear-gradient(135deg, #f0e2a4 0%, #d6b93f 100%);
+    }
+
+    .use {
+      border-left: 5px solid var(--lime);
+    }
+
+    .step {
+      background: linear-gradient(180deg, #ffffff 0%, #f1f8e6 100%);
+      border-top: 4px solid var(--forest);
+    }
+
+    .step__n {
+      background: linear-gradient(90deg, #0e5632, #9cb540);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .chips li::before,
+    .phone__done svg {
+      box-shadow: 0 0 0 4px rgb(156 181 64 / 25%);
+    }
+
+    .app-stage {
+      background:
+        radial-gradient(circle at 85% 10%, rgb(156 181 64 / 45%), transparent 40%),
+        linear-gradient(160deg, #cfe6b0 0%, #eef6e2 60%, #f7fbf1 100%);
+    }
+
+    .tl[aria-pressed="true"] {
+      box-shadow: 0 16px 30px -18px rgb(156 181 64 / 90%);
+    }
+
+    /* Aparición al hacer scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 0.8, 0.3, 1);
+    }
+
+    .reveal.is-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .prop h1 {
+        font-size: 56px;
+      }
+
+      .prop h2 {
+        font-size: 42px;
+      }
+
+      .split,
+      .hero__in {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .grid4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .prop-foot__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .prop-nav nav {
+        display: none;
+      }
+
+      .prop-nav .btn {
+        min-height: 44px;
+        padding: 0 16px;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .prop {
+        font-size: 16px;
+      }
+
+      .prop-wrap {
+        padding: 0 20px;
+      }
+
+      .prop h1 {
+        font-size: 42px;
+      }
+
+      .prop h2 {
+        font-size: 34px;
+      }
+
+      .sec {
+        padding: 72px 0;
+      }
+
+      .grid4,
+      .steps,
+      .prop-foot__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .big-zero,
+      .big-num {
+        font-size: 150px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tilt img {
+        animation: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .phone__card,
+      .phone.is-paying .phone__wave {
+        transition: none;
+        animation: none;
+      }
+    }
+  </style>
+</BaseLayout>
