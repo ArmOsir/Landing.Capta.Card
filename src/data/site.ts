@@ -63,7 +63,7 @@ export const cycleExample = {
 };
 
 /**
- * Páginas legales. Su texto sale de los documentos de public/docs (aviso de
+ * Páginas legales. Su texto sale de los documentos fuente en Word (aviso de
  * privacidad v1.6, contrato v2.9 y términos de la app v1.1). Mientras
  * `legalDraft` sea true se muestra un aviso de borrador arriba del contenido;
  * los datos que aún faltan aparecen resaltados como "Por definir".

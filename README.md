@@ -1,12 +1,17 @@
 # Capta Card — landing page
 
-Landing estática en Astro y TypeScript. La carpeta `propuesta/` se conserva
-como referencia de diseño y contenido; la aplicación de producción vive en
-`src/` y los recursos usados se sirven desde `public/`.
+Landing estática en Astro y TypeScript. El código vive en `src/` y los
+recursos que se sirven tal cual (logos, tarjeta, favicon) en `public/`.
 
-La landing activa está en `/`, basada en la composición de `Mockup3.html` y con
-una vitrina interactiva de la tarjeta. Las propuestas anteriores se conservan
-como referencia en `propuesta/landing-versions/`.
+## Páginas
+
+- `/` — landing principal: tarjeta 3D en el Hero y escena 3D de pago con
+  celular en la sección Wallet. Tema claro fijo. Sus secciones están en
+  `src/components/p3/`.
+- `/propuesta` — propuesta alternativa (en revisión, no se indexa).
+- `/legal/*` — aviso de privacidad, términos de la app, contrato, comisiones y
+  CAT, y aclaraciones. Su texto sale de los documentos fuente en Word, que no
+  se guardan en este repositorio.
 
 ## Requisitos
 
@@ -33,10 +38,7 @@ hosting estático.
 
 ## Antes de publicar
 
-- Confirmar CAT, fecha de cálculo, vigencia y textos regulatorios con el equipo
-  responsable. No se completaron los campos pendientes de la propuesta.
+- Confirmar tasa, CAT, número de registro ante PROFECO, vigencia de los
+  términos y demás textos regulatorios (aparecen como "Por definir").
 - Añadir y verificar los enlaces oficiales de App Store y Google Play cuando
   estén disponibles.
-- Reemplazar los destinos provisionales de aviso de privacidad, términos,
-  comisiones y UNE por sus páginas oficiales.
-- Confirmar la disponibilidad del producto, requisitos y proceso de invitación.
