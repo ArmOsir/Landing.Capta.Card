@@ -1,6 +1,6 @@
 ---
 /**
- * Hero de la propuesta 3: el de la landing (tarjeta 3D, hojas, encabezado)
+ * Hero de la propuesta 3: el de la landing (tarjeta 3D y encabezado)
  * con los textos de la propuesta 2. Solo tema claro: sin botón de tema.
  */
 ---
@@ -8,33 +8,6 @@
 <div class="landing-shell" id="inicio" data-theme="light">
   <div class="landing-shell__glow landing-shell__glow--top" aria-hidden="true"></div>
   <div class="landing-shell__glow landing-shell__glow--bottom" aria-hidden="true"></div>
-  <div class="landing-ambience" aria-hidden="true">
-    <span class="landing-ambience__leaf landing-ambience__leaf--left landing-ambience__leaf--drift">
-      <svg viewBox="0 0 120 200" focusable="false">
-        <use href="#capta-leaf-solid" width="120" height="200" />
-      </svg>
-    </span>
-    <span class="landing-ambience__leaf landing-ambience__leaf--right landing-ambience__leaf--sway-slow">
-      <svg viewBox="0 0 120 200" focusable="false">
-        <use href="#capta-leaf" width="120" height="200" />
-      </svg>
-    </span>
-    <span class="landing-ambience__leaf landing-ambience__leaf--right-small landing-ambience__leaf--drift">
-      <svg viewBox="0 0 120 200" focusable="false">
-        <use href="#capta-leaf-solid" width="120" height="200" />
-      </svg>
-    </span>
-    <span class="landing-ambience__leaf landing-ambience__leaf--bottom-left landing-ambience__leaf--drift">
-      <svg viewBox="0 0 120 200" focusable="false">
-        <use href="#capta-leaf-solid" width="120" height="200" />
-      </svg>
-    </span>
-    <span class="landing-ambience__leaf landing-ambience__leaf--bottom-right landing-ambience__leaf--sway">
-      <svg viewBox="0 0 120 200" focusable="false">
-        <use href="#capta-leaf" width="120" height="200" />
-      </svg>
-    </span>
-  </div>
 
   <header class="landing-header" data-header data-scrolled="false">
     <a class="landing-logo" href="#inicio" aria-label="Capta Card, inicio">
@@ -375,80 +348,16 @@
     background: rgb(34 197 94 / 11%);
   }
 
-  .landing-ambience {
-    position: absolute;
-    z-index: 0;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
 
-  .landing-ambience__leaf {
-    position: absolute;
-    display: block;
-    width: var(--leaf-size);
-    aspect-ratio: 120 / 200;
-    translate: -50% -50%;
-    rotate: var(--leaf-rotation);
-    transform-origin: 50% 100%;
-  }
 
-  .landing-ambience__leaf svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
 
-  .landing-ambience__leaf--left {
-    top: 33%;
-    left: 14%;
-    --leaf-size: 34px;
-    --leaf-rotation: -36deg;
-  }
 
-  .landing-ambience__leaf--right {
-    top: 27%;
-    left: 101%;
-    --leaf-size: 260px;
-    --leaf-rotation: 32deg;
-  }
 
-  .landing-ambience__leaf--right-small {
-    top: 44%;
-    left: 83%;
-    --leaf-size: 27px;
-    --leaf-rotation: 43deg;
-  }
 
-  .landing-ambience__leaf--bottom-left {
-    top: 88%;
-    left: 12%;
-    --leaf-size: 38px;
-    --leaf-rotation: 29deg;
-  }
 
-  .landing-ambience__leaf--bottom-right {
-    top: 91%;
-    left: 91%;
-    --leaf-size: 48px;
-    --leaf-rotation: -52deg;
-  }
 
-  .landing-ambience__leaf--sway {
-    animation: hero-leaf-sway 12s ease-in-out infinite alternate;
-    will-change: transform;
-  }
 
-  .landing-ambience__leaf--sway-slow {
-    animation: hero-leaf-sway 18s ease-in-out -6s infinite alternate;
-    will-change: transform;
-  }
 
-  .landing-ambience__leaf--drift {
-    animation: hero-leaf-drift 16s ease-in-out infinite alternate;
-    will-change: transform;
-  }
 
   .landing-header {
     --header-pad: clamp(20px, 4vw, 56px);
@@ -862,29 +771,7 @@
     }
   }
 
-  @keyframes hero-leaf-sway {
-    from {
-      transform: rotate(-4.5deg);
-    }
 
-    to {
-      transform: rotate(4.5deg);
-    }
-  }
-
-  @keyframes hero-leaf-drift {
-    0% {
-      transform: translate3d(0, 0, 0) rotate(-8deg);
-    }
-
-    50% {
-      transform: translate3d(12px, -14px, 0) rotate(6deg);
-    }
-
-    100% {
-      transform: translate3d(24px, -4px, 0) rotate(14deg);
-    }
-  }
 
     @keyframes card-halo {
     from {
@@ -951,15 +838,7 @@
     }
 
     /* Las tarjetitas flotan en esquinas opuestas y apenas montan la tarjeta */
-    /* Las hojitas que caían sobre el texto se van a los márgenes */
-    .landing-ambience__leaf--left {
-      top: 14%;
-      left: 47%;
-    }
 
-    .landing-ambience__leaf--bottom-left {
-      left: 1.5%;
-    }
 
     .landing-showcase__ring {
       width: min(520px, 40vw);
@@ -976,13 +855,6 @@
     .landing-strip {
       grid-column: 1 / -1;
       padding: 28px 0 36px;
-    }
-  }
-  /* Tablet: con el texto a la izquierda, la hojita del título se va a la derecha */
-  @media (min-width: 621px) and (max-width: 980px) {
-    .landing-ambience__leaf--left {
-      top: 30%;
-      left: 88%;
     }
   }
 
@@ -1061,6 +933,43 @@
       background: #4ade80;
     }
 
+    /* Tema claro: panel y botón claros para que los enlaces se lean */
+    .landing-shell[data-theme="light"] .landing-header__nav {
+      padding: 10px;
+      gap: 2px;
+      border-color: rgb(33 139 67 / 18%);
+      background: rgb(255 255 255 / 97%);
+      box-shadow: 0 24px 40px -18px rgb(11 49 34 / 35%);
+      backdrop-filter: blur(12px);
+    }
+
+    .landing-shell[data-theme="light"] .landing-header__nav a {
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .landing-shell[data-theme="light"] .landing-header__nav a:hover,
+    .landing-shell[data-theme="light"] .landing-header__nav a:focus-visible {
+      background: rgb(163 230 53 / 18%);
+    }
+
+    .landing-shell[data-theme="light"] .landing-header__nav a + a {
+      border-top: 1px solid rgb(18 53 35 / 7%);
+    }
+
+    .landing-shell[data-theme="light"] .landing-menu-toggle {
+      border-color: rgb(33 139 67 / 22%);
+      background: #fff;
+    }
+
+    .landing-shell[data-theme="light"] .landing-menu-toggle span {
+      background: #123523;
+    }
+
+    .landing-shell[data-theme="light"] .landing-menu-toggle span:last-child {
+      background: #218b43;
+    }
+
     .landing-showcase__stage {
       min-height: 250px;
     }
@@ -1080,33 +989,10 @@
       padding: 64px 18px 24px;
     }
 
-    .landing-ambience__leaf--right {
-      top: 39%;
-      --leaf-size: 190px;
-    }
 
-    .landing-ambience__leaf--left {
-      top: 31%;
-      left: 8%;
-      --leaf-size: 25px;
-    }
 
-    .landing-ambience__leaf--right-small {
-      top: 46%;
-      left: 91%;
-      --leaf-size: 22px;
-    }
 
-    .landing-ambience__leaf--bottom-left {
-      top: 88%;
-      left: 7%;
-      --leaf-size: 30px;
-    }
 
-    .landing-ambience__leaf--bottom-right {
-      left: 94%;
-      --leaf-size: 34px;
-    }
 
     .landing-header {
       --header-pad: 18px;
@@ -1212,7 +1098,6 @@
       transition: none;
     }
 
-    .landing-ambience__leaf,
     .landing-card-tilt::before {
       animation: none;
     }

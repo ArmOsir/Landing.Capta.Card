@@ -22,9 +22,11 @@ interface LeafSpec {
 
 interface Props {
   variant: "benefits" | "journey" | "breeze" | "gust" | "calm" | "corners" | "help" | "advantages";
+  /** false: solo el degradado, sin hojas (propuesta 3) */
+  leaves?: boolean;
 }
 
-const { variant } = Astro.props;
+const { variant, leaves: showLeaves = true } = Astro.props;
 
 // Cada sección combina hojas grandes de contorno (textura que se mece despacio)
 // con dos o tres hojas sólidas pequeñas que dan color y variedad.
@@ -91,7 +93,7 @@ const vine = [
 
 <div class:list={["backdrop", `backdrop--${variant}`]} aria-hidden="true">
   {
-    variant === "journey" && (
+    showLeaves && variant === "journey" && (
       <svg class="vine" viewBox="0 0 400 440" focusable="false">
         <path
           class="vine__stem"
@@ -113,6 +115,7 @@ const vine = [
   }
 
   {
+    showLeaves &&
     leaves[variant].map((leaf) => (
       <span
         class:list={[

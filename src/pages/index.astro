@@ -1,39 +1,47 @@
 ---
+/**
+ * Landing principal de Capta Card (antes "propuesta 3"): diseño y
+ * animaciones 3D con el contenido autorizado. Tema claro fijo.
+ */
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Advantages from "../components/Advantages.astro";
-import CardDetails from "../components/CardDetails.astro";
-import FeatureSection from "../components/FeatureSection.astro";
-import HelpSection from "../components/HelpSection.astro";
-import Hero from "../components/Hero.astro";
-import HowItWorks from "../components/HowItWorks.astro";
-import LeafSprite from "../components/LeafSprite.astro";
-import Invitation from "../components/Invitation.astro";
-import PaySection from "../components/PaySection.astro";
-import Payments from "../components/Payments.astro";
-import SecuritySection from "../components/SecuritySection.astro";
-import SiteFooter from "../components/SiteFooter.astro";
+import HeroP3 from "../components/p3/HeroP3.astro";
+import BenefitsP3 from "../components/p3/BenefitsP3.astro";
+import AnnualP3 from "../components/p3/AnnualP3.astro";
+import WalletP3 from "../components/p3/WalletP3.astro";
+import MastercardP3 from "../components/p3/MastercardP3.astro";
+import CycleP3 from "../components/p3/CycleP3.astro";
+import AppP3 from "../components/p3/AppP3.astro";
+import StepsP3 from "../components/p3/StepsP3.astro";
+import PayP3 from "../components/p3/PayP3.astro";
+import SecurityP3 from "../components/p3/SecurityP3.astro";
+import FaqP3 from "../components/p3/FaqP3.astro";
+import CtaP3 from "../components/p3/CtaP3.astro";
+import FooterP3 from "../components/p3/FooterP3.astro";
 import "../styles/global.css";
+import "../styles/p3.css";
 ---
 
 <BaseLayout
   title="Capta Card — el crédito que hace crecer tu futuro"
-  description="Conoce Capta Card, la tarjeta de crédito Mastercard de la comunidad Capta. Controla tu tarjeta desde la app y descubre sus beneficios."
+  description="Conoce Capta Card, la tarjeta de crédito Mastercard de la comunidad Capta. Sin anualidad, paga con un toque y controla tu tarjeta desde la app."
+  theme="light"
 >
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <LeafSprite />
-  <Hero />
+  <HeroP3 />
   <div class="page">
     <main id="contenido">
-      <Advantages />
-      <FeatureSection />
-      <HowItWorks />
-      <PaySection />
-      <CardDetails />
-      <Payments />
-      <SecuritySection />
-      <Invitation />
-      <HelpSection />
+      <BenefitsP3 />
+      <AnnualP3 />
+      <WalletP3 />
+      <MastercardP3 />
+      <CycleP3 />
+      <AppP3 />
+      <StepsP3 />
+      <PayP3 />
+      <SecurityP3 />
+      <FaqP3 />
+      <CtaP3 />
     </main>
-    <SiteFooter />
+    <FooterP3 />
   </div>
 </BaseLayout>

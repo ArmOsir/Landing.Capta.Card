@@ -524,16 +524,6 @@
   font-size: 18px;
 }
 
-.p3-cta__leaf {
-  position: absolute;
-  top: -40px;
-  right: 22%;
-  width: 160px;
-  height: 260px;
-  opacity: 0.35;
-  transform: rotate(24deg);
-  pointer-events: none;
-}
 
 @media (max-width: 920px) {
   .p3-annual,

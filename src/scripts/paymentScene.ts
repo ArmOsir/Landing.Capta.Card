@@ -59,6 +59,8 @@ interface Options {
   onFrame?(p: number): void;
   /** Qué se acerca a la terminal: la tarjeta (por defecto) o un celular con Wallet. */
   device?: "card" | "phone";
+  /** false: sin las hojas que brotan al aprobarse el pago. */
+  leaves?: boolean;
 }
 
 function loadImage(src: string) {
@@ -199,7 +201,7 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
   scene.add(new Points(ffGeo, ffMat));
 
   // ── Hojas que brotan al aprobarse el pago ──
-  const LEAVES = small ? 22 : 36;
+  const LEAVES = options.leaves === false ? 0 : small ? 22 : 36;
   const leafGeo = new ShapeGeometry(leafShape(), 6);
   const leafMat = new MeshBasicMaterial({ side: DoubleSide, toneMapped: false, transparent: true });
   const leaves = new InstancedMesh(leafGeo, leafMat, LEAVES);
@@ -400,7 +402,7 @@ export async function createPaymentScene(stage: HTMLElement, options: Options): 
 
     // ── Hojas ──
     const burst = clamp01((p - 0.53) / 0.22);
-    leaves.visible = burst > 0 && burst < 1;
+    leaves.visible = LEAVES > 0 && burst > 0 && burst < 1;
     if (leaves.visible) {
       terminal.group.localToWorld(tmpV.set(0, terminal.screenY, FRONT_Z + 0.2));
       const grow = Math.sin(Math.min(1, burst * 1.15) * Math.PI);
